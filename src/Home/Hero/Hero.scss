@@ -1,10 +1,31 @@
-.Hero{
+$default-gray: #e3e3e3;
+
+.Hero {
     height: 100vh;
     width: 100%;
-    // background-color: white;
-    background-image: url(./hero.jpg);
-    background-size: cover;
-    background-origin: border-box;
+    // background-image: url(./hero.jpg);
+    // background-size: cover;
+    // background-origin: border-box;
+    .background {
+        background-color: $default-gray;
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        z-index: -2;
+        .blackmask {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            background-color: #000000;
+            animation: light-on 0.5s ease-out 2.5s forwards;
+            opacity: 1;
+        }
+        img {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+    }
 }
 .Text {
     width: 100%;
@@ -14,8 +35,73 @@
     align-content: center;
     .sub-hero-text {
         font-size: 3.2rem;
+        color: #000000;
+        animation: show 1.8s ease-out 1s forwards;
     }
-    .hero-text{
-        font-size: 4.8rem;        
+    #Layer_1 {
+        overflow: visible;
+        width: 903px;
+        height: 170.84px;
+    }
+}
+.cls-1 {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 12px;
+    stroke-dasharray: 483.7;
+    stroke-dashoffset: 483.7;
+    animation: written 4s ease-out 0.5s forwards;
+}
+.a1 {
+    animation-duration: 1.3s;
+}
+.cls-2 {
+    fill: #ffffff;
+    animation: colorize 0.3s ease-out 2.5s forwards;
+}
+@keyframes colorize {
+    to {
+        fill: #1f1f1f;
+    }
+}
+@keyframes written {
+    // from {
+    //     stroke-dashoffset: 958;
+    //     // opacity: 0;
+    // }
+    to {
+        // opacity: 1;
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes light-on {
+    // 50% {
+    //     background-color: #ffffff;
+    // }
+    to {
+        background-color: #ffffff00;
+        // display: none;
+        // opacity: 0;
+    }
+}
+@keyframes show {
+    0% {
+        color: #000000;
+        transform: translateY(0.5em);
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+        color: #ffffff;
+    }
+    80% {
+        transform: translateY(0);
+        // display: none;
+        color: #ffffff;
+    }
+    100% {
+        color: #1f1f1f;
     }
 }

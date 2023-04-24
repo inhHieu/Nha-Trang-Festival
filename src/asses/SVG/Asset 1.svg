@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 742.65 414">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: 0em;
+      }
+
+      .cls-2 {
+        font-family: Leafery-Regular, Leafery;
+        font-size: 196px;
+      }
+
+      .cls-3 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-4 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-5 {
+        letter-spacing: 0em;
+      }
+
+      .cls-6 {
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        font-size: 64px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <text transform="translate(3.32 255.51)"><tspan><tspan class="cls-6" x="0" y="0"> </tspan><tspan class="cls-2" x="13.57" y="0">Sea Festival</tspan></tspan></text>
+      <text class="cls-6" transform="translate(241.63 127.72)"><tspan class="cls-1" x="0" y="0">N</tspan><tspan x="42.75" y="0">ha</tspan><tspan class="cls-4" x="109.12" y="0"> </tspan><tspan class="cls-3" x="120.06" y="0">T</tspan><tspan class="cls-5" x="148.99" y="0">r</tspan><tspan x="169.6" y="0">ang</tspan></text>
+    </g>
+  </g>
+</svg>

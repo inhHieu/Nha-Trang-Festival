@@ -1,12 +1,17 @@
 import React from "react";
-import './Countdown.scss';
+import { motion } from "framer-motion";
+import "./Countdown.scss";
 const Countdown = (props) => {
   return (
-    <div className="Countdown">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: 3, duration: 0.3 } }}
+      className="Countdown"
+    >
       <span>14 June 2023</span>
       <span>96 days left</span>
-    </div>
-  )
+    </motion.div>
+  );
 };
 
 export default Countdown;

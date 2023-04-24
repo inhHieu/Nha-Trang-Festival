@@ -1,0 +1,12 @@
+{
+  "name": "Outline to Single Stroke",
+  "id": "1231231355634135340",
+  "api": "1.0.0",
+  "main": "code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma",
+    "figjam"
+  ]
+}

@@ -1,0 +1,63 @@
+$default-gray: #d9d9d9;
+.user {
+    margin-top: -4rem;
+    padding-top: 6em;
+    .container {
+        width: 70rem;
+        min-height: 100vh;
+        margin: 0 auto;
+        .greeting {
+            font-size: 2rem;
+            font-weight: normal;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            .avatar {
+                width: 25rem;
+                height: 25rem;
+                margin: 0 auto;
+                border-radius: 50%;
+                background-color: $default-gray;
+            }
+            .information {
+                width: 50%;
+                height: 25rem;
+                display: flex;
+                flex-direction: column;
+                label {
+                    font-size: 0.9rem;
+                }
+                input {
+                    margin: 0 0 0.7rem;
+                    width: 23.5rem;
+                    height: 1rem;
+                    padding: 0.8rem 0.5rem;
+                    border: none;
+                    border-radius: 7px;
+                    background-color: white;
+                    font-size: 0.8rem;
+                }
+                input:disabled {
+                    color: black;
+                }
+                .btn {
+                    width: 5rem;
+                    height: 1.7rem;
+                    margin-left: calc(23.5rem - 5rem);
+                    border: none;
+                    border-radius: 7px;
+                    background-color: $default-gray;
+                    font-size: 0.8rem;
+                    cursor: pointer;
+                }
+                .active {
+                    // background-color: $default-gray;
+                    background-color: $default-gray;
+                }
+            }
+        }
+    }
+}

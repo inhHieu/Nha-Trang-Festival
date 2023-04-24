@@ -1,8 +1,14 @@
 import React from "react";
+import { motion } from "framer-motion";
 import "./New.scss";
-const New = (props) => {
+function New(){
   return (
-    <div className="News">
+    <motion.div
+    initial={{y:100}}
+    animate={{y:0 , }}
+    transition={{ type: "spring", bounce: 0 }}
+    exit={{opacity:0}}
+     className="News">
       <div className="title-img">
         <img src="" alt=""></img>
       </div>
@@ -10,7 +16,7 @@ const New = (props) => {
         <div className="title">Api new title</div>
         <div className="contents">There is something interesting here...</div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

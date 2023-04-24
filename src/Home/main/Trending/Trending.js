@@ -68,12 +68,12 @@ const Trending = () => {
 
   useEffect(() => {
     console.log(inView);
-    if (inView) {
+    if (inView) { 
       control.start("show");
     }
   }, [control, inView]);
   return (
-    <div className="Trending" ref={ref}>
+    <motion.div className="Trending" ref={ref}>
       <p>TRENDING</p>
       {loadings &&
         trends.map((trending) => (
@@ -95,7 +95,7 @@ const Trending = () => {
             </motion.div>
           </Link>
         ))}
-    </div>
+    </motion.div>
   );
 };
 // return (

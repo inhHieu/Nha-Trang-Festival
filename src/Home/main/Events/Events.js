@@ -1,6 +1,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Events.scss";
 import pic from "../../../asses/fes1.jpg";
@@ -86,13 +87,14 @@ function Events() {
       >
         {loadings &&
           categories.map((category) => (
+              <Link to="/User">
             <motion.div className="Event" variants={item}>
               <img src={pic} alt=""></img>
               <div className="Shadow"></div>
               <motion.p variants={EventName} className="EventName">
                 {category.categoryName}
               </motion.p>
-            </motion.div>
+            </motion.div></Link>
           ))}
       </motion.div>
     </div>
