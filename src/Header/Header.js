@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Login from "./Login";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger.js";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,11 +11,10 @@ import { useLocation } from "react-router";
 const Header = () => {
   gsap.registerPlugin(ScrollTrigger);
   //variable
-  const [register, setRegister] = useState();
+  const [register, setRegister] = useState(false);
   const [user, setUser] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
   const location = useLocation();
-
 
   //functions
 
@@ -25,14 +24,13 @@ const Header = () => {
       const userInfo = JSON.parse(localStorage.getItem("user-info"));
       setUserInfo(userInfo);
     }
-  }, [setUser]);
+  }, [setUser, user]);
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/Home") {
       document.querySelector(".header").classList.add("homepath");
     } else {
       document.querySelector(".header").classList.remove("homepath");
     }
-    console.log(location.pathname);
   });
   ScrollTrigger.create({
     trigger: "#root",
@@ -41,14 +39,17 @@ const Header = () => {
       const header = document.querySelector(".header");
       if (self.direction === 1) {
         header.classList.add("scrollback");
-      } else{
+      } else {
         header.classList.remove("scrollback");
       }
-      console.log(self.progress, user)
-      if (self.progress > 0.22 ) {
-        header.classList.add("solid");
-      } else {
-        header.classList.remove("solid");
+      if (user === true) {
+        if (self.progress > 0.21) {
+          header.classList.add("solid");
+          header.classList.add("black");
+        } else {
+          header.classList.remove("solid");
+          header.classList.remove("black");
+        }
       }
     },
     onLeaveBack: () => {
@@ -58,9 +59,7 @@ const Header = () => {
   });
   return (
     <>
-      {register && (
-        <Login user={user} setUser={setUser} setRegister={setRegister} />
-      )}
+      {register && <Login setUser={setUser} setRegister={setRegister} />}
 
       <div className="header">
         {!register && (
@@ -77,9 +76,9 @@ const Header = () => {
               <>
                 <div className="left">
                   <ul>
-                    <li>Home</li>
-                    <li>News</li>
-                    <li>Events</li>
+                    <li><Link to="/Home" className="Link">Home</Link></li>
+                    <li><Link to="/News" className="Link">News</Link></li>
+                    <li><Link to="/Home" className="Link">Events</Link></li>
                   </ul>
                 </div>
                 <div className="right">

@@ -7,23 +7,22 @@ import "./Events.scss";
 import pic from "../../../asses/fes1.jpg";
 function Events() {
   //APIs call
-  useEffect(() => {
-    getCategories();
-  }, []);
-
-  const [categories, setCategories] = useState([]);
-  const [loadings, setLoadings] = useState(false);
-
+  // console.log("Events component rendered"); // log a message when the component is rendered
   const getCategories = async () => {
     try {
       const response = await axios.get("http://localhost:8008/api/categories");
       setCategories(response.data);
-      console.log("got data");
+      console.log("got data1");
       setLoadings(true);
     } catch (error) {
       alert("Error: " + error.message);
     }
   };
+  useEffect(() => {
+    getCategories();
+  }, []);
+  const [categories, setCategories] = useState([]);
+  const [loadings, setLoadings] = useState(false);
   //----------------------------------------------------------------
   /// animation
 
@@ -68,9 +67,8 @@ function Events() {
 
   const control = useAnimation();
   const [ref, inView] = useInView();
-
   useEffect(() => {
-    console.log(inView)
+    console.log(inView);
     if (inView) {
       control.start("show");
     }
@@ -87,14 +85,15 @@ function Events() {
       >
         {loadings &&
           categories.map((category) => (
-              <Link to="/User">
-            <motion.div className="Event" variants={item}>
-              <img src={pic} alt=""></img>
-              <div className="Shadow"></div>
-              <motion.p variants={EventName} className="EventName">
-                {category.categoryName}
-              </motion.p>
-            </motion.div></Link>
+            <Link to="/User" key={category.category_ID}>
+              <motion.div className="Event" variants={item}>
+                <img src={pic} alt=""></img>
+                <div className="Shadow"></div>
+                <motion.p variants={EventName} className="EventName">
+                  {category.categoryName}
+                </motion.p>
+              </motion.div>
+            </Link>
           ))}
       </motion.div>
     </div>

@@ -1,11 +1,16 @@
 $default-gray: #d9d9d9;
 .News {
     margin-top: -4rem;
-    padding-top: 6em;
+    // padding-top: 6em;
     .title-img {
         width: 100%;
-        height: 21em;
-        background-color: $default-gray;
+        height: 27em;
+        background-color: red;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover ;
+        }
     }
     .container {
         margin: 0 auto;

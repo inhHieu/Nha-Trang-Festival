@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { Signup } from "./Signup";
 
-const Login = ({ user, setUser, setRegister }) => {
+const Login = ({ setUser, setRegister }) => {
   // decoration
   const [signup, setSignup] = useState(true);
   const close = () => {
@@ -15,8 +15,8 @@ const Login = ({ user, setUser, setRegister }) => {
       setRegister(false);
     }
   };
+  // keyhandler
   useEffect(() => {
-    // keyhandler
     const keyDownHandler = (event) => {
       // console.log("User pressed: ", event.key);
       switch (event.key) {

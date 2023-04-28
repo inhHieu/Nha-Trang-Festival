@@ -5,28 +5,25 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 import "./Trending.scss";
-
 const Trending = () => {
+
+const [trends, setTrends] = useState([]);
+const [loadings, setLoadings] = useState(false);
+
+const getTrends = async () => {
+  try {
+    const response = await axios.get("http://localhost:8008/api/news/trending");
+    setTrends(response.data);
+    console.log("got data");
+    setLoadings(true);
+  } catch (error) {
+    alert("Error: " + error.message);
+  }
+};
   //APIs call
   useEffect(() => {
     getTrends();
   }, []);
-
-  const [trends, setTrends] = useState([]);
-  const [loadings, setLoadings] = useState(false);
-
-  const getTrends = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8008/api/news/trending"
-      );
-      setTrends(response.data);
-      console.log("got data");
-      setLoadings(true);
-    } catch (error) {
-      alert("Error: " + error.message);
-    }
-  };
   //----------------------------------------------------------------
   /// animation
   const container = {
@@ -67,8 +64,7 @@ const Trending = () => {
   const [ref, inView] = useInView();
 
   useEffect(() => {
-    console.log(inView);
-    if (inView) { 
+    if (inView) {
       control.start("show");
     }
   }, [control, inView]);
@@ -77,7 +73,7 @@ const Trending = () => {
       <p>TRENDING</p>
       {loadings &&
         trends.map((trending) => (
-          <Link className="Link" to='/News'>
+          <Link className="Link" to="/News"  key={trending.news_ID}>
             <motion.div
               className="NewsSection"
               variants={container}

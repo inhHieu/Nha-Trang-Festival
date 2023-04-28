@@ -7,6 +7,7 @@ $default-gray: #e3e3e3;
     top: 0;
     display: grid;
     transition: 0.3s ease-out;
+    user-select: none;
     z-index: 1;
     .btn {
         place-self: center;
@@ -25,7 +26,7 @@ $default-gray: #e3e3e3;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
         margin: 0 1.5rem;
-
+        color: #ffffff;
         .right {
             grid-area: 1 / 2 / 2 / 3;
             place-self: center end;
@@ -42,7 +43,6 @@ $default-gray: #e3e3e3;
         .left {
             grid-area: 1 / 1 / 2 / 2;
             place-self: center start;
-            color: white;
             ul {
                 list-style-type: none;
                 margin: 0;
@@ -192,6 +192,7 @@ $default-gray: #e3e3e3;
 }
 .homepath {
     opacity: 0;
+    pointer-events: none;
     animation: homepath-ani 0.3s ease-out 3s forwards;
 }
 .scrollback {
@@ -199,12 +200,17 @@ $default-gray: #e3e3e3;
 }
 .solid {
     background-color: #97deff;
-    
+}
+.black {
+    .nav-bar {
+        color: #1f1f11 !important;
+    }
 }
 
 @keyframes homepath-ani {
     to {
         opacity: 1;
+        pointer-events: all;
     }
 }
 @keyframes apear {
