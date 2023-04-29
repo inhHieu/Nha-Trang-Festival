@@ -41,26 +41,35 @@
         }
     }
     .section1 {
-        .left-text {
-            span {
-                padding-top: 0.2rem;
-                &:nth-child(1) {
-                    font-family: "Lobster", cursive;
-                    color: #2bb7e1;
-                    font-size: 1.8em;
-                    line-height: .7em;
+        .text-group {
+            .left-text {
+                span {
+                    padding-top: 0.2rem;
+                    &:nth-child(1) {
+                        font-family: "Lobster", cursive;
+                        color: #2bb7e1;
+                        font-size: 1.8em;
+                        line-height: 0.7em;
+                    }
+                    &:nth-child(3) {
+                        // color: gold;
+                        opacity: 0.7;
+                        position: absolute;
+                        bottom: -0.18em;
+                        left: 0;
+                        font-size: 4.5em;
+                        z-index: -1;
+                        background: -webkit-linear-gradient(#f8df77, #f9f3de);
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
                 }
-                &:nth-child(3) {
-                    // color: gold;
-                    opacity: 0.9;
-                    position: absolute;
-                    bottom: -0.18em;
-                    left: 0;
-                    font-size: 4.5em;
-                    z-index: -1;
-                    background: -webkit-linear-gradient(#f8df77, #f9f3de);
-                    background-clip: text;
-                    -webkit-text-fill-color: transparent;
+            }
+            p{
+                span{
+                    color: #2bb7e1;
+                    font-weight: bold;
+                    font-size: 1.5em;
                 }
             }
         }
