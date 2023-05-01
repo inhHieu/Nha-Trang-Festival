@@ -1,15 +1,16 @@
 $default-gray: #d9d9d9;
-.News {
+.News,.Event {
     margin-top: -4rem;
+    // background: rgb(0,65,255);
+    background: linear-gradient(180deg, rgba(43, 183, 255, .3) 0%, rgba(255, 255, 255, 0) 100%);
     // padding-top: 6em;
     .title-img {
         width: 100%;
         height: 27em;
-        background-color: red;
-        img{
+        img {
             width: 100%;
             height: 100%;
-            object-fit: cover ;
+            object-fit: cover;
         }
     }
     .container {
@@ -19,7 +20,7 @@ $default-gray: #d9d9d9;
             margin-top: 1.8rem;
             font-size: 1.8em;
         }
-        .contents{
+        .contents {
             margin-top: 2.9em;
             height: 1000px;
         }

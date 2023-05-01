@@ -1,0 +1,50 @@
+//homepage
+//------------------------------------------before
+16 requests
+9.0 MB transferred
+13.0 MB resources
+Finish: 1.79 s
+DOMContentLoaded: 655 ms
+Load: 1.78 s
+//------------------------------------------1st try
+19 requests
+9.0 MB transferred
+13.0 MB resources
+Finish: 1.23 s
+DOMContentLoaded: 561 ms
+Load: 930 ms
+
+
+
+//news
+//------------------------------------------before
+9 requests
+4.1 MB transferred
+8.1 MB resources
+Finish: 1.28 s
+DOMContentLoaded: 659 ms
+Load: 1.24 s
+//------------------------------------------1st try
+11 requests
+4.0 MB transferred
+7.8 MB resources
+Finish: 945 ms
+DOMContentLoaded: 518 ms
+Load: 886 ms
+
+
+//user
+//------------------------------------------before
+8 requests
+1.3 MB transferred
+5.4 MB resources
+Finish: 1.03 s
+DOMContentLoaded: 644 ms
+Load: 1.01 s
+//------------------------------------------1st try
+10 requests
+1.3 MB transferred
+5.1 MB resources
+Finish: 995 ms
+DOMContentLoaded: 557 ms
+Load: 968 ms

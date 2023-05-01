@@ -2,24 +2,25 @@ import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
-
 import axios from "axios";
 import "./Trending.scss";
+
 const Trending = () => {
+  const [trends, setTrends] = useState([]);
+  const [loadings, setLoadings] = useState(false);
 
-const [trends, setTrends] = useState([]);
-const [loadings, setLoadings] = useState(false);
-
-const getTrends = async () => {
-  try {
-    const response = await axios.get("http://localhost:8008/api/news/trending");
-    setTrends(response.data);
-    console.log("got data");
-    setLoadings(true);
-  } catch (error) {
-    alert("Error: " + error.message);
-  }
-};
+  const getTrends = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8008/api/news/trending"
+      );
+      setTrends(response.data);
+      console.log("got data");
+      setLoadings(true);
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  };
   //APIs call
   useEffect(() => {
     getTrends();
@@ -31,6 +32,7 @@ const getTrends = async () => {
     show: {
       opacity: 1,
       transition: {
+        type:'spring',
         staggerChildren: 0.15,
       },
     },
@@ -40,6 +42,7 @@ const getTrends = async () => {
     show: {
       opacity: 1,
       transition: {
+        type:'spring',
         delay: 0.8,
         duration: 0.8,
         bounce: 0,
@@ -53,11 +56,11 @@ const getTrends = async () => {
       opacity: 1,
       y: 0,
       transition: {
+        type:'spring',
         duration: 0.5,
         bounce: 0,
         delay: 0.8,
-        ease: "linear",
-      },
+       },
     },
   };
   const control = useAnimation();
@@ -73,7 +76,12 @@ const getTrends = async () => {
       <p>TRENDING</p>
       {loadings &&
         trends.map((trending) => (
-          <Link className="Link" to="/News"  key={trending.news_ID}>
+          <Link
+            className="Link"
+            state={{ newsID: trending.news_ID }}
+            to="/News"
+            key={trending.news_ID}
+          >
             <motion.div
               className="NewsSection"
               variants={container}

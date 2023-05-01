@@ -13,7 +13,7 @@ function Home() {
         // animate={{opacity: 1, transition:{delay:.5}}}
         // exit={{opacity:0 , transition:{duration:.5}}}
         className="home"
-        style={{ marginTop: "-4rem" }}
+        style={{ marginTop: "-4rem"}}
       >
         <Hero />
         {/* <Countdown/> */}
@@ -24,20 +24,4 @@ function Home() {
 }
 
 export default Home;
-// const Home = () => (
-//   <AnimatePresence>
 
-//       <motion.div
-//               key={"home"}
-//               exit={{ x: 1000, transition: { delay: 3 } }}
-//               className="home"
-//               style={{ marginTop: "-4rem" }}
-//             >
-//               <Hero />
-//               {/* <Countdown/> */}
-//               <Main />
-//             </motion.div>
-
-//   </AnimatePresence>
-// )
-// export default Home;

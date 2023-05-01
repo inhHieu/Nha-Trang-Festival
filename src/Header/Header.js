@@ -57,6 +57,9 @@ const Header = () => {
       header.classList.remove("scrollback");
     },
   });
+
+  // const [isPending, startTransition] = useTransition();
+
   return (
     <>
       {register && <Login setUser={setUser} setRegister={setRegister} />}

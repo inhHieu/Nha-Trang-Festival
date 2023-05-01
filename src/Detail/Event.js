@@ -5,24 +5,21 @@ import { motion } from "framer-motion";
 import "./New.scss";
 import bg from "../asses/beach1.jpg";
 
-// import ColorThief from "colorthief";
-
-// import bg1 from "../asses/fes1.jpg";
-function New(props) {
+function Event(props) {
   const imgWrapRef = useRef();
   const location = useLocation()
-  // console.log(location.state.newsID)
 
-  const [news, setNews] = useState([]);
+  const [event, setEvent] = useState([]);
   const [loadings, setLoadings] = useState(false);
 
-  const getNews = async () => {
+  const getEvent = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/news/${location.state.newsID}`
+        `http://localhost:8008/api/events/${location.state.eventID}`
       );
-      setNews(response.data);
+      setEvent(response.data);
       console.log("got data");
+      console.log(event);
       setLoadings(true);
     } catch (error) {
       alert("Error: " + error.message);
@@ -30,40 +27,17 @@ function New(props) {
   };
   //APIs call
   useEffect(() => {
-    getNews();
+    getEvent();
   }, []);
 
 
 
 
-  // useEffect(() => {
-  //   rgba.current = getAverageRGB(imgsRef.current);
-  //   console.log(imgWrapRef, imgsRef);
-  //   console.log(rgba)
-  //   imgWrapRef.current.style.boxShadow =
-  //     "rgba(" +
-  //     rgba.current.r +
-  //     "," +
-  //     rgba.current.g +
-  //     "," +
-  //     rgba.current.b +
-  //     ",0.75) 0px -5rem 10rem 10rem";
-  // },[]);
+
 
   const getColor = (e) => {
     const rgba  = getAverageRGB(e.target)
-    // const colorThief = new ColorThief();
-    // const img = e.target;
-    // const result = colorThief.getColor(img, 25);
-    // console.log(
-    //   "linear-gradient(0deg, rgba(" +
-    //     result[0] +
-    //     "," +
-    //     result[1] +
-    //     "," +
-    //     result[2] +
-    //     " ,0 )0%, rgba(0, 0, 0, 1) 95%, rgba(0, 0, 0, 1) 100%)"
-    // );
+
     imgWrapRef.current.style.background =
       "linear-gradient(180deg, rgba(" +
       rgba.r +
@@ -132,13 +106,7 @@ function New(props) {
         transition: { type: "spring", bounce: 0, delay: 0.2 },
       }}
       transition={{ type: "spring", bounce: 0 }}
-      // exit={{ y: -100, transition:{type: "spring", bounce: 0} }}
-      // initial={{opacity: 0}}
-      // animate={{opacity: 1,transition:{delay:.5}}}
-      // exit={{ opacity:0 ,transition:{duration:.5}}}
-
-      // style={{ color: result }}
-      className="News"
+      className="Event"
       ref={imgWrapRef}
     >
       <div className="title-img">
@@ -150,11 +118,11 @@ function New(props) {
         ></img>
       </div>
       <div className="container">
-        <div className="title">{news.newsTitle}</div>
-        <div className="contents">{news.newsContent}</div>
+        <div className="title">{event.eventName}</div>
+        <div className="contents">{event.eventDescription}</div>
       </div>
     </motion.div>
   );
 }
 
-export default New;
+export default Event;

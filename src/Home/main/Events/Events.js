@@ -1,101 +1,63 @@
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { delay, motion } from "framer-motion";
+
 import "./Events.scss";
-import pic from "../../../asses/fes1.jpg";
+import bg from "../../../asses/beach1.jpg";
+import axios from "axios";
+
 function Events() {
-  //APIs call
-  // console.log("Events component rendered"); // log a message when the component is rendered
-  const getCategories = async () => {
+  const [events, setEvents] = useState([]);
+  const [loadings, setLoadings] = useState(false);
+
+  const getEvents = async () => {
     try {
-      const response = await axios.get("http://localhost:8008/api/categories");
-      setCategories(response.data);
-      console.log("got data1");
+      const response = await axios.get("http://localhost:8008/api/events");
+      setEvents(response.data);
+      console.log("got data");
       setLoadings(true);
     } catch (error) {
       alert("Error: " + error.message);
     }
   };
+  //APIs call
   useEffect(() => {
-    getCategories();
+    getEvents();
   }, []);
-  const [categories, setCategories] = useState([]);
-  const [loadings, setLoadings] = useState(false);
-  //----------------------------------------------------------------
-  /// animation
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-  const item = {
-    hidden: { opacity: 0, y: 40 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        bounce: 0,
-        staggerChildren: 0.15,
-      },
-    },
-  };
-  const EventName = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        bounce: 0,
-        delay: 0.8,
-        ease: "linear",
-      },
-    },
-  };
-  // function navigation() {
-  //   console.log("clicked");
-  //   // navigate("/Detail/New", { state: { id: id } });
-  // }
-
-  const control = useAnimation();
-  const [ref, inView] = useInView();
-  useEffect(() => {
-    console.log(inView);
-    if (inView) {
-      control.start("show");
-    }
-  }, [control, inView]);
 
   return (
-    <div className="Events-wrap">
-      <motion.div
-        ref={ref}
-        variants={container}
-        initial="hidden"
-        animate={control}
-        className="Events"
-      >
+    <div className="Events">
+      <p>Events</p>
+      <ol>
         {loadings &&
-          categories.map((category) => (
-            <Link to="/User" key={category.category_ID}>
-              <motion.div className="Event" variants={item}>
-                <img src={pic} alt=""></img>
-                <div className="Shadow"></div>
-                <motion.p variants={EventName} className="EventName">
-                  {category.categoryName}
-                </motion.p>
-              </motion.div>
-            </Link>
+          events.map((event, index) => (
+            <motion.li
+              initial={{ y: 100 }}
+              whileInView={{
+                y: 0,
+                transition: { type: "spring", bounce: 0, delay: index * .05 },
+              }}
+              viewport={{once:true}}
+            >
+              <Link
+                className="Link"
+                state={{ eventID: event.event_ID }}
+                to="/Events/Event"
+                key={event.event_ID}
+              >
+                <div className="event-card">
+                  <div className="img-wrap">
+                    <img src={bg} alt="" />
+                  </div>
+                  <div className="info">
+                    <div className="tag"> Art</div>
+                    <div className="title">{event.eventName}</div>
+                  </div>
+                </div>
+              </Link>
+            </motion.li>
           ))}
-      </motion.div>
+      </ol>
     </div>
   );
 }
