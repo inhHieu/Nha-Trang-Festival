@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Category.scss";
@@ -29,7 +30,13 @@ function Category() {
   }, []);
 
   return (
-    <div className="Category-Page">
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -100, opacity: 0  }}
+      transition={{ bounce: 0 }}
+      className="Category-Page"
+    >
       <div className="header-img">
         <div className="img-wrap">
           <img src={bg} alt="" />
@@ -83,7 +90,7 @@ function Category() {
           </li>
         </ol>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

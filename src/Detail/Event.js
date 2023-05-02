@@ -98,14 +98,10 @@ function Event(props) {
 
   return (
     <motion.div
-      initial={{ y: -100, opacity: 0 }}
-      viewport={{ once: true }}
-      whileInView={{
-        y: 0,
-        opacity: 1,
-        transition: { type: "spring", bounce: 0, delay: 0.2 },
-      }}
-      transition={{ type: "spring", bounce: 0 }}
+    initial={{ y: 100, opacity: 0 }}
+    animate={{ y: 0, opacity: 1 }}
+    exit={{ y: -100, opacity: 0 }}
+    transition= {{ bounce: 0 }} 
       className="Event"
       ref={imgWrapRef}
     >

@@ -79,14 +79,28 @@ const Header = () => {
               <>
                 <div className="left">
                   <ul>
-                    <li><Link to="/Home" className="Link">Home</Link></li>
-                    <li><Link to="/News" className="Link">News</Link></li>
-                    <li><Link to="/Home" className="Link">Events</Link></li>
+                    <li>
+                      <Link to="/Home" className="Link">
+                        Home
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/News" className="Link">
+                        News
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/Home" className="Link">
+                        Events
+                      </Link>
+                    </li>
                   </ul>
                 </div>
                 <div className="right">
                   <h5>{userInfo.fullName}</h5>
-                  <div className="avatar"></div>
+                  <Link to='/User'>
+                    <div className="avatar"></div>
+                  </Link>
                 </div>
               </>
             )}

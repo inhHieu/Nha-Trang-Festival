@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import "./Events.scss";
 import bg from "../../../asses/beach1.jpg";
@@ -31,19 +31,24 @@ function Events() {
       <ol>
         {loadings &&
           events.map((event, index) => (
-            <motion.li
-              initial={{ y: 100 }}
-              whileInView={{
-                y: 0,
-                transition: { type: "spring", bounce: 0, delay: index * .05 },
-              }}
-              viewport={{once:true}}
+            <Link
+              className="Link"
+              state={{ eventID: event.event_ID }}
+              to="/Events/Event"
+              key={event.event_ID}
             >
-              <Link
-                className="Link"
-                state={{ eventID: event.event_ID }}
-                to="/Events/Event"
-                key={event.event_ID}
+              <motion.li
+                initial={{ y: 200, opacity: 0 }}
+                whileInView={{
+                  y: 0,
+                  opacity: 1,
+                  transition: {
+                    type: "spring",
+                    bounce: 0,
+                    delay: 0.3 + index * 0.1,
+                  },
+                }}
+                viewport={{ once: true }}
               >
                 <div className="event-card">
                   <div className="img-wrap">
@@ -54,8 +59,8 @@ function Events() {
                     <div className="title">{event.eventName}</div>
                   </div>
                 </div>
-              </Link>
-            </motion.li>
+              </motion.li>
+            </Link>
           ))}
       </ol>
     </div>

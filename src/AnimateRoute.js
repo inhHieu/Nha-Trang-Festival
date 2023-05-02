@@ -15,7 +15,7 @@ function AnimateRoute() {
   const location = useLocation();
   // const [isPending, startTransition] = useTransition();
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {/* <Suspense> */}
         <Routes location={location} key={location.pathname}>
           {/* <Route path="/" element={<Home to="/Home" />} /> */}

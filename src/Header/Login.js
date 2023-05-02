@@ -54,7 +54,7 @@ const Login = ({ setUser, setRegister }) => {
         }
       );
       console.log(response.data);
-      localStorage.setItem("user-info", JSON.stringify(response.data));
+      sessionStorage.setItem("user-info", JSON.stringify(response.data));
       setUser(true);
       close();
     } catch (error) {

@@ -73,7 +73,7 @@ function Events() {
     if (inView) {
       control.start("show");
     }
-  }, [control, inView]);
+  }, [ inView]);
 
   return (
     <div className="Categories-wrap">
