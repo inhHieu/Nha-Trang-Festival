@@ -2,7 +2,10 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+
+import ViewAll from "../../../component/ViewAll";
 import "../../../style/pages/Home/main/Categories.scss";
 import pic from "../../../asses/fes1.jpg";
 function Events() {
@@ -30,7 +33,7 @@ function Events() {
     show: {
       opacity: 1,
       transition: {
-        type:'spring',
+        type: "spring",
         staggerChildren: 0.15,
       },
     },
@@ -41,7 +44,7 @@ function Events() {
       opacity: 1,
       y: 0,
       transition: {
-        type:'spring',
+        type: "spring",
         duration: 0.8,
         bounce: 0,
         staggerChildren: 0.15,
@@ -54,7 +57,7 @@ function Events() {
       opacity: 1,
       y: 0,
       transition: {
-        type:'spring',
+        type: "spring",
         duration: 0.5,
         bounce: 0,
         delay: 0.8,
@@ -73,22 +76,26 @@ function Events() {
     if (inView) {
       control.start("show");
     }
-  }, [ inView]);
-
-  return (
+  }, [inView]);
+   return (
     <div className="Categories-wrap">
+      <div className="mt-20 mb-7 w-full flex justify-end">
+        <ViewAll link={"/Categories/0"}>
+          View all
+        </ViewAll>
+      </div>
       <motion.div
         ref={ref}
         variants={container}
         initial="hidden"
         animate={control}
-        className="Categories"
+        className="Categories "
       >
         {loadings &&
           categories.map((category) => (
             <Link
-              state={{ newsID: category.category_ID }}
-              to="/Categories"
+              // state={{ newsID: category.category_ID }}
+              to={`/Categories/${category.category_ID}`}
               key={category.category_ID}
             >
               <motion.div className="Category" variants={item}>

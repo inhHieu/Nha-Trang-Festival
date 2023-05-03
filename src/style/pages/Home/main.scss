@@ -1,7 +1,7 @@
-.main{
+.main {
     // background-color: red;
     position: relative;
-    background-color: "#EFFCF8" ;
+    background-color: "#EFFCF8";
     // &::after{
     //     content: '';
     //     position: absolute;
@@ -11,12 +11,13 @@
     //     border-radius: 1rem;
     //     background-color: white;
     // }
-    
-    .container{
+
+    .container {
         margin: 0 auto;
-        width: 70rem;
+        width: min(90vw, 70rem);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 }

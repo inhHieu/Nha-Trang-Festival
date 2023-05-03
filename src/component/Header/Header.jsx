@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger.js";
 import Login from "./Login";
+import { useLocation } from "react-router";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "../../style/component/Header.scss";
-import { useLocation } from "react-router";
 
 const Header = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -75,30 +75,30 @@ const Header = () => {
                 </button>
               </div>
             )}
+            <div className="left">
+              <ul>
+                <li>
+                  <Link to="/Home" className="Link">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/News" className="Link">
+                    News
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/Home" className="Link">
+                    Events
+                  </Link>
+                </li>
+              </ul>
+            </div>
             {user && (
               <>
-                <div className="left">
-                  <ul>
-                    <li>
-                      <Link to="/Home" className="Link">
-                        Home
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/News" className="Link">
-                        News
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/Home" className="Link">
-                        Events
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
                 <div className="right">
                   <h5>{userInfo.fullName}</h5>
-                  <Link to='/User'>
+                  <Link to="/User">
                     <div className="avatar"></div>
                   </Link>
                 </div>

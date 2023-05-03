@@ -20,9 +20,9 @@ function AnimateRoute() {
         <Routes location={location} key={location.pathname}>
           {/* <Route path="/" element={<Home to="/Home" />} /> */}
           <Route key="home" path="/Home" index element={<Home />} />
-          <Route key="news" path="/News" element={<News />} />
-          <Route key="categories" path="/Categories" element={<Category />} />
-          <Route key="event" path="/Events/Event" element={<Event />} />
+          <Route key="news" path="/News/News" element={<News />} />
+          <Route key="categories" path="/Categories/:id" element={<Category />} />
+          <Route key="event" path="/Event" element={<Event />} />
           <Route key="user" path="/User" element={<User />} />
         </Routes>
       {/* </Suspense> */}

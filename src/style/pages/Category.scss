@@ -1,6 +1,6 @@
 $default-gray: #d9d9d9;
 
-.Category-Page {
+.Category-Page,.Events-Page {
     margin-top: -4rem;
     min-height: 100vh;
     background-color: #effcf8;
@@ -28,8 +28,10 @@ $default-gray: #d9d9d9;
             display: grid;
             align-items: center;
             .title-group {
-                max-width: 70em;
+                // max-width: 70em;
+                width: min(90%,70rem);
                 display: flex;
+                align-items: center;
                 .title {
                     width: 30%;
                     text-align: center;

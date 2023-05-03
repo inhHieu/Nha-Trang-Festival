@@ -1,36 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import EventCard from "./EventCard";
+import Dropdown from "../../component/Dropdown";
+import EventCard from "../../component/EventCard";
 import "../../style/pages/Category.scss";
 
 import bg from "../../asses/art.jpg";
 
 function Category() {
-  const location = useLocation();
+  // const location = useLocation();
+  const { id } = useParams();
 
+  const [selected, setSelected] = useState("");
+  const handleDropdownSelect = (value) => {
+    setSelected(value);
+  };
   const [category, setCategory] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loadings, setLoadings] = useState(false);
 
   const getCategory = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/categories/${location.state.newsID}`
+        `http://localhost:8008/api/categories/${id}`
       );
       setCategory(response.data);
       setLoadings(true);
     } catch (error) {
-      alert("Error: " + error.message);
+      console.log("Error: " + error.message);
+    }
+  };
+  const getCategories = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8008/api/categories`);
+      setCategories(response.data);
+      setLoadings(true);
+    } catch (error) {
+      console.log("Error: " + error.message);
     }
   };
   //APIs call
   useEffect(() => {
     console.log("got data");
     getCategory();
+    getCategories();
   }, []);
 
+  useEffect(() => {
+    console.log(selected, "from category");
+  }, [selected]);
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
@@ -49,6 +69,23 @@ function Category() {
             <div className="description">
               <p>{category.categoryDescription}</p>
             </div>
+          </div>
+        </div>
+        <div className="fillter absolute bottom-0  w-70rem left-1/2 -translate-x-1/2 flex justify-between">
+          <div className="tab-group w-48 bg-white-blue flex justify-around  rounded-t-lg overflow-clip duration-300">
+            <div className="tab w-24 text-center bg-def-gray">Events</div>
+            <div className="tab w-24 text-center bg-white-blue">News</div>
+          </div>
+          <div className="cate-drop pl-4 bg-white-blue rounded-t-lg overflow-clip">
+            <label>
+              Categories:
+              <Dropdown
+                list={categories}
+                name={category.categoryName}
+                value={selected}
+                onSelect={handleDropdownSelect}
+              />
+            </label>
           </div>
         </div>
       </div>

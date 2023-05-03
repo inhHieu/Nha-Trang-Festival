@@ -18,7 +18,7 @@ $default-gray: #d9d9d9;
             }
         }
         .info {
-            width: 70rem;
+            width:min(90vw, 70rem);
             margin: 0 auto;
             position: relative;
             .avatar-wrap {
@@ -79,7 +79,7 @@ $default-gray: #d9d9d9;
     }
 
     .container {
-        width: 70rem;
+        width:min(90vw, 70rem);
         margin: 0 auto;
         min-height: 70vh;
         display: grid;
@@ -93,7 +93,7 @@ $default-gray: #d9d9d9;
             flex-direction: row;
             justify-content: space-around;
             margin-top: 150px;
-
+            width: 100%;
             .drop-img {
                 width: 200px;
                 height: 200px;
@@ -139,9 +139,11 @@ $default-gray: #d9d9d9;
         }
         .Subcribed{
             width: 100%;
+            margin-top: 150px;
             ol{
                 width: 100%;
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: space-around;
             }
         }

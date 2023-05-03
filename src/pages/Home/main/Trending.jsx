@@ -3,6 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
 import "../../../style/pages/Home/main/Trending.scss";
 
 const Trending = () => {
@@ -32,7 +33,7 @@ const Trending = () => {
     show: {
       opacity: 1,
       transition: {
-        type:'spring',
+        type: 'spring',
         staggerChildren: 0.15,
       },
     },
@@ -42,7 +43,7 @@ const Trending = () => {
     show: {
       opacity: 1,
       transition: {
-        type:'spring',
+        type: 'spring',
         delay: 0.8,
         duration: 0.8,
         bounce: 0,
@@ -56,11 +57,11 @@ const Trending = () => {
       opacity: 1,
       y: 0,
       transition: {
-        type:'spring',
+        type: 'spring',
         duration: 0.5,
         bounce: 0,
         delay: 0.8,
-       },
+      },
     },
   };
   const control = useAnimation();
@@ -73,7 +74,7 @@ const Trending = () => {
   }, [control, inView]);
   return (
     <motion.div className="Trending" ref={ref}>
-      <p>TRENDING</p>
+      <p className="mb-7">TRENDING NEWS</p>
       {loadings &&
         trends.map((trending) => (
           <Link
@@ -99,6 +100,7 @@ const Trending = () => {
             </motion.div>
           </Link>
         ))}
+      
     </motion.div>
   );
 };

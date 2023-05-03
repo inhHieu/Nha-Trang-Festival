@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
+import ViewAll from "../../../component/ViewAll";
 import "../../../style/pages/Home/main/Events.scss";
 import bg from "../../../asses/beach1.jpg";
 import axios from "axios";
@@ -27,7 +28,10 @@ function Events() {
 
   return (
     <div className="Events">
-      <p>Events</p>
+      <div className="flex justify-between">
+        <p>Events</p>
+        <ViewAll link={"/Categories/0"}>View all</ViewAll>
+      </div>
       <ol>
         {loadings &&
           events.map((event, index) => (

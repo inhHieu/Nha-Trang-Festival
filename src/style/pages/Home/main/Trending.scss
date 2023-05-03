@@ -2,14 +2,15 @@ $default-gray: #d9d9d9;
 @import url(../../../index.scss);
 
 .Trending {
-    width: 50rem; //1024 1300
+    // width: 50rem; //1024 1300
+    width:min(90vw, 70%);
+
     padding-top: 5rem;
     padding-bottom: 5rem;
    
     p {
         font-size: 1rem;
         letter-spacing: 0.1rem;
-        margin-bottom: 1.8rem;
     }
     .NewsSection {
         display: flex;

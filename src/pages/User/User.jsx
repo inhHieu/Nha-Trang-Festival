@@ -10,6 +10,7 @@ import Subcribed from "./Subcribed";
 
 const User = (props) => {
   const [loggedIn, setLoggedIn] = useState(true);
+  const [tab, setTab] = useState(false);
 
   const [userName, setUserName] = useState("");
   // const [userDOB, setUserDOB] =useState('')
@@ -27,7 +28,7 @@ const User = (props) => {
       setUserAddress(userInfo.address);
       setUserEmail(userInfo.email);
       setUserPhone(userInfo.phone);
-    } else setLoggedIn(false);
+    } else setLoggedIn(false)
   }, [setUserInfo]);
 
   return (
@@ -48,20 +49,24 @@ const User = (props) => {
           </div>
           <div className="user-name">{userName ? userName : ""}</div>
           <div className="tab-group">
-            <div className="tab">Subscribed</div>
-            <div className="tab active">Profile</div>
+            <div className={`tab ${tab ? 'active' : ''}`} onClick={() => setTab(true)}>Profile</div>
+            <div className={`tab ${!tab ? 'active' : ''}`} onClick={() => setTab(false)}>Subscribed</div>
           </div>
         </div>
       </div>
       <div className="container">
-        {/* <Profile
-          userName={userName}
-          userAddress={userAddress}
-          userEmail={userEmail}
-          userPhone={userPhone}
-          loggedIn={loggedIn}
-        /> */}
-        <Subcribed />
+        {loggedIn ? (
+          <>
+            {tab ? (<Profile
+              userName={userName}
+              userAddress={userAddress}
+              userEmail={userEmail}
+              userPhone={userPhone}
+            />) : (<Subcribed />)}
+          </>
+        ) : (
+          <div className="alert">You currently not logged-in</div>
+        )}
       </div>
     </motion.div>
 
