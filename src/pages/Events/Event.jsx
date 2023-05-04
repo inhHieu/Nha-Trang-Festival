@@ -1,5 +1,6 @@
 import React, { useState,useEffect,useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 import { motion } from "framer-motion";
 import axios from "axios";
 import "../../style/pages/New.scss";
@@ -7,7 +8,8 @@ import bg from "../../asses/beach1.jpg";
 
 function Event(props) {
   const imgWrapRef = useRef();
-  const location = useLocation()
+  const { id } = useParams();
+
 
   const [event, setEvent] = useState([]);
   const [loadings, setLoadings] = useState(false);
@@ -15,7 +17,7 @@ function Event(props) {
   const getEvent = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/events/${location.state.eventID}`
+        `http://localhost:8008/api/events/${id}`
       );
       setEvent(response.data);
       console.log("got data");

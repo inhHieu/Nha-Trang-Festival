@@ -1,5 +1,5 @@
 import React, { useState,useEffect,useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 import "../../style/pages/New.scss";
@@ -10,7 +10,7 @@ import bg from "../../asses/beach1.jpg";
 // import bg1 from "../asses/fes1.jpg";
 function New(props) {
   const imgWrapRef = useRef();
-  const location = useLocation()
+  const { id } = useParams();
   // console.log(location.state.newsID)
 
   const [news, setNews] = useState([]);
@@ -19,7 +19,7 @@ function New(props) {
   const getNews = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/news/${location.state.newsID}`
+        `http://localhost:8008/api/news/${id}`
       );
       setNews(response.data);
       console.log("got data");

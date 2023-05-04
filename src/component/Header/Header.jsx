@@ -83,12 +83,12 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/News" className="Link">
+                  <Link to="/Categories/0" className="Link">
                     News
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="Link">
+                  <Link to="/Categories/0" className="Link">
                     Events
                   </Link>
                 </li>

@@ -80,8 +80,8 @@ const Trending = () => {
           <Link
             className="Link"
             state={{ newsID: trending.news_ID }}
-            to="/News"
-            key={trending.news_ID}
+            to={`/News/${trending.news_ID}`}
+            // key={trending.news_ID}
           >
             <motion.div
               className="NewsSection"

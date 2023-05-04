@@ -37,8 +37,7 @@ function Events() {
           events.map((event, index) => (
             <Link
               className="Link"
-              state={{ eventID: event.event_ID }}
-              to="/Events/Event"
+              to={`/Event/${event.event_ID}`}
               key={event.event_ID}
             >
               <motion.li

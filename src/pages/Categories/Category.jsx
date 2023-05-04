@@ -20,18 +20,15 @@ function Category() {
   const [category, setCategory] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loadings, setLoadings] = useState(false);
-
-  const getCategory = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8008/api/categories/${id}`
-      );
-      setCategory(response.data);
-      setLoadings(true);
-    } catch (error) {
-      console.log("Error: " + error.message);
+  
+  function getCategory() {
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i].category_ID === Number(id)) {
+        console.log("found");
+        setCategory(categories[i]);
+      }
     }
-  };
+  }
   const getCategories = async () => {
     try {
       const response = await axios.get(`http://localhost:8008/api/categories`);
@@ -44,13 +41,15 @@ function Category() {
   //APIs call
   useEffect(() => {
     console.log("got data");
-    getCategory();
     getCategories();
+    getCategory();
   }, []);
 
   useEffect(() => {
     console.log(selected, "from category");
   }, [selected]);
+  
+
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}

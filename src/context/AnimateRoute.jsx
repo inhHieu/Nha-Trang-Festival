@@ -26,13 +26,13 @@ function AnimateRoute() {
         {/* <Route path="/" element={<Home to="/Home" />} /> */}
         <Route path="/" element={<Public />}>
           <Route key="home" index element={<Home />} />
-          <Route key="news" path="News" element={<News />} />
+          <Route key="news" path="News/:id" element={<News />} />
           <Route
             key="categories"
             path="/Categories/:id"
             element={<Category />}
           />
-          <Route key="event" path="Event" element={<Event />} />
+          <Route key="event" path="Event/:id" element={<Event />} />
           <Route key="user" path="User" element={<User />} />
         </Route>
         <Route path="/Admin" element={<SideBar />}>
