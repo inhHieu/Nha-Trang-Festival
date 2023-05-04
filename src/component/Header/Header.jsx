@@ -26,7 +26,7 @@ const Header = () => {
     }
   }, [setUser, user]);
   useEffect(() => {
-    if (location.pathname === "/Home") {
+    if (location.pathname === "/") {
       document.querySelector(".header").classList.add("homepath");
     } else {
       document.querySelector(".header").classList.remove("homepath");
@@ -78,7 +78,7 @@ const Header = () => {
             <div className="left">
               <ul>
                 <li>
-                  <Link to="/Home" className="Link">
+                  <Link to="/" className="Link">
                     Home
                   </Link>
                 </li>
@@ -88,7 +88,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/Home" className="Link">
+                  <Link to="/" className="Link">
                     Events
                   </Link>
                 </li>

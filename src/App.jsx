@@ -3,15 +3,17 @@ import ScrollToTop from "../src/context/scrollToTop";
 import Header from "../src/component/Header/Header";
 import Footer from "../src/component/Footer";
 import AnimateRoute from "../src/context/AnimateRoute";
-import { BrowserRouter as Router } from "react-router-dom";
+
+
+import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
 function App() {
   return (
     <>
       <Router>
         <ScrollToTop />
-        <Header />
+        {/* <Header /> */}
         <AnimateRoute />
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </>
   );
