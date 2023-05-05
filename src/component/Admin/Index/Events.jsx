@@ -28,16 +28,24 @@ function Events() {
         <p className="total">{events.length}</p>
       </div>
       <div className="data">
+        <div className="item head sticky top-0 bg-def-gray">
+          <div className="name w-3/12">Name</div>
+          <div className="subcription w-6/12">
+            Description
+          </div>
+          <div className="date w-2/12">Date</div>
+          <div className="subcribed w-1/12">Sub</div>
+        </div>
         {loadings &&
-          events.map((event) => (
-            <Link to={`/Event/${event.event_ID}`} className="item">
-              <div className="name">{event.eventName}</div>
-              <div className="subcription">
+          events.map((event,i) => (
+            <Link to={`/Event/${event.event_ID}`} key={i} className="item">
+              <div className="name w-3/12">{event.eventName}</div>
+              <div className="subcription w-6/12">
                 10 min drone light show at the begining 10 min drone light show
                 at the begining
               </div>
-              <div className="date">3-6-2023</div>
-              <div className="subcribed">99999</div>
+              <div className="date w-2/12">3 - 6/2023</div>
+              <div className="subcribed w-1/12">99999</div>
             </Link>
           ))}
       </div>

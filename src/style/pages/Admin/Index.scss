@@ -21,6 +21,25 @@
             }
         }
     }
+    .A-Events,.A-Users {
+        width: min(100%, 1300px);
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .head {
+            .title {
+                height: 48px;
+                width: max-content;
+                margin-top: 1.25rem;
+                margin-left: 1.25rem;
+                display: grid;
+                place-items: center;
+                text-transform: none;
+                letter-spacing: 0;
+            }
+        }
+    }
     .index {
         width: min(100%, 1300px);
         margin: 0 auto;
@@ -28,7 +47,7 @@
         flex-direction: column;
         justify-content: center;
         .title {
-            height: 50px;
+            height: 48px;
             width: max-content;
             margin-top: 1.25rem;
             margin-left: 1.25rem;
@@ -82,38 +101,47 @@
                     height: 90%;
                     width: 90%;
                     margin: 0 auto;
+                    color: #343434;
                     &::-webkit-scrollbar {
                         width: 0;
                     }
+
                     .item {
                         display: flex;
-                        background-color: crimson;
                         padding: 0.5rem;
                         font-size: 0.7rem;
+                        line-height: 1.5rem;
                         .name {
-                            width: 9rem;
-                            background-color: #fff;
+                            height: 1.5rem;
+                            // width:20%;
                             text-overflow: ellipsis;
                             overflow: hidden;
                             white-space: nowrap;
                         }
                         .subcription {
-                            background: green;
-                            flex-grow: 1;
+                            height: 1.5rem;
+                            padding: 0 0.5rem;
                             text-overflow: ellipsis;
                             overflow: hidden;
                             white-space: nowrap;
+                            // width: 60%;
                         }
                         .date {
+                            height: 1.5rem;
                             text-align: right;
-                            background-color: yellow;
-                            width: 4rem;
+                            // width: 10%;
+                            padding: 0 0.5rem;
                         }
                         .subcribed {
+                            height: 1.5rem;
                             text-align: right;
-                            background-color: blue;
-                            width: 2.5rem;
+                            // width: 10%;
                         }
+                    }
+                    .head {
+                        line-height: 1.5rem;
+                        padding: 0 0.5rem;
+                        font-weight: 500;
                     }
                 }
             }

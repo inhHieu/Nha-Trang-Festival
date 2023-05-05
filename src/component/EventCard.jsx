@@ -1,7 +1,7 @@
 import React from 'react'
 import bg from "../asses/art.jpg";
 
-function EventCard() {
+function EventCard({name,date}) {
   return (
     <li className='group'>
       <article className="article h-71 w-80 cursor-pointer	">
@@ -10,8 +10,8 @@ function EventCard() {
         </div>
         <div className="into px-4 pt-1">
           <div className="tag text-sea-blue text-05 uppercase tracking-wider	">Art</div>
-          <div className="title pt-1 font-bold">Painting material</div>
-          <div className="date pt-3 text-06"> 3 days ago</div>
+          <div className="title pt-1 font-bold">{name}</div>
+          <div className="date pt-3 text-06">{date}</div>
         </div>
       </article>
     </li>

@@ -6,8 +6,13 @@ import Category from "../pages/Categories/Category";
 import Event from "../pages/Events/Event";
 import Public from "./Layout/Public";
 
-import SideBar from "../component/SideBar";
+import SideBar from "../component/Admin/SideBar";
 import Index from "../pages/Admin/Index";
+import Trending from "../pages/Admin/News/Trending";
+import Latest from "../pages/Admin/News/Latest.jsx";
+import Upcoming from "../pages/Admin/News/Upcoming.jsx";
+import Events from "../pages/Admin/Events.jsx";
+import Users from "../pages/Admin/Users.jsx";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -37,6 +42,11 @@ function AnimateRoute() {
         </Route>
         <Route path="/Admin" element={<SideBar />}>
           <Route key="overview" index element={<Index />} />
+          <Route key="news-trend" path="/Admin/News/Trending" element={<Trending />} />
+          <Route key="news-latest" path="/Admin/News/Latest" element={<Latest />} />
+          <Route key="news-upcoming" path="/Admin/News/Upcoming" element={<Upcoming />} />
+          <Route key='events' path="/Admin/Events" element={<Events/>}/>
+          <Route key='users' path="/Admin/Users" element={<Users/>}/>
         </Route>
       </Routes>
       {/* </Suspense> */}
