@@ -1,7 +1,7 @@
 import React from "react";
 import bg from "../../asses/art.jpg";
 
-function UserCard() {
+function UserCard({user}) {
   return (
     <li className="group">
       <article className="article rounded-lg overflow-clip relative h-71 w-48 cursor-pointer bg-slate-300	">
@@ -21,9 +21,10 @@ function UserCard() {
             <div className="age  ">19</div>
             <div className="sub">Sub:10</div>
           </div>
-          <div className=" flex -mb-8 justify-around duration-300  group-hover:opacity-100 group-hover:mb-0">
+          <div className=" flex -mb-8 justify-around opacity-0 duration-300  group-hover:opacity-100 group-hover:mb-0">
             <span>Food</span>
             <span>Sport</span>
+            <span>Food</span> 
           </div>
         </div>
       </article>

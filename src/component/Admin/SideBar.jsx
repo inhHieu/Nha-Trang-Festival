@@ -14,13 +14,7 @@ function SideBar() {
         setActive(1);
         break;
       case "/Admin/News/Trending":
-        setActive(21);
-        break;
-      case "/Admin/News/Latest":
-        setActive(22);
-        break;
-      case "/Admin/News/Upcoming":
-        setActive(23);
+        setActive(2);
         break;
       case "/Admin/Events":
         setActive(3);
@@ -58,19 +52,6 @@ function SideBar() {
               Overview
             </button>
           </Link>
-          <Link to="/Admin/News/Trending">
-            <button
-              className={`rounded-lg duration-300 ${
-                active === 2
-                  ? "bg-hard-blue text-white "
-                  : "text-hard-gray bg-transparent hover:bg-white-purple"
-              }`}
-            >
-              <FontAwesomeIcon icon="fa-solid fa-newspaper" className="mr-2" />
-              News
-              <FontAwesomeIcon icon="fa-solid fa-angle-up" className="ml-2" />
-            </button>
-          </Link>
           <Link to="/Admin/Events">
             <button
               className={`rounded-lg duration-300 ${
@@ -83,6 +64,19 @@ function SideBar() {
               Events
             </button>
           </Link>
+          <Link to="/Admin/News/Trending">
+            <button
+              className={`rounded-lg duration-300 ${
+                active === 2
+                  ? "bg-hard-blue text-white "
+                  : "text-hard-gray bg-transparent hover:bg-white-purple"
+              }`}
+            >
+              <FontAwesomeIcon icon="fa-solid fa-newspaper" className="mr-2" />
+              News
+            </button>
+          </Link>
+
           <Link to="/Admin/Users">
             <button
               className={`rounded-lg duration-300 ${
