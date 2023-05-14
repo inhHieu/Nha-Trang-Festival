@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import Dropdown from "../../component/Dropdown";
-import EventCard from "../../component/EventCard";
+import EventSection from "./EventSection";
+import NewsSection from "./NewsSection";
 import "../../style/pages/Category.scss";
 
 import bg from "../../asses/art.jpg";
@@ -12,48 +13,84 @@ import bg from "../../asses/art.jpg";
 function Category() {
   // const location = useLocation();
   const { id } = useParams();
+  const location = useLocation();
+  const event = new URLSearchParams(location.search).get("event");
+  const navigate = useNavigate();
 
   const [selected, setSelected] = useState("");
   const handleDropdownSelect = (value) => {
     setSelected(value);
   };
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState({});
   const [categories, setCategories] = useState([]);
-  const [loadings, setLoadings] = useState(false);
-  
-  function getCategory() {
+  const [loading, setLoading] = useState(true);
+
+  const getCategory = () => {
     for (let i = 0; i < categories.length; i++) {
-      if (categories[i].category_ID === Number(id)) {
-        console.log("found");
+      if (categories[i].category_Id === Number(id)) {
         setCategory(categories[i]);
+        break;
       }
     }
-  }
+  };
+
   const getCategories = async () => {
     try {
-      const response = await axios.get(`http://localhost:8008/api/categories`);
+      const response = await axios.get(
+        `http://localhost:8008/api/categories?offset=0&limit=10000`
+      );
       setCategories(response.data);
-      setLoadings(true);
+      setLoading(false);
     } catch (error) {
       console.log("Error: " + error.message);
     }
   };
-  //APIs call
+
   useEffect(() => {
-    console.log("got data");
     getCategories();
-    getCategory();
   }, []);
 
   useEffect(() => {
+    getCategory();
+  }, [categories]);
+
+  const [tab, setTabState] = useState(false);
+
+  const setTab = (value) => {
+    localStorage.setItem("tab", value);
+    setTabState(value);
+  };
+
+  useEffect(() => {
+    if (event !== null) {
+      const eventTab = event === "true";
+      const storedTab = localStorage.getItem("tab");
+      setTab(eventTab ?? JSON.parse(storedTab));
+    }else {
+      const storedTab = localStorage.getItem("tab");
+      setTab(JSON.parse(storedTab) ?? false);
+    }
+  }, [event]);
+
+  useEffect(() => {
     console.log(selected, "from category");
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i].categoryName === selected) {
+        // console.log("found");
+        console.log(categories[i].category_Id);
+        navigate("/Categories/" + categories[i].category_Id);
+        break;
+      }
+    }
   }, [selected]);
-  
+
+  //================================================================
+  // decoration
 
   return (
     <motion.div
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{ y: -100, opacity: 0 }}
       transition={{ bounce: 0 }}
       className="Category-Page"
@@ -71,9 +108,23 @@ function Category() {
           </div>
         </div>
         <div className="fillter absolute bottom-0  w-70rem left-1/2 -translate-x-1/2 flex justify-between">
-          <div className="tab-group w-48 bg-white-blue flex justify-around  rounded-t-lg overflow-clip duration-300">
-            <div className="tab w-24 text-center bg-def-gray">Events</div>
-            <div className="tab w-24 text-center bg-white-blue">News</div>
+          <div className="tab-group w-48 bg-white-blue flex justify-around rounded-t-lg overflow-clip cursor-pointer">
+            <div
+              className={`tab w-24 text-center duration-300 ${
+                 tab ? "" : "bg-def-gray"
+              } `}
+              onClick={() => setTab(true)}
+            >
+              Events
+            </div>
+            <div
+              className={`tab w-24 text-center duration-300 ${
+                !tab ? "" : "bg-def-gray"
+              } `}
+              onClick={() => setTab(false)}
+            >
+              News
+            </div>
           </div>
           <div className="cate-drop pl-4 bg-white-blue rounded-t-lg overflow-clip">
             <label>
@@ -88,12 +139,12 @@ function Category() {
           </div>
         </div>
       </div>
-      <div className="container">
-        <ol>
-          <EventCard />
-          <EventCard />
-          <EventCard />
-        </ol>
+      <div className="container pb-12 flex flex-col items-center">
+        { tab ? (
+          <EventSection id={category.category_Id} categories={categories} />
+        ) : (
+          <NewsSection id={category.category_Id} />
+        )}
       </div>
     </motion.div>
   );

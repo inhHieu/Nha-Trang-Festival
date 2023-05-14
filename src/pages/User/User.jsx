@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 import "./Profile";
 import "./Subcribed";
@@ -7,30 +8,55 @@ import "../../style/pages/User.scss";
 import bg from "../../asses/art.jpg";
 import Profile from "./Profile";
 import Subcribed from "./Subcribed";
+import Loader from "../../component/Loader";
 
 const User = (props) => {
-  const [loggedIn, setLoggedIn] = useState(true);
   const [tab, setTab] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [userInfos, setUserInfo] = useState({ user: {} });
+  const [userID, setUserID] = useState();
+  const [token, setToken] = useState();
+  const [loadings, setLoadings] = useState(true);
+  const [userInfo, setUser] = useState();
+  useEffect(() => {
+    if (localStorage.getItem("user-info")) {
+      const userInfo = JSON.parse(localStorage.getItem("user-info"));
+      setToken(userInfo.token);
+      setUserID(userInfo.user.user_ID);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
 
-  const [userName, setUserName] = useState("");
-  // const [userDOB, setUserDOB] =useState('')
-  const [userAddress, setUserAddress] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userPhone, setUserPhone] = useState("");
-  const [userInfo, setUserInfo] = useState([]);
+  const getUser = async () => {
+    if (userID && token) {
+      // check if userID and token have been set
+      try {
+        const response = await axios.get(
+          `http://localhost:8008/api/users/${userID}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setUserInfo(response.data);
+        setLoadings(false);
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    }
+  };
 
   useEffect(() => {
-    if (sessionStorage.getItem("user-info")) {
-      const userInfo = JSON.parse(sessionStorage.getItem("user-info"));
-      setUserInfo(userInfo);
-      setUserName(userInfo.fullName);
-      // setUserDOB(userInfo);
-      setUserAddress(userInfo.address);
-      setUserEmail(userInfo.email);
-      setUserPhone(userInfo.phone);
-    } else setLoggedIn(false)
-  }, [setUserInfo]);
+    getUser();
+  }, [userID, token]); // call getUser when userID or token changes
 
+  if (loadings) {
+    return <Loader/>;
+  }
+  
   return (
     <motion.div
       className="user"
@@ -47,7 +73,7 @@ const User = (props) => {
           <div className="avatar-wrap">
             <img src="" alt="" />
           </div>
-          <div className="user-name">{userName ? userName : ""}</div>
+          <div className="user-name">{userInfos ? userInfos.firstName + " "+ userInfos.lastName : ""}</div>
           <div className="tab-group">
             <div className={`tab ${tab ? 'active' : ''}`} onClick={() => setTab(true)}>Profile</div>
             <div className={`tab ${!tab ? 'active' : ''}`} onClick={() => setTab(false)}>Subscribed</div>
@@ -58,11 +84,12 @@ const User = (props) => {
         {loggedIn ? (
           <>
             {tab ? (<Profile
-              userName={userName}
-              userAddress={userAddress}
-              userEmail={userEmail}
-              userPhone={userPhone}
-            />) : (<Subcribed />)}
+              firstName={userInfos.firstName}
+              lastName={userInfos.lastName}
+              userAddress={userInfos.address}
+              userEmail={userInfos.email}
+              userPhone={userInfos.phone}
+            />) : (<Subcribed token={token} id={userID} />)}
           </>
         ) : (
           <div className="alert">You currently not logged-in</div>

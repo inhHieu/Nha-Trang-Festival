@@ -25,6 +25,7 @@ module.exports = {
         "def-gray": "#d9d9d9",
         "def-red": "#fb1f1f",
         "def-light-red": "#fc8585",
+        "def-black": "#1f1f1f",
         
       },
       spacing:{

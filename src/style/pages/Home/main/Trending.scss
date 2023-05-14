@@ -14,7 +14,7 @@ $default-gray: #d9d9d9;
     }
     .NewsSection {
         display: flex;
-        height:13.5rem;
+        height: 13.5rem;
         margin-bottom: 1.8rem;
         cursor: pointer;
         .image {
@@ -33,6 +33,7 @@ $default-gray: #d9d9d9;
             }
             .summary{
                 margin-top: .7rem;
+                font-size: .8rem;
             }
             .posted{
                 margin-top: .7rem;

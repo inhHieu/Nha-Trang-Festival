@@ -13,7 +13,7 @@ const Trending = () => {
   const getTrends = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8008/api/news/trending"
+        "http://localhost:8008/api/news/trending?offset=0&limit=3"
       );
       setTrends(response.data);
       console.log("got data");
@@ -79,9 +79,9 @@ const Trending = () => {
         trends.map((trending) => (
           <Link
             className="Link"
-            state={{ newsID: trending.news_ID }}
-            to={`/News/${trending.news_ID}`}
-            // key={trending.news_ID}
+            // state={{ newsID: trending.newsId }}
+            to={`/News/${trending.newsId}`}
+            key={trending.newsId}
           >
             <motion.div
               className="NewsSection"
@@ -89,12 +89,12 @@ const Trending = () => {
               initial="hidden"
               animate={control}
             >
-              <motion.div className="image" variants={item}>
-                <img src="" alt=""></img>
+              <motion.div className="image overflow-clip" variants={item}>
+                <img src={trending.titleImg} alt="" className="w-full h-full"></img>
               </motion.div>
               <motion.div className="content" variants={EventName}>
                 <div className="title">{trending.newsTitle}</div>
-                <div className="summary">{trending.newsContent}</div>
+                <div className="summary">{trending.summary}</div>
                 <div className="posted"> {trending.postedDate}</div>
               </motion.div>
             </motion.div>

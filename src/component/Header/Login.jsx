@@ -41,17 +41,17 @@ const Login = ({ setUser, setRegister }) => {
     };
   });
   //API login
-  const [userName, setUserName] = useState("");
-  const [passWord, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
 
   const login = async () => {
-    console.log(userName, passWord);
+    console.log(email, password);
     try {
       const response = await axios.post(
-        "http://localhost:8008/api/login/login",
-        JSON.stringify({ userName, passWord }),
+        "http://localhost:8008/api/token",
+        JSON.stringify({ email, password }),
         {
           headers: {
             "Content-Type": "application/json",
@@ -59,7 +59,7 @@ const Login = ({ setUser, setRegister }) => {
         }
       );
       console.log(response.data);
-      sessionStorage.setItem("user-info", JSON.stringify(response.data));
+      localStorage.setItem("user-info", JSON.stringify(response.data));
       setUser(true);
       close();
       //---
@@ -87,7 +87,7 @@ const Login = ({ setUser, setRegister }) => {
             <input
               type="text"
               className="username"
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             ></input>
             <label>Password</label>
             <input

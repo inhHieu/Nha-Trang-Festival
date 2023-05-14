@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger.js";
 import Login from "./Login";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import { useLocation } from "react-router";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "../../style/component/Header.scss";
 
 const Header = () => {
-  gsap.registerPlugin(ScrollTrigger);
   //variable
   const [register, setRegister] = useState(false);
   const [user, setUser] = useState(false);
@@ -19,9 +18,9 @@ const Header = () => {
   //functions
 
   useEffect(() => {
-    if (sessionStorage.getItem("user-info")) {
+    if (localStorage.getItem("user-info")) {
       setUser(true);
-      const userInfo = JSON.parse(sessionStorage.getItem("user-info"));
+      const userInfo = JSON.parse(localStorage.getItem("user-info"));
       setUserInfo(userInfo);
     }
   }, [setUser, user]);
@@ -32,33 +31,24 @@ const Header = () => {
       document.querySelector(".header").classList.remove("homepath");
     }
   });
-  ScrollTrigger.create({
-    trigger: "#root",
-    start: "top -20%",
-    onUpdate: (self) => {
-      const header = document.querySelector(".header");
-      if (self.direction === 1) {
-        header.classList.add("scrollback");
-      } else {
-        header.classList.remove("scrollback");
-      }
-      if (user === true) {
-        if (self.progress > 0.21) {
-          header.classList.add("solid");
-          header.classList.add("black");
-        } else {
-          header.classList.remove("solid");
-          header.classList.remove("black");
-        }
-      }
-    },
-    onLeaveBack: () => {
-      const header = document.querySelector(".header");
-      header.classList.remove("scrollback");
-    },
-  });
 
-  // const [isPending, startTransition] = useTransition();
+  const { scrollY } = useScroll();
+  const [previous, setPrevious] = useState();
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setPrevious(latest);
+    const header = document.querySelector(".header");
+    if (latest > previous) header.classList.add("scrollback");
+    else if (latest < previous) header.classList.remove("scrollback");
+    if (user === true) {
+      if (latest > 700) {
+        header.classList.add("solid");
+        header.classList.add("black");
+      } else {
+        header.classList.remove("solid");
+        header.classList.remove("black");
+      }
+    }
+  });
 
   return (
     <>
@@ -83,12 +73,12 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/Categories/0" className="Link">
+                  <Link to="/Categories/1?event=false" className="Link">
                     News
                   </Link>
                 </li>
                 <li>
-                  <Link to="/Categories/0" className="Link">
+                  <Link to="/Categories/1?event=true" className="Link">
                     Events
                   </Link>
                 </li>
@@ -97,7 +87,10 @@ const Header = () => {
             {user && (
               <>
                 <div className="right">
-                  <h5>{userInfo.fullName}</h5>
+                  <h5>
+                    {userInfo.user.firstName}
+                    {" " + userInfo.user.lastName}
+                  </h5>
                   <Link to="/User">
                     <div className="avatar"></div>
                   </Link>

@@ -13,7 +13,7 @@ function Events() {
 
   const getEvents = async () => {
     try {
-      const response = await axios.get("http://localhost:8008/api/events");
+      const response = await axios.get("http://localhost:8008/api/events?offset=0&limit=3");
       setEvents(response.data);
       console.log("got data");
       setLoadings(true);
@@ -30,15 +30,15 @@ function Events() {
     <div className="Events">
       <div className="flex justify-between">
         <p>Events</p>
-        <ViewAll link={"/Categories/0"}>View all</ViewAll>
+        <ViewAll link={"/Categories/1?event=true"}>View all</ViewAll>
       </div>
       <ol>
         {loadings &&
           events.map((event, index) => (
             <Link
               className="Link"
-              to={`/Event/${event.event_ID}`}
-              key={event.event_ID}
+              to={`/Event/${event.eventId}`}
+              key={event.eventId}
             >
               <motion.li
                 initial={{ y: 200, opacity: 0 }}
@@ -55,7 +55,7 @@ function Events() {
               >
                 <div className="event-card">
                   <div className="img-wrap">
-                    <img src={bg} alt="" />
+                    <img src={event.imageUrl} alt="" />
                   </div>
                   <div className="info">
                     <div className="tag"> Art</div>

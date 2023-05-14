@@ -59,7 +59,7 @@ function MobileApp() {
             <span>Nha Trang Festival app</span>
           </motion.div>
           <motion.p style={{ opacity: opacity1a, y: y1a }}>
-            <span>Install</span> the Nha Trang Festival app for your Android and
+            <span>Install App</span> Nha Trang Festival for your Android and
             IOS <br />
             to get the latest updates, location, time and everything
           </motion.p>

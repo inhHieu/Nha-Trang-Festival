@@ -9,6 +9,8 @@ import ViewAll from "../../../component/ViewAll";
 import "../../../style/pages/Home/main/Categories.scss";
 import pic from "../../../asses/fes1.jpg";
 function Events() {
+  const [categories, setCategories] = useState([]);
+  const [loadings, setLoadings] = useState(true);
   //APIs call
   const getCategories = async () => {
     try {
@@ -23,8 +25,6 @@ function Events() {
   useEffect(() => {
     getCategories();
   }, []);
-  const [categories, setCategories] = useState([]);
-  const [loadings, setLoadings] = useState(false);
   //----------------------------------------------------------------
   /// animation
 
@@ -77,12 +77,19 @@ function Events() {
       control.start("show");
     }
   }, [inView]);
-   return (
+  if (loadings) {
+    return (
+      <div className="Categories-wrap">
+        <div className="Categories">
+          loading
+        </div>
+      </div>
+    );
+  }
+  return (
     <div className="Categories-wrap">
       <div className="mt-20 mb-7 w-full flex justify-end">
-        <ViewAll link={"/Categories/0"}>
-          View all
-        </ViewAll>
+        <ViewAll link={"/Categories/1?event=false"}>View all</ViewAll>
       </div>
       <motion.div
         ref={ref}
@@ -91,15 +98,15 @@ function Events() {
         animate={control}
         className="Categories "
       >
-        {loadings &&
+        {!loadings &&
           categories.map((category) => (
             <Link
-              // state={{ newsID: category.category_ID }}
-              to={`/Categories/${category.category_ID}`}
-              key={category.category_ID}
+              // state={{ newsID: category.category_Id }}
+              to={`/Categories/${category.category_Id}`}
+              key={category.category_Id}
             >
               <motion.div className="Category" variants={item}>
-                <img src={pic} alt=""></img>
+                <img src={category.image} alt=""></img>
                 <div className="Shadow"></div>
                 <motion.p variants={CategoriesName} className="CategoriesName">
                   {category.categoryName}

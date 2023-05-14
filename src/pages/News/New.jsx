@@ -1,5 +1,5 @@
 import React, { useState,useEffect,useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 import "../../style/pages/New.scss";
@@ -11,7 +11,7 @@ import bg from "../../asses/beach1.jpg";
 function New(props) {
   const imgWrapRef = useRef();
   const { id } = useParams();
-  // console.log(location.state.newsID)
+  const navigate = useNavigate();
 
   const [news, setNews] = useState([]);
   const [loadings, setLoadings] = useState(false);
@@ -124,8 +124,8 @@ function New(props) {
 
   return (
     <motion.div
-    initial={{ y: 100, opacity: 0 }}
-    animate={{ y: 0, opacity: 1 }}
+    initial={{  opacity: 0 }}
+    animate={{  opacity: 1 }}
     exit={{ y: -100, opacity: 0 }}
     transition= {{ bounce: 0 }} 
       // exit={{ y: -100, transition:{type: "spring", bounce: 0} }}
@@ -140,7 +140,7 @@ function New(props) {
       <div className="title-img">
         <img
           crossOrigin="anonymous"
-          src={bg}
+          src={news.titleImg}
           alt=""
           // onLoad={(e) => getColor(e)}
         ></img>
