@@ -4,19 +4,20 @@ import { motion } from "framer-motion";
 
 import ViewAll from "../../../component/ViewAll";
 import "../../../style/pages/Home/main/Events.scss";
-import bg from "../../../asses/beach1.jpg";
 import axios from "axios";
 
 function Events() {
   const [events, setEvents] = useState([]);
-  const [loadings, setLoadings] = useState(false);
+  const [loadings, setLoadings] = useState(true);
 
   const getEvents = async () => {
     try {
-      const response = await axios.get("http://localhost:8008/api/events?offset=0&limit=3");
+      const response = await axios.get(
+        "http://localhost:8008/api/events?offset=0&limit=3"
+      );
       setEvents(response.data);
       console.log("got data");
-      setLoadings(true);
+      setLoadings(false);
     } catch (error) {
       alert("Error: " + error.message);
     }
@@ -26,6 +27,18 @@ function Events() {
     getEvents();
   }, []);
 
+  if (loadings) {
+    return (
+      <div className="Events">
+        <ol className="animate-pulse">
+          <div className="card w-[390px] h-[490px] rounded-2xl bg-def-gray "></div>
+          <div className="card w-[390px] h-[490px] rounded-2xl bg-def-gray "></div>
+          <div className="card w-[390px] h-[490px] rounded-2xl bg-def-gray "></div>
+        </ol>
+      </div>
+    );
+  }
+
   return (
     <div className="Events">
       <div className="flex justify-between">
@@ -33,7 +46,7 @@ function Events() {
         <ViewAll link={"/Categories/1?event=true"}>View all</ViewAll>
       </div>
       <ol>
-        {loadings &&
+        {!loadings &&
           events.map((event, index) => (
             <Link
               className="Link"

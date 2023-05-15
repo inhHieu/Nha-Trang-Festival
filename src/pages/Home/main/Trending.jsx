@@ -8,7 +8,7 @@ import "../../../style/pages/Home/main/Trending.scss";
 
 const Trending = () => {
   const [trends, setTrends] = useState([]);
-  const [loadings, setLoadings] = useState(false);
+  const [loadings, setLoadings] = useState(true);
 
   const getTrends = async () => {
     try {
@@ -17,7 +17,7 @@ const Trending = () => {
       );
       setTrends(response.data);
       console.log("got data");
-      setLoadings(true);
+      setLoadings(false);
     } catch (error) {
       alert("Error: " + error.message);
     }
@@ -33,7 +33,7 @@ const Trending = () => {
     show: {
       opacity: 1,
       transition: {
-        type: 'spring',
+        type: "spring",
         staggerChildren: 0.15,
       },
     },
@@ -43,7 +43,7 @@ const Trending = () => {
     show: {
       opacity: 1,
       transition: {
-        type: 'spring',
+        type: "spring",
         delay: 0.8,
         duration: 0.8,
         bounce: 0,
@@ -57,7 +57,7 @@ const Trending = () => {
       opacity: 1,
       y: 0,
       transition: {
-        type: 'spring',
+        type: "spring",
         duration: 0.5,
         bounce: 0,
         delay: 0.8,
@@ -72,10 +72,24 @@ const Trending = () => {
       control.start("show");
     }
   }, [control, inView]);
+  if (loadings) {
+    return (
+      <div className="Trending pb-20 pt-28 animate-pulse">
+        <div className=" flex h-52">
+          <div className="w-[45%] h-full bg-def-gray rounded-lg flex-shrink-0"></div>
+          <div className=" mx-8   w-full flex flex-col gap-3">
+            <div className=" bg-light-gray w-full h-12 rounded-md"></div>
+            <div className=" bg-light-gray w-4/5 h-2/3 rounded-md  "> </div>
+            <div className=" bg-light-gray w-12 h-4 rounded-md"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
-    <motion.div className="Trending" ref={ref}>
-      <p className="mb-7">TRENDING NEWS</p>
-      {loadings &&
+    <motion.div className="Trending py-20 flex flex-col gap-7" ref={ref}>
+      <p className="mb-7 text-10 tracking-[0.1rem]">TRENDING NEWS</p>
+      {!loadings &&
         trends.map((trending) => (
           <Link
             className="Link"
@@ -84,23 +98,34 @@ const Trending = () => {
             key={trending.newsId}
           >
             <motion.div
-              className="NewsSection"
+              className="NewsSection group flex h-52 cursor-pointer"
               variants={container}
               initial="hidden"
               animate={control}
             >
-              <motion.div className="image overflow-clip" variants={item}>
-                <img src={trending.titleImg} alt="" className="w-full h-full"></img>
+              <motion.div
+                className="image w-[45%] h-full bg-def-gray rounded-lg flex-shrink-0 overflow-clip"
+                variants={item}
+              >
+                <img
+                  src={trending.titleImg}
+                  alt=""
+                  className="w-full h-full object-cover scale-105 group-hover:scale-100 duration-300"
+                ></img>
               </motion.div>
-              <motion.div className="content" variants={EventName}>
-                <div className="title">{trending.newsTitle}</div>
-                <div className="summary">{trending.summary}</div>
-                <div className="posted"> {trending.postedDate}</div>
+              <motion.div className="content mx-8" variants={EventName}>
+                <div className="title text-[1.6rem] font-bold tracking-[.1rem] group-hover:text-sea-blue duration-300">
+                  {trending.newsTitle}
+                </div>
+                <div className="summary mt-3 text-08 ">{trending.summary}</div>
+                <div className="posted mt-3 italic text-07 ">
+                  {" "}
+                  {trending.postedDate}
+                </div>
               </motion.div>
             </motion.div>
           </Link>
         ))}
-      
     </motion.div>
   );
 };

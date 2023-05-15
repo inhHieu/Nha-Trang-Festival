@@ -59,7 +59,7 @@ function TakePlace( refa) {
             <span>Nha Trang, Viet Nam</span>
           </motion.div>
           <motion.p style={{ opacity: opacity1a, y: y1a }}>
-            <span>Free</span> to join for erveryone <br /> With the theme is
+            <span>Free</span> to join for erveryone <br /> With the theme 
             'Khanh Hoa - Hope and Growth'
           </motion.p>
         </div>

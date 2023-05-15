@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { gsap } from "gsap";
 import Login from "./Login";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { useLocation } from "react-router";

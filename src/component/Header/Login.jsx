@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import { useLocation, useNavigate } from "react-router";
+import axios from "axios";
 
 import { Signup } from "./Signup";
 
@@ -45,6 +45,28 @@ const Login = ({ setUser, setRegister }) => {
   const [password, setPassword] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  async function GetUserInfo(id, token) {
+    try{
+      const response = await axios.get(
+          `http://localhost:8008/api/subscribed/subid/${id}`,
+          {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+        );
+        const data = await response.data;
+        localStorage.setItem("user-sub", JSON.stringify(response.data));
+        // setData(data);
+        setLoading(false);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+ 
 
   const login = async () => {
     console.log(email, password);
@@ -61,9 +83,12 @@ const Login = ({ setUser, setRegister }) => {
       console.log(response.data);
       localStorage.setItem("user-info", JSON.stringify(response.data));
       setUser(true);
+      
+      await GetUserInfo(response.data.user.user_ID, response.data.token);
+  
       close();
       //---
-      if (location.pathname != "/Home") {
+      if (location.pathname != "/") {
         navigate(0);
       }
     } catch (error) {
