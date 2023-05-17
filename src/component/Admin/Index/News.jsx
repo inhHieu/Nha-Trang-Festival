@@ -35,14 +35,18 @@ function News() {
           <div className="subcribed w-1/12">View</div>
         </div>
         {loadings &&
-          news.map((item,i) => (
+          news.map((item,i) => {
+            const formattedDate = new Date(item.postedDate).toLocaleDateString(
+              "en-GB"
+            );
+            return(
             <Link to={`/News/${item.news_ID}`} key={i} className="item">
               <div className="name w-3/12">{item.newsTitle}</div>
               <div className="subcription w-6/12">{item.newsContent}</div>
-              <div className="date w-2/12">3-6-2023</div>
+              <div className="date w-2/12">{formattedDate}</div>
               <div className="subcribed w-1/12">{item.views}</div>
             </Link>
-          ))}
+          )})}
       </div>
     </div>
   );

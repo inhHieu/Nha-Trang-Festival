@@ -27,9 +27,9 @@ function SideBar() {
         break;
     }
   }, [location]);
-  useEffect(() => {
-    console.log("current", active);
-  }, [active]);
+  // useEffect(() => {
+  //   console.log("current", active);
+  // }, [active]);
   return (
     <div className="admin-page flex bg-white-blue">
       <div className="side-bar bg-def-gray">

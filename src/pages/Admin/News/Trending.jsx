@@ -23,7 +23,7 @@ function Trending() {
   const getNews = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8008/api/news/trending?offset=0&&limit=4"
+        "http://localhost:8008/api/news/trending?offset=0&&limit=10"
       );
       setNews(response.data);
       console.log("got data");
@@ -91,7 +91,7 @@ function Trending() {
             <>
               <li className="flex w-11/12 px-2 py-2 text-08 bg-light-blue">
                 <p className="name w-3/12">Name</p>
-                <p className="description w-8/12">Description</p>
+                <p className="description w-8/12">Summary</p>
                 <p className="date w-2/12 text-center">Posted Date</p>
                 <p className="view w-1/12 text-right">Views</p>
               </li>

@@ -14,7 +14,6 @@ function Users() {
     const data = JSON.parse(localStorage.getItem("token"));
     setToken(data);
   }, []);
- 
 
   const getUsers = async () => {
     try {
@@ -35,8 +34,7 @@ function Users() {
   };
   //APIs call
   useEffect(() => {
-    if(token)
-    getUsers();
+    if (token) getUsers();
   }, [token]);
   return (
     <div className="A-Users h-screen">
@@ -62,7 +60,9 @@ function Users() {
         </div>
       </div>
       <main className="w-full h-5/6 overflow-auto overflow-x-hidden ">
-        <ul className="list-none flex flex-wrap gap-2 justify-center w-full">
+        <ul
+          className="list-none flex flex-wrap gap-2 justify-center w-full"
+        >
           {active ? (
             users.map((item, i) => <UserCard key={i} user={item} />)
           ) : (

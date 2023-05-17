@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function Categories({token}) {
+function Categories({ token }) {
   const [categories, setCategories] = useState([]);
   const [loadings, setLoadings] = useState(false);
 
@@ -18,7 +18,7 @@ function Categories({token}) {
         }
       );
       setCategories(response.data);
-        console.log(response.data);
+      console.log(response.data);
       setLoadings(true);
     } catch (error) {
       console.log("Error: " + error.message);
@@ -26,8 +26,8 @@ function Categories({token}) {
   };
   //APIs call
   useEffect(() => {
-    getCategories();
-  }, []);
+    if (token) getCategories();
+  }, [token]);
 
   return (
     <div className="box">

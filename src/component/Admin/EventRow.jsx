@@ -1,12 +1,15 @@
 import React from "react";
 
 function EventRow({item}) {
+  const formattedDate = new Date(item.dateStart).toLocaleDateString(
+    "en-GB"
+  );
   return (
     <li className="flex w-11/12 px-2 py-2 ">
-      <p className="name w-3/12">{item.eventName}</p>
-      <p className="description w-8/12">{item.eventDescription}</p>
-      <p className="date w-2/12 text-center">{item.dateStart}</p>
-      <p className="view w-1/12 text-right">999</p>
+      <p className="name w-3/12 pr-4 ">{item.eventName}</p>
+      <p className="description w-8/12 text-justify ">{item.eventDescription}</p>
+      <p className="date w-2/12 pl-2 text-center">{formattedDate}</p>
+      <p className="view w-1/12 text-right">{item.totalSub}</p>
     </li>
   );
 }

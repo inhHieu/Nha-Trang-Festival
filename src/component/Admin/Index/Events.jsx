@@ -5,7 +5,6 @@ import axios from "axios";
 function Events({ token }) {
   const [events, setEvents] = useState([]);
   const [loadings, setLoadings] = useState(false);
-  
 
   const getEvents = async () => {
     try {
@@ -44,14 +43,23 @@ function Events({ token }) {
           <div className="subcribed w-1/12">Sub</div>
         </div>
         {loadings &&
-          events.map((event, i) => (
-            <Link to={`/Event/${event.eventId}`} key={i} className="item">
-              <div className="name w-3/12">{event.eventName}</div>
-              <div className="subcription w-6/12">{event.summary}</div>
-              <div className="date w-2/12">{event.dateStart}</div>
-              <div className="subcribed w-1/12">{event.totalSub}</div>
-            </Link>
-          ))}
+          events.map((event, i) => {
+            const formattedDate = new Date(event.dateStart).toLocaleDateString(
+              "en-GB"
+            );
+            return (
+              <Link
+                to={`/Event/${event.eventId}`}
+                key={i}
+                className="item border-b"
+              >
+                <div className="name w-3/12">{event.eventName}</div>
+                <div className="subcription w-6/12">{event.summary}</div>
+                <div className="date w-2/12">{formattedDate}</div>
+                <div className="subcribed w-1/12">{event.totalSub}</div>
+              </Link>
+            );
+          })}
       </div>
     </div>
   );

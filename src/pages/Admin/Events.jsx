@@ -31,7 +31,6 @@ function Events() {
         }
       );
       setEvents(response.data);
-      console.log("got data");
       setLoadings(true);
     } catch (error) {
       alert("Error: " + error.message);
@@ -54,6 +53,7 @@ function Events() {
   const [selected, setSelected] = useState("");
   const handleDropdownSelect = (value) => {
     setSelected(value);
+    console.log("handleDropdownSelect:",value)
   };
   return (
     <div className="A-Events h-screen">
