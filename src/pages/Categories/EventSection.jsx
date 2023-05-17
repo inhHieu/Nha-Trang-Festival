@@ -18,7 +18,6 @@ function EventSection({ id, categories }) {
       const newEvents = response.data;
       setEvents(events.concat(newEvents));
       setLoading(false);
-      console.log(response.data);
     } catch (error) {
       console.log("Error: " + error.message);
     }

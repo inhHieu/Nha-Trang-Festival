@@ -8,12 +8,12 @@ function News() {
 
   const getNews = async () => {
     try {
-      const response = await axios.get(`http://localhost:8008/api/news`);
+      const response = await axios.get(`http://localhost:8008/api/news/lastest?offset=0&&limit=6`);
       setNews(response.data);
       //   console.log(news.length,news);
       setLoadings(true);
     } catch (error) {
-      alert("Error: " + error.message);
+      console.log("Error: " + error.message);
     }
   };
   //APIs call
@@ -40,7 +40,7 @@ function News() {
               <div className="name w-3/12">{item.newsTitle}</div>
               <div className="subcription w-6/12">{item.newsContent}</div>
               <div className="date w-2/12">3-6-2023</div>
-              <div className="subcribed w-1/12">99999</div>
+              <div className="subcribed w-1/12">{item.views}</div>
             </Link>
           ))}
       </div>

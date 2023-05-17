@@ -83,7 +83,6 @@ function Event(props) {
   });
 
   const Subcribe = async () => {
-    console.log("Subcribe");
     try {
       const response = await axios.post(
         `http://localhost:8008/api/subscribed?userId=${userID}&eventId=${id}`,
@@ -114,7 +113,6 @@ function Event(props) {
   };
 
   const unSubcribe = async () => {
-    console.log("UnSubcribe");
     try {
       const response = await axios.delete(
         `http://localhost:8008/api/subscribed?userId=${userID}&eventId=${id}`,
@@ -125,7 +123,6 @@ function Event(props) {
           },
         }
       );
-      console.log(response.data);
       const oldSub = sub;
       const deleteObj = oldSub.find((obj) => obj.eventId === id);
       if (deleteObj) {

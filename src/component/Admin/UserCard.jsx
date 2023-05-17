@@ -1,4 +1,5 @@
 import React from "react";
+import Age from "../../Hook/Age";
 import bg from "../../asses/art.jpg";
 
 function UserCard({user}) {
@@ -16,15 +17,15 @@ function UserCard({user}) {
           <div className="region text-sea-blue text-05 uppercase tracking-wider	">
             VN
           </div>
-          <div className="name pt-1 font-bold">Shaun McLain</div>
+          <div className="name pt-1 font-bold">{user.firstName + " " + user.lastName}</div>
           <div className="flex w-full justify-between py-1 text-08">
-            <div className="age  ">19</div>
-            <div className="sub">Sub:10</div>
+            <div className="age  "><Age date={new Date(user.age)}/></div>
+            <div className="sub">Sub:{user.total_subscriptions}</div>
           </div>
           <div className=" flex -mb-8 justify-around opacity-0 duration-300  group-hover:opacity-100 group-hover:mb-0">
-            <span>Food</span>
-            <span>Sport</span>
-            <span>Food</span> 
+            <span>{user.top_category_1}</span>
+            <span>{user.top_category_2}</span>
+            <span>{user.top_category_3}</span> 
           </div>
         </div>
       </article>

@@ -5,8 +5,9 @@ import User from "../pages/User/User";
 import Category from "../pages/Categories/Category";
 import Event from "../pages/Events/Event";
 import Public from "./Layout/Public";
+import Admin from "./Layout/Admin";
 
-import SideBar from "../component/Admin/SideBar";
+import Login from "../pages/Admin/Login";
 import Index from "../pages/Admin/Index";
 import Trending from "../pages/Admin/News/Trending";
 import Latest from "../pages/Admin/News/Latest.jsx";
@@ -40,14 +41,27 @@ function AnimateRoute() {
           <Route key="event" path="Event/:id" element={<Event />} />
           <Route key="user" path="User" element={<User />} />
         </Route>
-        <Route path="/Admin" element={<SideBar />}>
+        <Route path="/Admin" element={<Admin />}>
           <Route key="overview" index element={<Index />} />
-          <Route key="news-trend" path="/Admin/News/Trending" element={<Trending />} />
-          <Route key="news-latest" path="/Admin/News/Latest" element={<Latest />} />
-          <Route key="news-upcoming" path="/Admin/News/Upcoming" element={<Upcoming />} />
-          <Route key='events' path="/Admin/Events" element={<Events/>}/>
-          <Route key='users' path="/Admin/Users" element={<Users/>}/>
+          <Route
+            key="news-trend"
+            path="/Admin/News/Trending"
+            element={<Trending />}
+          />
+          <Route
+            key="news-latest"
+            path="/Admin/News/Latest"
+            element={<Latest />}
+          />
+          <Route
+            key="news-upcoming"
+            path="/Admin/News/Upcoming"
+            element={<Upcoming />}
+          />
+          <Route key="events" path="/Admin/Events" element={<Events />} />
+          <Route key="users" path="/Admin/Users" element={<Users />} />
         </Route>
+        <Route path="/Login" element={<Login />} />
       </Routes>
       {/* </Suspense> */}
     </AnimatePresence>

@@ -48,9 +48,9 @@ function Profile({ firstName, lastName, userAddress, userEmail, userPhone }) {
   }, [edit]);
   //logout
   const logout = () => {
-    sessionStorage.clear();
-    setUserInfo([]);
-    navigate("/Home");
+    localStorage.removeItem("user-info");
+    // setUserInfo([]);
+    navigate("/");
   };
 
   return (
@@ -69,10 +69,10 @@ function Profile({ firstName, lastName, userAddress, userEmail, userPhone }) {
         {/*------------------------fname------------------------ */}
         <label
           htmlFor="dname"
-          className={formik.touched.name && formik.errors.name ? "error" : ""}
+          className={formik.touched.fname && formik.errors.fname ? "error" : ""}
         >
-          {formik.touched.name && formik.errors.name
-            ? formik.errors.name
+          {formik.touched.fname && formik.errors.fname
+            ? formik.errors.fname
             : "First Name"}
         </label>
         <input
@@ -87,10 +87,10 @@ function Profile({ firstName, lastName, userAddress, userEmail, userPhone }) {
         {/*------------------------lname------------------------ */}
         <label
           htmlFor="lname"
-          className={formik.touched.name && formik.errors.name ? "error" : ""}
+          className={formik.touched.lname && formik.errors.lname ? "error" : ""}
         >
-          {formik.touched.name && formik.errors.name
-            ? formik.errors.name
+          {formik.touched.lname && formik.errors.lname
+            ? formik.errors.lname
             : "Last Name"}
         </label>
         <input

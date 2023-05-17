@@ -12,10 +12,24 @@ function Events() {
   const [category, setCategory] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loadings, setLoadings] = useState(false);
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("token"));
+    setToken(data);
+  }, []);
 
   const getEvents = async () => {
     try {
-      const response = await axios.get("http://localhost:8008/api/events");
+      const response = await axios.get(
+        "http://localhost:8008/api/admin/adminevents?offset=0&limit=9",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setEvents(response.data);
       console.log("got data");
       setLoadings(true);
@@ -34,9 +48,9 @@ function Events() {
   };
   //APIs call
   useEffect(() => {
-    getEvents();
+    if (token) getEvents();
     getCategories();
-  }, []);
+  }, [token]);
   const [selected, setSelected] = useState("");
   const handleDropdownSelect = (value) => {
     setSelected(value);
@@ -75,18 +89,24 @@ function Events() {
       <main className="w-full h-5/6 overflow-auto overflow-x-hidden ">
         <ul className="list-none flex flex-wrap gap-2 justify-center w-full">
           {active ? (
-            events.map((item,i) => (
-              <EventCard key={i} name={item.eventName} date={item.dateStart} />
+            events.map((item, i) => (
+              <EventCard
+                key={i}
+                name={item.eventName}
+                date={item.dateStart}
+                category={item.categoryId}
+                img={item.imageUrl}
+              />
             ))
           ) : (
             <>
-              <li className="flex w-11/12 px-2 py-2 text-08 bg-slate-500">
+              <li className="flex w-11/12 px-2 py-2 text-08 rounded-md bg-light-blue">
                 <p className="name w-3/12">Name</p>
                 <p className="description w-8/12">Description</p>
                 <p className="date w-2/12 text-center">Posted Date</p>
                 <p className="view w-1/12 text-right">Views</p>
               </li>
-              {events.map((item,i) => (
+              {events.map((item, i) => (
                 <EventRow key={i} item={item} />
               ))}
             </>

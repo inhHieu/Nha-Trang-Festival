@@ -2,18 +2,26 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function Categories() {
+function Categories({token}) {
   const [categories, setCategories] = useState([]);
   const [loadings, setLoadings] = useState(false);
 
   const getCategories = async () => {
     try {
-      const response = await axios.get(`http://localhost:8008/api/Categories`);
+      const response = await axios.get(
+        `http://localhost:8008/api/admin/admincategories`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setCategories(response.data);
-      //   console.log(news.length,news);
+        console.log(response.data);
       setLoadings(true);
     } catch (error) {
-      alert("Error: " + error.message);
+      console.log("Error: " + error.message);
     }
   };
   //APIs call
@@ -32,15 +40,15 @@ function Categories() {
           <div className="name w-4/12">Name</div>
           <div className="  w-3/12">Event</div>
           <div className="date w-3/12">News</div>
-          <div className="subcribed w-2/12">Sub</div> 
+          <div className="subcribed w-2/12">Sub</div>
         </div>
         {loadings &&
-          categories.map((item,i) => (
+          categories.slice(1).map((item, i) => (
             <Link to={`/News/${item.news_ID}`} key={i} className="item">
               <div className="name w-4/12">{item.categoryName}</div>
-              <div className="text-center w-3/12">12</div>
-              <div className="date w-3/12">20</div>
-              <div className="subcribed w-2/12">9999</div>
+              <div className="text-center w-3/12">{item.totalEvents}</div>
+              <div className="date w-3/12">{item.totalNews}</div>
+              <div className="subcribed w-2/12">{item.totalSubscribers}</div>
             </Link>
           ))}
       </div>

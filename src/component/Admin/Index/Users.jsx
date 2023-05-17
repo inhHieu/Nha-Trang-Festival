@@ -2,24 +2,33 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function Users() {
+import Age from "../../../Hook/Age";
+
+function Users({ token }) {
   const [users, setUsers] = useState([]);
   const [loadings, setLoadings] = useState(false);
-
   const getUsers = async () => {
     try {
-      const response = await axios.get(`http://localhost:8008/api/users`);
+      const response = await axios.get(
+        `http://localhost:8008/api/admin/adminusers?offset=0&limit=5`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setUsers(response.data);
-      //   console.log(news.length,news);
+      console.log(response.data);
       setLoadings(true);
     } catch (error) {
-      alert("Error: " + error.message);
+      console.log("Error: " + error.message);
     }
   };
   //APIs call
   useEffect(() => {
-    getUsers();
-  }, []);
+    if (token != null) getUsers();
+  }, [token]);
 
   return (
     <div className="box">
@@ -35,12 +44,14 @@ function Users() {
           <div className="subcribed w-1/12">Sub</div>
         </div>
         {loadings &&
-          users.map((item,i) => (
+          users.map((item, i) => (
             <Link to={`/News/${item.news_ID}`} key={i} className="item">
-              <div className="name w-6/12">{item.fullName}</div>
-              <div className="subcription w-2/12">19</div>
+              <div className="name w-6/12">
+                {item.firstName + " " + item.lastName}
+              </div>
+              <div className="subcription w-2/12"><Age date={new Date(item.age)}/></div>
               <div className="date w-3/12">VN</div>
-              <div className="subcribed w-1/12">10</div>
+              <div className="subcribed w-1/12">{item.total_subscriptions}</div>
             </Link>
           ))}
       </div>
