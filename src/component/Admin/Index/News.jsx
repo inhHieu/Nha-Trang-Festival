@@ -40,7 +40,7 @@ function News() {
               "en-GB"
             );
             return(
-            <Link to={`/News/${item.news_ID}`} key={i} className="item">
+            <Link to={`/Admin/News/Trending/${item.newsId}`} key={i} className="item">
               <div className="name w-3/12">{item.newsTitle}</div>
               <div className="subcription w-6/12">{item.newsContent}</div>
               <div className="date w-2/12">{formattedDate}</div>

@@ -1,28 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import axios from "axios";
 import EventCard from "../../component/EventCard";
 import EventRow from "../../component/Admin/EventRow.jsx";
 import Dropdown from "../../component/Dropdown";
 
 function Events() {
+  const { scrollYProgress } = useScroll();
+
   const [active, setActive] = useState(true);
 
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [loadings, setLoadings] = useState(false);
+  const [loadings, setLoadings] = useState(true);
   const [token, setToken] = useState();
+  const [id, setID] = useState(1);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("token"));
     setToken(data);
   }, []);
 
-  const getEvents = async () => {
+  const getEvents = async (id, offset) => {
     try {
       const response = await axios.get(
-        "http://localhost:8008/api/admin/adminevents?offset=0&limit=9",
+        `http://localhost:8008/api/admin/adminevents/category/${id}?offset=${offset}&limit=6`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -30,8 +36,26 @@ function Events() {
           },
         }
       );
-      setEvents(response.data);
-      setLoadings(true);
+      const newEvents = response.data;
+      setEvents(events.concat(newEvents));
+      setLoadings(false);
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+  };
+  const getEventsCID = async (id, offset) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8008/api/admin/adminevents/category/${id}?offset=${offset}&limit=6`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setEvents(response.data)
+      setLoadings(false);
     } catch (error) {
       alert("Error: " + error.message);
     }
@@ -47,14 +71,25 @@ function Events() {
   };
   //APIs call
   useEffect(() => {
-    if (token) getEvents();
+    if (token) getEvents(id, 0);
     getCategories();
   }, [token]);
   const [selected, setSelected] = useState("");
   const handleDropdownSelect = (value) => {
     setSelected(value);
-    console.log("handleDropdownSelect:",value)
+    for (let i = 0; i < categories.length; i++)
+      if (categories[i].categoryName === value) {
+        // console.log(categories);
+        // console.log("handleDropdownSelect:", value);
+        // console.log(categories[i].category_Id);
+        setID(categories[i].category_Id);
+        if (token) getEventsCID(categories[i].category_Id, 0);
+      }
   };
+  const handleLoadMore = () => {
+    getEvents(id, events.length);
+  };
+
   return (
     <div className="A-Events h-screen">
       <div className="head flex justify-between">
@@ -86,17 +121,21 @@ function Events() {
           </div>
         </div>
       </div>
-      <main className="w-full h-5/6 overflow-auto overflow-x-hidden ">
+      <main
+        ref={containerRef}
+        className="w-full h-5/6 overflow-auto overflow-x-hidden "
+      >
         <ul className="list-none flex flex-wrap gap-2 justify-center w-full">
           {active ? (
             events.map((item, i) => (
-              <EventCard
-                key={i}
-                name={item.eventName}
-                date={item.dateStart}
-                category={item.categoryId}
-                img={item.imageUrl}
-              />
+              <Link key={i} to={`/Admin/Events/${item.eventId}`}>
+                <EventCard
+                  name={item.eventName}
+                  date={item.dateStart}
+                  category={item.categoryId}
+                  img={item.imageUrl}
+                />
+              </Link>
             ))
           ) : (
             <>
@@ -111,8 +150,22 @@ function Events() {
               ))}
             </>
           )}
+          <button
+            className="bg-light-blue mb-8 py-1 px-28 rounded-md duration-300 hover:bg-sea-blue hover:text-white"
+            onClick={handleLoadMore}
+          >
+            Load more
+          </button>
         </ul>
       </main>
+      <div className="add group absolute text-[2rem] leading-[3rem] w-12 h-12 text-center rounded-full bottom-6 right-4 text-white cursor-pointer grid place-items-center   bg-hard-blue">
+        <Link to="/Admin/Events/Add">
+          <FontAwesomeIcon
+            icon="fa-solid fa-plus"
+            className="group-hover:rotate-180 duration-300 "
+          />
+        </Link>
+      </div>
     </div>
   );
 }

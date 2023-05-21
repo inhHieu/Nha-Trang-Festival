@@ -15,6 +15,8 @@ import {
   faTableCellsLarge,
   faTimes,
   faHeart,
+  faPlus,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 // import { faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -32,5 +34,7 @@ library.add(
   faList,
   faTableCellsLarge,
   faTimes,
-  faHeart
+  faHeart,
+  faPlus,
+  faCheck
 );

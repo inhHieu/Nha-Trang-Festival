@@ -49,7 +49,7 @@ function Events({ token }) {
             );
             return (
               <Link
-                to={`/Event/${event.eventId}`}
+                to={`/Admin/Events/${event.eventId}`}
                 key={i}
                 className="item border-b"
               >

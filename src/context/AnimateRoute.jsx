@@ -10,10 +10,16 @@ import Admin from "./Layout/Admin";
 import Login from "../pages/Admin/Login";
 import Index from "../pages/Admin/Index";
 import Trending from "../pages/Admin/News/Trending";
+import TrendingDetail from "../pages/Admin/News/TrendingDetail.jsx";
+import TrendingAdd from "../pages/Admin/News/TrendingAdd.jsx";
 import Latest from "../pages/Admin/News/Latest.jsx";
 import Upcoming from "../pages/Admin/News/Upcoming.jsx";
 import Events from "../pages/Admin/Events.jsx";
+import EventDetail from "../pages/Admin/EventDetail.jsx";
+import EventAdd from "../pages/Admin/EventEventAdd.jsx";
 import Users from "../pages/Admin/Users.jsx";
+import UsersDetail from "../pages/Admin/UsersDetail.jsx";
+import UsersAdd from "../pages/Admin/UsersAdd.jsx";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -49,6 +55,16 @@ function AnimateRoute() {
             element={<Trending />}
           />
           <Route
+            key="news-trend-detail"
+            path="/Admin/News/Trending/:id"
+            element={<TrendingDetail />}
+          />
+          <Route
+            key="news-trend-Add"
+            path="/Admin/News/Trending/Add"
+            element={<TrendingAdd />}
+          />
+          <Route
             key="news-latest"
             path="/Admin/News/Latest"
             element={<Latest />}
@@ -59,7 +75,11 @@ function AnimateRoute() {
             element={<Upcoming />}
           />
           <Route key="events" path="/Admin/Events" element={<Events />} />
+          <Route key="eventDetail" path="/Admin/Events/:id" element={<EventDetail />} />
+          <Route key="eventAdd" path="/Admin/Events/Add" element={<EventAdd />} />
           <Route key="users" path="/Admin/Users" element={<Users />} />
+          <Route key="usersDetail" path="/Admin/Users/:id" element={<UsersDetail />} />
+          <Route key="usersAdd" path="/Admin/Users/Add" element={<UsersAdd />} />
         </Route>
         <Route path="/Login" element={<Login />} />
       </Routes>

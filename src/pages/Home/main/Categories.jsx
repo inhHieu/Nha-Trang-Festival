@@ -13,7 +13,6 @@ function Events() {
     try {
       const response = await axios.get("http://localhost:8008/api/categories");
       setCategories(response.data);
-      console.log("got data1");
       setLoadings(false);
     } catch (error) {
       alert("Error: " + error.message);

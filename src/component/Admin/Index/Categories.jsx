@@ -18,7 +18,6 @@ function Categories({ token }) {
         }
       );
       setCategories(response.data);
-      console.log(response.data);
       setLoadings(true);
     } catch (error) {
       console.log("Error: " + error.message);

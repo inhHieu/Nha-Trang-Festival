@@ -19,7 +19,6 @@ function Users({ token }) {
         }
       );
       setUsers(response.data);
-      console.log(response.data);
       setLoadings(true);
     } catch (error) {
       console.log("Error: " + error.message);
