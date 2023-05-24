@@ -24,7 +24,6 @@ function UsersAdd() {
     const data = JSON.parse(localStorage.getItem("token"));
     setToken(data);
   }, []);
- 
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -66,20 +65,35 @@ function UsersAdd() {
       console.log("onSubmit", values);
       setWaiting(true);
       try {
+        values.age = values.age || new Date().toISOString().slice(0, 10);
+
+        const requestData = {
+          roleId: values.roleId,
+          email: values.email,
+          password: values.password,
+          age: values.age + "T00:00:00",
+        };
+        if (values.firstName !== '') {
+          requestData.firstName = values.firstName;
+        }
+        if (values.lastName !== '') {
+          requestData.lastName = values.lastName;
+        }
+        if (values.phone !== "") {
+          requestData.phone = values.phone;
+        }
+        if (values.address !== "") {
+          requestData.address = values.address;
+        }
+        if (values.sex !== "") {
+          requestData.sex = values.sex;
+        }
+        if (values.avatar !== "") {
+          requestData.avatar = values.avatar;
+        }
         const response = await axios.post(
           `http://localhost:8008/api/admin/adminusers`,
-          JSON.stringify({
-            roleId: values.roleId,
-            firstName: values.firstName,
-            lastName: values.lastName,
-            phone: values.phone,
-            address: values.address,
-            email: values.email,
-            password: values.password,
-            sex: values.sex,
-            age: values.age + "T00:00:00",
-            avatar: values.avatar,
-          }),
+          JSON.stringify(requestData),
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -89,17 +103,16 @@ function UsersAdd() {
         );
         setWaiting(false);
         console.log(response.data);
-        if( Number(response.data) && response.data > 1){
-          setStatus(true)
+        if (Number(response.data) && response.data > 1) {
+          setStatus(true);
           //wait 2s then navigate to
           setTimeout(() => {
-            navigate('/Admin/Users')
-          }, 1000)
+            navigate("/Admin/Users");
+          }, 1000);
         }
       } catch (error) {
         console.log("Error: " + error.message);
         setWaiting(false);
-
       }
     },
   });

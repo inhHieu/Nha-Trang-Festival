@@ -20,6 +20,9 @@ import EventAdd from "../pages/Admin/EventEventAdd.jsx";
 import Users from "../pages/Admin/Users.jsx";
 import UsersDetail from "../pages/Admin/UsersDetail.jsx";
 import UsersAdd from "../pages/Admin/UsersAdd.jsx";
+import Categories from "../pages/Admin/Categories";
+import CategoriesDetail from "../pages/Admin/CategoriesDetail.jsx";
+import CategoriesAdd from "../pages/Admin/CategoriesAdd.jsx";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -80,6 +83,10 @@ function AnimateRoute() {
           <Route key="users" path="/Admin/Users" element={<Users />} />
           <Route key="usersDetail" path="/Admin/Users/:id" element={<UsersDetail />} />
           <Route key="usersAdd" path="/Admin/Users/Add" element={<UsersAdd />} />
+          <Route key="Categories" path="/Admin/Categories" element={<Categories />} />
+          <Route key="CategoriesDetaill" path="/Admin/Categories/:id" element={<CategoriesDetail />} />
+          <Route key="CategoriesAdd" path="/Admin/Categories/add" element={<CategoriesAdd />} />
+
         </Route>
         <Route path="/Login" element={<Login />} />
       </Routes>

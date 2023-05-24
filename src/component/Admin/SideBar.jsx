@@ -22,6 +22,9 @@ function SideBar() {
       case "/Admin/Users":
         setActive(4);
         break;
+      case "/Admin/Categories":
+        setActive(5);
+        break;
       default:
         setActive(0);
         break;
@@ -87,6 +90,18 @@ function SideBar() {
             >
               <FontAwesomeIcon icon="fa-solid fa-user" className="mr-2" />
               User
+            </button>
+          </Link>
+          <Link to="/Admin/Categories">
+            <button
+              className={`rounded-lg duration-300 ${
+                active === 5
+                  ? "bg-hard-blue text-white "
+                  : "text-hard-gray bg-transparent hover:bg-white-purple"
+              }`}
+            >
+              <FontAwesomeIcon icon="fa-solid fa-user" className="mr-2" />
+              Categories
             </button>
           </Link>
         </div>

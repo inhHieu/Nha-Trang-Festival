@@ -87,7 +87,7 @@ const Trending = () => {
     );
   }
   return (
-    <motion.div className="Trending py-20 flex flex-col gap-7" ref={ref}>
+    <motion.div className="Trending pb-20 w-full flex flex-col gap-7 2xl:w-[980px] sm:py-20" ref={ref}>
       <p className="mb-7 text-10 tracking-[0.1rem]">TRENDING NEWS</p>
       {!loadings &&
         trends.map((trending) => (
@@ -98,13 +98,13 @@ const Trending = () => {
             key={trending.newsId}
           >
             <motion.div
-              className="NewsSection group flex h-52 cursor-pointer"
+              className="NewsSection group flex flex-col  cursor-pointer sm:flex-row sm:h-52 "
               variants={container}
               initial="hidden"
               animate={control}
             >
               <motion.div
-                className="image w-[45%] h-full bg-def-gray rounded-lg flex-shrink-0 overflow-clip"
+                className="image w-full h-full bg-def-gray rounded-lg flex-shrink-0 overflow-clip sm:w-[45%] "
                 variants={item}
               >
                 <img

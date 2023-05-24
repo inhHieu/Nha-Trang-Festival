@@ -1,5 +1,6 @@
 .Events {
-    width: 70rem;
+    width: min(90%, 70rem);
+    // width: 70rem;
     min-height: 100vh;
     margin: 0 auto;
     p {
@@ -12,15 +13,16 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        row-gap: 1rem;
         .Link {
             li {
                 padding: 1.5rem 0;
                 // cursor: pointer;
                 .event-card {
                     position: relative;
-                    width: 390px;
+                    width: 20rem;
                     // width: clamp(max,normal,min);
-                    height: 490px;
+                    height: 24rem;
                     .img-wrap {
                         width: 100%;
                         height: 100%;
@@ -75,6 +77,100 @@
                     }
                     .info {
                         bottom: -1.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .Events {
+        ol {
+            .Link {
+                li {
+                    .event-card {
+                        width: 18rem;
+                        height: 22rem;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .Events {
+        ol {
+            .Link {
+                li {
+                    .event-card {
+                        width: 15rem;
+                        height: 19rem;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 640px) {
+    @media (hover) {
+        .Link {
+            &:hover {
+            }
+        }
+    }
+    .Events {
+        ol {
+            flex-direction: column;
+            padding-bottom: 1rem;
+            .Link {
+                flex-grow: 0;
+                li {
+                    display: flex;
+                    justify-content: center;
+                    .event-card {
+                        width: 90%;
+                        height: 19rem;
+                        .info {
+                            bottom: 1.5rem;
+                            z-index: 1;
+                            color: white;
+                            background: rgb(0, 0, 0);
+                            background: linear-gradient(0deg, rgba(0, 0, 0, 7) 0%, rgba(0, 0, 0, 0) 100%);
+                            padding-top: 7.5rem;
+                            border-bottom-right-radius: 1rem;
+                            border-bottom-left-radius: 1rem;
+                        }
+                        .img-wrap {
+                            border-radius: 1rem;
+                            top: -1.5rem;
+                        }
+                    }
+                }
+                &:hover {
+                    .event-card {
+                        .img-wrap {
+                            top: -1.5rem;
+                        }
+                        .info {
+                            bottom: 1.5rem;
+                        }
+                    }
+                }
+                &:nth-child(even) {
+                    .event-card {
+                        .info {
+                            top: unset !important;
+                        }
+                    }
+                    &:hover {
+                        .event-card {
+                            .img-wrap {
+                                top: -1.5rem;
+                            }
+                            .info {
+                                bottom: 1.5rem;
+                            }
+                        }
                     }
                 }
             }

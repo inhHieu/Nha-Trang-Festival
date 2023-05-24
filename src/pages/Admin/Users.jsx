@@ -88,7 +88,7 @@ function Users() {
             </>
           )}
           <button
-            className="bg-light-blue h-71 w-48 rounded-md duration-300 hover:bg-sea-blue hover:text-white"
+            className="bg-light-blue h-min self-center py-1 px-12 rounded-md duration-300 hover:bg-sea-blue hover:text-white"
             onClick={handleLoadMore}
           >
             Load more

@@ -31,9 +31,9 @@ function Events() {
     return (
       <div className="Events">
         <ol className="animate-pulse">
-          <div className="card w-[390px] h-[490px] rounded-2xl bg-def-gray "></div>
-          <div className="card w-[390px] h-[490px] rounded-2xl bg-def-gray "></div>
-          <div className="card w-[390px] h-[490px] rounded-2xl bg-def-gray "></div>
+          <div className="card w-96 h-[490px] rounded-2xl bg-def-gray "></div>
+          <div className="card w-80 h-96 rounded-2xl bg-def-gray "></div>
+          <div className="card w-80 h-96 rounded-2xl bg-def-gray "></div>
         </ol>
       </div>
     );

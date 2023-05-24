@@ -4,15 +4,15 @@ import {
   motion,
   useTransform,
   useScroll,
-  // useMotionValueEvent,
+  useMotionValueEvent,
 } from "framer-motion";
 
 function TakePlace( refa) {
 //   const targetref = useRef();
   const { scrollYProgress } = useScroll( );
-  // useMotionValueEvent(scrollYProgress, "change", (latest) => {
-  //   console.log("Page scroll: ", latest);
-  // });
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    console.log("Page scroll: ", latest);
+  });
 //   const opacity1 = useTransform(scrollYProgress, [0, 1], [0, 1]);
     const opacity1 = useTransform(
       scrollYProgress,

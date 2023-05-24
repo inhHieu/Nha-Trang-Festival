@@ -8,11 +8,11 @@ import axios from "axios";
 import LoaderFullSC from "../../component/loaderFullSC";
 import Success from "../../component/Success.jsx";
 
-function EventDetail() {
+function CategoriesDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [events, setEvents] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loadings, setLoadings] = useState(true);
   const [status, setStatus] = useState(false);
   const [waiting, setWaiting] = useState(false);
@@ -20,18 +20,18 @@ function EventDetail() {
   const [token, setToken] = useState();
   const [showModal, setShowModal] = useState(false);
 
-  const buttonSubmitRef = useRef(null);
+  const buttonSubmitRef = useRef();
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("token"));
     setToken(data);
   }, []);
 
-  const deleteEvent = async () => {
+  const deleteCategories = async () => {
     setDeleting(true);
     try {
       const response = await axios.delete(
-        `http://localhost:8008/api/admin/adminevents/${id}`,
+        `http://localhost:8008/api/admin/admincategories/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -41,17 +41,17 @@ function EventDetail() {
       );
       setDeleting(false);
       setShowModal(false);
-      navigate("/Admin/Events");
+      navigate("/Admin/Categories");
       console.log("deleted");
     } catch (error) {
       alert("Error: " + error.message);
     }
   };
 
-  const getEvents = async () => {
+  const getcategories = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/events/${id}`,
+        `http://localhost:8008/api/admin/admincategories/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -59,58 +59,45 @@ function EventDetail() {
           },
         }
       );
-      setEvents(response.data);
+      setCategories(response.data);
       setLoadings(false);
-      console.log("got data");
     } catch (error) {
       alert("Error: " + error.message);
     }
   };
   useEffect(() => {
-    if (token) getEvents();
+    if (token) getcategories();
   }, [token]);
 
-  // from handlers
   const formik = useFormik({
     initialValues: {
-      eventId: events.eventId,
-      categoryId: events.categoryId,
-      eventName: events.eventName,
-      eventDescription: events.eventDescription,
-      summary: events.summary,
-      takePlace: events.takePlace,
-      dateStart: events.dateStart,
-      imageUrl: events.imageUrl,
+      category_Id: categories.category_Id,
+      categoryName: categories.categoryName,
+      categoryDescription: categories.categoryDescription,
+      image: categories.image,
+      totalNews: categories.totalNews,
+      totalEvents: categories.totalEvents,
+      totalSubscribers: categories.totalSubscribers,
     },
     enableReinitialize: true,
     //validations
     validationSchema: Yup.object({
-      categoryId: Yup.number()
-        .required("Category ID must not be empty")
-        .positive()
-        .typeError("Category ID must be a number"),
-      eventName: Yup.string().required("Event name must not be empty"),
-      eventDescription: Yup.string().required("Description must not be empty"),
-      summary: Yup.string().required("Summary must not be empty"),
-      takePlace: Yup.string().required("Take place must not be empty"),
-      dateStart: Yup.string().required("Date start must not be empty"),
-      imageUrl: Yup.string().required("Image Url must not be empty"),
+      categoryName: Yup.string().required("Category Name must not be empty"),
+      categoryDescription: Yup.string().required(
+        "Categories Description name must not be empty"
+      ),
+      image: Yup.string().required("Image Url must not be empty"),
     }),
     onSubmit: async (values) => {
       buttonSubmitRef.current.focus();
-      console.log("onSubmit", values);
       setWaiting(true);
       try {
         const response = await axios.put(
-          `http://localhost:8008/api/admin/adminevents/${id}`,
+          `http://localhost:8008/api/admin/admincategories/${id}`,
           JSON.stringify({
-            categoryId: values.categoryId,
-            eventName: values.eventName,
-            eventDescription: values.eventDescription,
-            summary: values.summary,
-            takePlace: values.takePlace,
-            dateStart: values.dateStart,
-            imageUrl: values.imageUrl,
+            categoryName: values.categoryName,
+            categoryDescription: values.categoryDescription,
+            image: values.image,
           }),
           {
             headers: {
@@ -123,11 +110,12 @@ function EventDetail() {
         if (Number(response.data) && response.data == 1) {
           setStatus(true);
           setTimeout(() => {
-            setStatus(false);
-          }, 1000);
+          setStatus(false);
+          }, 1000)
         }
       } catch (error) {
         console.log("Error: " + error.message);
+        setWaiting(false);
       }
     },
   });
@@ -136,7 +124,7 @@ function EventDetail() {
     setShowModal(true);
   }
   function confirmHandler() {
-    deleteEvent();
+    deleteCategories();
   }
 
   return (
@@ -171,7 +159,7 @@ function EventDetail() {
               <section className="flex flex-col justify-around w-full h-full text-center">
                 <div className="text">
                   <p className="text-red-500 text-[1.1rem]">
-                    🗑️Delete this news?
+                    🗑️Delete this Category?
                   </p>
                   <p className="text-gray-500 text-06 font-thin mt-1 ">
                     This action can't be undone
@@ -204,194 +192,177 @@ function EventDetail() {
             onSubmit={formik.handleSubmit}
           >
             <div className="row flex flex-wrap justify-between  ">
-              {/* =========================eventID================================  */}
+              {/* =========================category_Id================================  */}
               <label
-                htmlFor="eventId"
+                htmlFor="category_Id"
                 className={
-                  formik.touched.eventId && formik.errors.eventId
+                  formik.touched.category_Id && formik.errors.category_Id
                     ? "text-red-500"
                     : ""
                 }
               >
-                {formik.touched.eventId && formik.errors.eventId
-                  ? formik.errors.eventId
-                  : "Event ID"}
-                <br />
-                <input
-                  className="bg-white-blue font-normal rounded-md border-2 border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
-                  type="text"
-                  name="eventId"
-                  id="eventId"
-                  disabled="disabled"
-                  value={formik.values.eventId}
-                  onChange={formik.handleChange}
-                />
-              </label>
-              {/* =========================categoryID================================  */}
-              <label
-                htmlFor="categoryId"
-                className={
-                  formik.touched.categoryId && formik.errors.categoryId
-                    ? "text-red-500"
-                    : ""
-                }
-              >
-                {formik.touched.categoryId && formik.errors.categoryId
-                  ? formik.errors.categoryId
+                {formik.touched.category_Id && formik.errors.category_Id
+                  ? formik.errors.category_Id
                   : "Category ID"}
                 <br />
                 <input
                   className="bg-white-blue font-normal rounded-md border-2 border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
                   type="text"
-                  name="categoryId"
-                  id="categoryId"
-                  value={formik.values.categoryId}
+                  name="category_Id"
+                  id="category_Id"
+                  disabled="disabled"
+                  value={formik.values.category_Id}
                   onChange={formik.handleChange}
                 />
               </label>
-              {/* ==============================date===========================  */}
+              {/* =========================totalNews================================  */}
               <label
-                htmlFor="dateStart"
+                htmlFor="totalNews"
                 className={
-                  formik.touched.dateStart && formik.errors.dateStart
+                  formik.touched.totalNews && formik.errors.totalNews
                     ? "text-red-500"
                     : ""
                 }
               >
-                {formik.touched.dateStart && formik.errors.dateStart
-                  ? formik.errors.dateStart
-                  : "Date Start"}
+                {formik.touched.totalNews && formik.errors.totalNews
+                  ? formik.errors.totalNews
+                  : "Total News"}
                 <br />
                 <input
                   className="bg-white-blue font-normal rounded-md border-2 border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
                   type="text"
-                  name="dateStart"
-                  id="dateStart"
-                  value={formik.values.dateStart}
+                  name="totalNews"
+                  id="totalNews"
+                  disabled="disabled"
+                  value={formik.values.totalNews}
+                  onChange={formik.handleChange}
+                />
+              </label>
+              {/* ==============================totalEvents===========================  */}
+              <label
+                htmlFor="totalEvents"
+                className={
+                  formik.touched.totalEvents && formik.errors.totalEvents
+                    ? "text-red-500"
+                    : ""
+                }
+              >
+                {formik.touched.totalEvents && formik.errors.totalEvents
+                  ? formik.errors.totalEvents
+                  : "Total Events"}
+                <br />
+                <input
+                  className="bg-white-blue font-normal rounded-md border-2 border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
+                  type="text"
+                  name="totalEvents"
+                  id="totalEvents"
+                  disabled="disabled"
+                  value={formik.values.totalEvents}
                   onChange={formik.handleChange}
                 />
               </label>
             </div>
             <div className="row flex justify-between">
-              {/* ==========================Name=============================  */}
+              {/* ==========================categoryName=============================  */}
               <label
-                htmlFor="eventName"
+                htmlFor="categoryName"
                 className={
-                  formik.touched.eventName && formik.errors.eventName
+                  formik.touched.categoryName && formik.errors.categoryName
                     ? "w-9/12 text-red-500"
                     : "w-9/12 "
                 }
               >
-                {formik.touched.eventName && formik.errors.eventName
-                  ? formik.errors.eventName
-                  : "Event Name"}
+                {formik.touched.categoryName && formik.errors.categoryName
+                  ? formik.errors.categoryName
+                  : "Category Name"}
                 <br />
                 <input
                   className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
                   type="text"
-                  name="eventName"
-                  id="eventId"
-                  value={formik.values.eventName}
+                  name="categoryName"
+                  id="categoryName"
+                  value={formik.values.categoryName}
                   onChange={formik.handleChange}
                 />
               </label>
-              {/* ==============================takeplace===========================  */}
+              {/* ==============================totalSubscribers===========================  */}
               <label
-                htmlFor="takePlace"
+                htmlFor="totalSubscribers"
                 className={
-                  formik.touched.takePlace && formik.errors.takePlace
+                  formik.touched.totalSubscribers &&
+                  formik.errors.totalSubscribers
                     ? "text-red-500"
                     : ""
                 }
               >
-                {formik.touched.takePlace && formik.errors.takePlace
-                  ? formik.errors.takePlace
-                  : "Take Place"}
+                {formik.touched.totalSubscribers &&
+                formik.errors.totalSubscribers
+                  ? formik.errors.totalSubscribers
+                  : "Total Subscribers"}
                 <br />
                 <input
                   className="bg-white-blue font-normal rounded-md border-2 border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
                   type="text"
-                  name="takePlace"
-                  id="takePlace"
-                  value={formik.values.takePlace}
+                  name="totalSubscribers"
+                  id="totalSubscribers"
+                  value={formik.values.totalSubscribers}
                   onChange={formik.handleChange}
                 />
               </label>
             </div>
-            {/* =============================description=========================  */}
+            {/* =============================categoryDescription=========================  */}
+
             <label
-              htmlFor="eventDescription"
+              htmlFor="categoryDescription"
               className={
-                formik.touched.eventDescription &&
-                formik.errors.eventDescription
+                formik.touched.categoryDescription &&
+                formik.errors.categoryDescription
                   ? "text-red-500"
                   : ""
               }
             >
-              {formik.touched.eventDescription && formik.errors.eventDescription
-                ? formik.errors.eventDescription
-                : "Event Description"}
+              {formik.touched.categoryDescription &&
+              formik.errors.categoryDescription
+                ? formik.errors.categoryDescription
+                : "Category Description"}
               <br />
               <textarea
                 className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
                 type="text"
-                name="eventDescription"
-                id="eventDescription"
+                name="categoryDescription"
+                id="categoryDescription"
                 rows={4}
-                value={formik.values.eventDescription}
-                onChange={formik.handleChange}
-              />
-            </label>
-            {/* =============================summary===========================  */}
-            <label
-              htmlFor="summary"
-              className={
-                formik.touched.summary && formik.errors.summary
-                  ? "text-red-500"
-                  : ""
-              }
-            >
-              {formik.touched.summary && formik.errors.summary
-                ? formik.errors.summary
-                : "Summary"}
-              <br />
-              <textarea
-                className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
-                type="text"
-                name="summary"
-                id="summary"
-                rows={2}
-                value={formik.values.summary}
+                value={formik.values.categoryDescription}
                 onChange={formik.handleChange}
               />
             </label>
 
-            {/* ==============================img===========================  */}
+            {/* ==============================image===========================  */}
             <label
-              htmlFor="imageUrl"
+              htmlFor="image"
               className={
-                formik.touched.imageUrl && formik.errors.imageUrl
+                formik.touched.image && formik.errors.image
                   ? "text-red-500"
                   : ""
               }
             >
-              {formik.touched.imageUrl && formik.errors.imageUrl
-                ? formik.errors.imageUrl
+              {formik.touched.image && formik.errors.image
+                ? formik.errors.image
                 : "Image Url"}
               <br />
               <input
                 className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
                 type="text"
-                name="imageUrl"
-                id="imageUrl"
-                value={formik.values.imageUrl}
+                name="image"
+                id="image"
+                value={formik.values.image}
                 onChange={formik.handleChange}
               />
             </label>
             <div className="h-36 w-36 rounded-md overflow-clip">
               <img
                 className="w-full h-full object-cover"
-                src={formik.values.imageUrl}
+                src={formik.values.image}
                 alt=""
               />
             </div>
@@ -425,4 +396,4 @@ function EventDetail() {
   );
 }
 
-export default EventDetail;
+export default CategoriesDetail;

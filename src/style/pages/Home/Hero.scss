@@ -40,15 +40,17 @@ $default-gray: #e3e3e3;
     align-content: center;
     user-select: none;
     .sub-hero-text {
-        font-size: 3.2rem;
+        font-size: 2.5rem;
         color: #000000;
         animation: show 1.8s ease-out 1s forwards;
     }
     #Layer_1 {
         overflow: visible;
-        width: 903px;
-        height: 170.84px;
+        height: 170px;
     }
+}
+.g {
+    transform: translateX(-100%);
 }
 .cls-1 {
     fill: none;
@@ -121,5 +123,74 @@ $default-gray: #e3e3e3;
     }
     100% {
         color: #1f1f1f;
+    }
+}
+@media only screen and (max-width: 1536) {
+    .Hero {
+        height: 100vh;
+        width: 100%;
+        // background-image: url(./hero.jpg);
+        // background-size: cover;
+        // background-origin: border-box;
+        .background {
+            background-color: $default-gray;
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            z-index: -2;
+            user-select: none;
+            overflow: hidden;
+            .blackmask {
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: #000000;
+                animation: light-on 0.5s ease-out 2.5s forwards;
+                opacity: 1;
+                z-index: 100;
+            }
+            img {
+                width: 100%;
+                height: 100vh;
+                object-fit: cover;
+                // object-position: bot;
+            }
+        }
+    }
+    .Text {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        align-content: center;
+        user-select: none;
+        .sub-hero-text {
+            font-size: 3.2rem;
+            color: #000000;
+            animation: show 1.8s ease-out 1s forwards;
+        }
+        #Layer_1 {
+            overflow: visible;
+            width: 903px;
+            height: 170.84px;
+        }
+    }
+    .cls-1 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 12px;
+        stroke-dasharray: 483.7;
+        stroke-dashoffset: 483.7;
+        animation: written 4s ease-out 0.5s forwards;
+    }
+    .a1 {
+        animation-duration: 1.3s;
+    }
+    .cls-2 {
+        fill: #ffffff;
+        animation: colorize 0.3s ease-out 2.5s forwards;
     }
 }

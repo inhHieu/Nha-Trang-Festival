@@ -5,13 +5,17 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import LoaderFullSC from "../../../component/loaderFullSC";
+import Success from "../../../component/Success.jsx";
+
 function TrendingDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [news, setNews] = useState([]);
   const [loadings, setLoadings] = useState(true);
-  const [waiting, setWaiting] = useState(true);
+  const [status, setStatus] = useState(false);
+  const [waiting, setWaiting] = useState(false);
   const [deleting, setDeleting] = useState(true);
   const [token, setToken] = useState();
   const [showModal, setShowModal] = useState(false);
@@ -37,7 +41,7 @@ function TrendingDetail() {
       );
       setDeleting(false);
       setShowModal(false);
-      navigate("/Admin/News/Trending")
+      navigate("/Admin/News/Trending");
       console.log("deleted");
     } catch (error) {
       alert("Error: " + error.message);
@@ -113,6 +117,12 @@ function TrendingDetail() {
           }
         );
         setWaiting(false);
+        if (Number(response.data) && response.data == 1) {
+          setStatus(true);
+          setTimeout(() => {
+            setStatus(false);
+          }, 1000);
+        }
       } catch (error) {
         console.log("Error: " + error.message);
       }
@@ -129,6 +139,8 @@ function TrendingDetail() {
   return (
     <main className="w-full h-screen overflow-clip overflow-y-auto grid place-items-center text-08 font-bold">
       <AnimatePresence>
+        {status && <Success />}
+        {waiting && <LoaderFullSC />}
         {showModal && (
           <>
             <motion.div

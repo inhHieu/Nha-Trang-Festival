@@ -27,6 +27,7 @@ function Hero() {
         <span className="sub-hero-text">Nha Trang</span>
         <svg
           id="Layer_1"
+          className="scale-[0.35] sm:scale-[0.6] md:scale-75 lg:scale-100 "
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
           // viewBox="0 0 903 170.84"
@@ -124,7 +125,7 @@ function Hero() {
               />
             </mask>
           </defs>
-          <g>
+          <g className="g">
             <path
               mask="url(#mask-S-S)"
               id="S-S"
