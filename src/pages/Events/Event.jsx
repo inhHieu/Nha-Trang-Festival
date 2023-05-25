@@ -139,67 +139,6 @@ function Event(props) {
     }
   };
 
-  // const getColor = (e) => {
-  //   const rgba  = getAverageRGB(e.target)
-
-  //   imgWrapRef.current.style.background =
-  //     "linear-gradient(180deg, rgba(" +
-  //     rgba.r +
-  //     "," +
-  //     rgba.g +
-  //     "," +
-  //     rgba.b +
-  //     " ,1) 0%, rgba(255,255,255,0) 80%, rgba(255,255,255,0) 100%)";
-  // };
-
-  // function getAverageRGB(imgEl) {
-  //   var blockSize = 5, // only visit every 5 pixels
-  //     defaultRGB = { r: 100, g: 100, b: 100 }, // for non-supporting envs
-  //     canvas = document.createElement("canvas"),
-  //     context = canvas.getContext && canvas.getContext("2d"),
-  //     data,
-  //     width,
-  //     height,
-  //     i = -4,
-  //     length,
-  //     rgb = { r: 100, g: 100, b: 100 },
-  //     count = 0;
-
-  //   if (!context) {
-  //     return defaultRGB;
-  //   }
-
-  //   height = canvas.height =
-  //     imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
-  //   width = canvas.width =
-  //     imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
-
-  //   context.drawImage(imgEl, 0, 0);
-
-  //   try {
-  //     data = context.getImageData(0, 0, width, height);
-  //   } catch (e) {
-  //     /* security error, img on diff domain */
-  //     alert("x");
-  //     return defaultRGB;
-  //   }
-
-  //   length = data.data.length;
-
-  //   while ((i += blockSize * 4) < length) {
-  //     ++count;
-  //     rgb.r += data.data[i];
-  //     rgb.g += data.data[i + 1];
-  //     rgb.b += data.data[i + 2];
-  //   }
-
-  //   // ~~ used to floor values
-  //   rgb.r = ~~(rgb.r / count);
-  //   rgb.g = ~~(rgb.g / count);
-  //   rgb.b = ~~(rgb.b / count);
-  //   return rgb;
-  // }
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -211,7 +150,7 @@ function Event(props) {
     >
       <div className="relative w-full h-full">
         <img
-          crossOrigin="anonymous"
+          // crossOrigin="anonymous"
           src={event.imageUrl}
           alt=""
           className="w-full h-full object-cover"
@@ -219,23 +158,31 @@ function Event(props) {
         ></img>
       </div>
       <div className=" absolute bottom-0 bg-gradient-to-t from-black to-black/0 w-full h-2/3 text-white ">
-        <div className="relative flex flex-col justify-end  w-70rem h-full mx-auto ">
-          <div className="text-20">{event.eventName}</div>
-          <div className="flex gap-8">
-            <div className="pb-12 min-w-[80%]">{event.eventDescription}</div>
-            <div
-              className={`heart flex-shrink-0 w-8 h-8  text-20 animate-bounce ${
-                heart ? "text-red-500 animate-none" : ""
-              }`}
-            >
-              <FontAwesomeIcon
-                icon="fa-solid fa-heart"
-                className="cursor-pointer"
-                onClick={heart ? () => unSubcribe() : () => Subcribe()}
-              />
+        <div className="relative flex flex-col justify-end w-[90%] h-full mx-auto 2xl:w-[70rem] ">
+          <div className=" text-[1.7rem] font-semibold sm:text-20">
+            {event.eventName}
+          </div>
+          <div className="flex flex-col gap-4 py-4 w-full">
+            <div className="text-justify">{event.eventDescription}</div>
+            <div className="flex justify-between">
+              <div className="detail flex flex-col gap-x-2 sm:flex-row ">
+                <div className="time">{event.dateStart?.slice(0, -9)}</div>
+                <div className="palce">{event.takePlace}</div>
+              </div>
+              <div
+                className={`heart flex-grow  text-20 sm:animate-bounce text-right ${
+                  heart ? "text-red-500 animate-none" : ""
+                }`}
+              >
+                <FontAwesomeIcon
+                  icon="fa-solid fa-heart"
+                  className="cursor-pointer"
+                  onClick={heart ? () => unSubcribe() : () => Subcribe()}
+                />
+              </div>
             </div>
           </div>
-          <div className="narrow flex absolute top-[20%] -translate-y-[20%] h-max w-full text-20 justify-between">
+          <div className="narrow flex absolute left-0 top-[20%] -translate-y-[20%] h-max w-full max-w-[70rem] text-20 justify-between">
             <div className="cursor-pointer" onClick={handelprev}>
               <FontAwesomeIcon
                 icon="fa-solid fa-angle-up"

@@ -98,7 +98,7 @@ const Trending = () => {
             key={trending.newsId}
           >
             <motion.div
-              className="NewsSection group flex flex-col  cursor-pointer sm:flex-row sm:h-52 "
+              className="NewsSection group flex flex-col cursor-pointer sm:flex-row sm:h-52 "
               variants={container}
               initial="hidden"
               animate={control}

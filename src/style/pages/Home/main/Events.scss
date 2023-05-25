@@ -1,7 +1,7 @@
 .Events {
     width: min(90%, 70rem);
     // width: 70rem;
-    min-height: 100vh;
+    // min-height: 100vh;
     margin: 0 auto;
     p {
         text-transform: uppercase;
@@ -11,24 +11,28 @@
         margin-top: 2rem;
         list-style: none;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-around;
         row-gap: 1rem;
+        padding-bottom: 1rem;
         .Link {
+            flex-grow: 0;
             li {
+                display: flex;
+                justify-content: center;
                 padding: 1.5rem 0;
                 // cursor: pointer;
                 .event-card {
                     position: relative;
-                    width: 20rem;
+                    width: 90%;
                     // width: clamp(max,normal,min);
-                    height: 24rem;
+                    height: 19rem;
                     .img-wrap {
                         width: 100%;
                         height: 100%;
                         position: absolute;
-                        top: 0;
-                        border-radius: 3rem 1rem;
+                        top: -1.5rem;
+                        border-radius: 1rem;
                         overflow: clip;
                         transition: 0.3s;
                         img {
@@ -39,110 +43,107 @@
                     }
                     .info {
                         position: absolute;
-                        bottom: 0;
                         width: 100%;
                         text-align: center;
                         transition: 0.3s;
-                        z-index: -1;
-                        // .tag {
-                        // }
-                        // .title {
-                        // }
+
+                        bottom: 1.5rem;
+                        z-index: 1;
+                        color: white;
+                        background: rgb(0, 0, 0);
+                        background: linear-gradient(0deg, rgba(0, 0, 0, 7) 0%, rgba(0, 0, 0, 0) 100%);
+                        padding-top: 7.5rem;
+                        border-bottom-right-radius: 1rem;
+                        border-bottom-left-radius: 1rem;
                     }
                 }
             }
 
-            &:nth-child(even) {
-                .event-card {
-                    .info {
-                        top: 0;
-                    }
-                }
-                &:hover {
-                    .event-card {
-                        .img-wrap {
-                            top: 1.5rem;
-                        }
-                        .info {
-                            top: -1.5rem;
-                        }
-                    }
-                }
-            }
-            &:hover {
-                .event-card {
-                    .img-wrap {
-                        top: -1.5rem;
-                        border-radius: 1rem;
-                    }
-                    .info {
-                        bottom: -1.5rem;
-                    }
-                }
-            }
+            // &:nth-child(even) {
+            //     .event-card {
+            //         .info {
+            //             top: unset;
+            //         }
+            //     }
+            //     &:hover {
+            //         .event-card {
+            //             .img-wrap {
+            //                 top: -1.5rem;
+            //             }
+            //             .info {
+            //                 bottom: 1.5rem;
+            //             }
+            //         }
+            //     }
+            // }
+            // &:hover {
+            //     .event-card {
+            //         .img-wrap {
+            //             top: -1.5rem;
+            //             border-radius: 1rem;
+            //         }
+            //         .info {
+            //             bottom: 1.5rem;
+            //         }
+            //     }
+            // }
         }
     }
-}
-@media only screen and (max-width: 1024px) {
+} 
+@media only screen and (min-width: 640px) {
     .Events {
-        ol {
+        ol { 
             .Link {
-                li {
-                    .event-card {
-                        width: 18rem;
-                        height: 22rem;
-                    }
-                }
-            }
-        }
-    }
-}
-@media only screen and (max-width: 768px) {
-    .Events {
-        ol {
-            .Link {
-                li {
-                    .event-card {
-                        width: 15rem;
-                        height: 19rem;
-                    }
-                }
-            }
-        }
-    }
-}
-@media only screen and (max-width: 640px) {
-    @media (hover) {
-        .Link {
-            &:hover {
-            }
-        }
-    }
-    .Events {
-        ol {
-            flex-direction: column;
-            padding-bottom: 1rem;
-            .Link {
-                flex-grow: 0;
                 li {
                     display: flex;
                     justify-content: center;
+                    .event-card { 
+                        .info {
+                            bottom: 0;
+                            border-radius: 3rem 1rem;
+                        }
+                        .img-wrap {
+                            border-radius: 3rem 1rem;
+                            top: 0;
+                        }
+                    }
+                }
+                 
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .Events {
+        ol {
+            .Link {
+                li {
                     .event-card {
                         width: 90%;
                         height: 19rem;
-                        .info {
-                            bottom: 1.5rem;
-                            z-index: 1;
-                            color: white;
-                            background: rgb(0, 0, 0);
-                            background: linear-gradient(0deg, rgba(0, 0, 0, 7) 0%, rgba(0, 0, 0, 0) 100%);
-                            padding-top: 7.5rem;
-                            border-bottom-right-radius: 1rem;
-                            border-bottom-left-radius: 1rem;
-                        }
-                        .img-wrap {
-                            border-radius: 1rem;
-                            top: -1.5rem;
+                         
+                    }
+                }
+                
+            }
+        }
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .Events {
+        ol {
+            flex-direction: row;
+            .Link {
+                li {
+                    .event-card {
+                        width: 16rem;
+                        height: 22rem;
+                        .info{
+                            padding: 0;
+                            background: none;
+                            color: initial;
+                            z-index: -1;
                         }
                     }
                 }
@@ -150,27 +151,44 @@
                     .event-card {
                         .img-wrap {
                             top: -1.5rem;
+                            border-radius:  1rem;
+
                         }
                         .info {
-                            bottom: 1.5rem;
+                            bottom: -1.5rem;
                         }
                     }
                 }
                 &:nth-child(even) {
                     .event-card {
                         .info {
-                            top: unset !important;
+                            bottom: unset !important;
+                            top: 0;
                         }
                     }
                     &:hover {
                         .event-card {
                             .img-wrap {
-                                top: -1.5rem;
+                                top: 1.5rem !important;
                             }
                             .info {
-                                bottom: 1.5rem;
+                                top: -1.5rem !important;
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width: 1280px) {
+    .Events{
+        ol{
+            .Link{
+                li{
+                    .event-card{
+                        width: 20rem;
+                        height: 26rem;
                     }
                 }
             }

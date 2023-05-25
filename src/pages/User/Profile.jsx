@@ -2,27 +2,53 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
+import axios from "axios";
+import { parse, isDate } from "date-fns";
+
 import * as Yup from "yup";
 
-function Profile({ firstName, lastName, userAddress, userEmail, userPhone }) {
+function Profile({ userInfos }) {
   const navigate = useNavigate();
+  const [id, setId] = useState();
+  const [waiting, setWaiting] = useState(false);
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user-info"));
+    setId(data.user.user_ID);
+    setToken(data.token);
+    console.log(data.token);
+  }, []);
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   const formik = useFormik({
     initialValues: {
-      fname: firstName,
-      lname: lastName,
-      dob: "30/10/2077",
-      address: userAddress,
-      email: userEmail,
-      phone: userPhone,
+      fname: userInfos.firstName,
+      lname: userInfos.lastName,
+      dob: userInfos.age.slice(0, -9),
+      address: userInfos.address,
+      email: userInfos.email,
+      phone: userInfos.phone,
+      sex: userInfos.sex,
     },
     enableReinitialize: true,
     //validation
     validationSchema: Yup.object({
-      name: Yup.string().max(30, "Name must be 30 characters or less"),
+      fname: Yup.string().max(30, "Name must be 30 characters or less"),
+      lname: Yup.string().max(30, "Name must be 30 characters or less"),
+      dob: Yup.date()
+        .transform(function (value, originalValue) {
+          if (this.isType(value)) {
+            return value;
+          }
+          const result = parse(originalValue, "dd/MM/yyyy", new Date());
+          return result;
+        })
+        .typeError("please enter a valid date")
+        .required()
+        .min("01/01/1888", "Date is not valid"),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
@@ -31,7 +57,39 @@ function Profile({ firstName, lastName, userAddress, userEmail, userPhone }) {
         .matches(phoneRegExp, "Phone number is not valid"),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      setWaiting(true);
+      try {
+        const response = await axios.put(
+          `http://localhost:8008/api/users/${id}`,
+          JSON.stringify({
+            firstName: values.firstName,
+            lastName: values.lastName,
+            phone: values.phone,
+            address: values.address,
+            email: values.email,
+            password: values.password,
+            sex: values.sex,
+            age: values.age,
+            avatar: values.avatar,
+          }),
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setWaiting(false);
+        if (Number(response.data) && response.data == 1) {
+          setStatus(true);
+          setTimeout(() => {
+            setStatus(false);
+          }, 1000);
+        }
+      } catch (error) {
+        console.log("Error: " + error.message);
+      }
       console.log(values);
     },
   });
@@ -55,14 +113,14 @@ function Profile({ firstName, lastName, userAddress, userEmail, userPhone }) {
 
   return (
     <motion.div
-      className="user-info"
+      className="user-info flex flex-col w-full items-center lg:justify-around lg:items-start lg:flex-row "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <div className="drop-img">drop img here</div>
       <form
-        className="information-form"
+        className="information-form w-full h-[25rem] flex flex-col lg:w-1/2 "
         method="post"
         onSubmit={formik.handleSubmit}
       >
@@ -112,6 +170,7 @@ function Profile({ firstName, lastName, userAddress, userEmail, userPhone }) {
             : "Day of Birth"}
         </label>
         <input
+          placeholder="dd/MM/yyyy"
           type="text"
           id="dob"
           name="dob"
@@ -152,6 +211,7 @@ function Profile({ firstName, lastName, userAddress, userEmail, userPhone }) {
             : "Email"}
         </label>
         <input
+          placeholder="youremail@mail.com"
           type="text"
           id="email"
           name="email"
@@ -188,7 +248,7 @@ function Profile({ firstName, lastName, userAddress, userEmail, userPhone }) {
           Save
         </button>
       </form>
-      <div className="option-group">
+      <div className="option-group flex flex-row gap-x-4 gap-y-2 lg:flex-col ">
         <button className="btn feedback">Feedback</button>
         <button
           // className="btn edit"

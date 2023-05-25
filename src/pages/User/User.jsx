@@ -70,10 +70,10 @@ const User = (props) => {
           <img src={bg} alt="" />
         </div>
         <div className="info">
-          <div className="avatar-wrap">
+          <div className="avatar-wrap w-36 h-36 -bottom-[4.5rem] rounded-full md:w-[200px] md:h-[200px] md:-bottom-[100px] ">
             <img src="" alt="" />
           </div>
-          <div className="user-name">{userInfos ? userInfos.firstName + " "+ userInfos.lastName : ""}</div>
+          <div className="user-name left-44 text-[1.3rem] font-semibold sm:text-[2rem] sm:left-56 ">{userInfos ? userInfos.firstName + " "+ userInfos.lastName : ""}</div>
           <div className="tab-group">
             <div className={`tab ${tab ? 'active' : ''}`} onClick={() => setTab(true)}>Profile</div>
             <div className={`tab ${!tab ? 'active' : ''}`} onClick={() => setTab(false)}>Subscribed</div>
@@ -84,11 +84,7 @@ const User = (props) => {
         {loggedIn ? (
           <>
             {tab ? (<Profile
-              firstName={userInfos.firstName}
-              lastName={userInfos.lastName}
-              userAddress={userInfos.address}
-              userEmail={userInfos.email}
-              userPhone={userInfos.phone}
+              userInfos={userInfos}
             />) : (<Subcribed token={token} id={userID} />)}
           </>
         ) : (

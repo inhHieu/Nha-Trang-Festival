@@ -134,20 +134,21 @@ function New(props) {
       // exit={{ opacity:0 ,transition:{duration:.5}}}
 
       // style={{ color: result }}
-      className="News"
+      className="News -mt-16 min-h-screen"
       ref={imgWrapRef}
     >
-      <div className="title-img">
+      <div className="title-img w-full h-[27rem] ">
         <img
+          className="w-full h-full object-cover"
           crossOrigin="anonymous"
           src={news.titleImg}
           alt=""
           // onLoad={(e) => getColor(e)}
         ></img>
       </div>
-      <div className="container">
-        <div className="title">{news.newsTitle}</div>
-        <div className="contents">{news.newsContent}</div>
+      <div className="container flex flex-col gap-4 py-4 mx-auto w-[80%]  2xl:w-[70rem] ">
+        <div className="title mt-7 text-20">{news.newsTitle}</div>
+        <div className="contents  ">{news.newsContent}</div>
       </div>
     </motion.div>
   );

@@ -33,6 +33,7 @@ function Subcribed({ id, token }) {
   }, [id, token]);
   const handleLoadMore = () => {
     getSubs(id, subs.length);
+    console.log(subs);
   };
   if (loadings) {
     return (
@@ -55,24 +56,34 @@ function Subcribed({ id, token }) {
       >
         <ol className="list-none">
           {!loadings &&
-            subs.map((sub, i) => (
-              <Link key={i} to={`/Event/${sub.event.eventId}`}>
-                <EventCard
-                  name={sub.event.eventName}
-                  date={sub.event.dateStart}
-                  category={sub.event.category.categoryName}
-                  img={sub.event.imageUrl}
-                  i={i}
-                />
-              </Link>
+            (subs.length !== 0 ? (
+              subs.map((sub, i) => (
+                <Link key={i} to={`/Event/${sub.event.eventId}`}>
+                  <EventCard
+                    name={sub.event.eventName}
+                    date={sub.event.dateStart}
+                    category={sub.event.category.categoryName}
+                    img={sub.event.imageUrl}
+                    i={i}
+                  />
+                </Link>
+              ))
+            ) : (
+              <div className="text-center">
+                You have not subscribed any events.
+                <br /> Let's subscribe some{" "}
+                <Link to={"/Categories/1?event=true"} className="text-sea-blue font-semibold text-[1.2rem] "> awesome events!</Link>
+              </div>
             ))}
         </ol>
-        <button
-          className="bg-light-blue mt-8 py-1 px-4 rounded-md duration-300 hover:bg-sea-blue hover:text-white"
-          onClick={handleLoadMore}
-        >
-          Load more
-        </button>
+        {subs.length !== 0 && (
+          <button
+            className="bg-light-blue mt-8 py-1 px-4 rounded-md duration-300 hover:bg-sea-blue hover:text-white"
+            onClick={handleLoadMore}
+          >
+            Load more
+          </button>
+        )}
       </motion.div>
     </>
   );

@@ -6,7 +6,7 @@ const footer = (props) => {
   const navigate = useNavigate();
   return (
     <div className="footer grid items-center w-full min-h-screen  py-8 bg-def-black text-light-gray font-light">
-      <div className="wrap  mx-auto flex flex-col gap-8 justify-around items-center md:flex-row md:gap-0">
+      <div className="wrap mx-auto flex flex-col gap-8 justify-around items-center md:flex-row md:gap-0">
         <div className="qr-wrap">
           {/* <div className="">Download now</div> */}
           <div className="qr w-60 h-60 bg-white rounded-xl overflow-clip">
@@ -14,7 +14,7 @@ const footer = (props) => {
           </div>
           {/* <div className="">Alway in touch</div> */}
         </div>
-        <div className="flex flex-col justify-around items-center w-full gap-14 sm:flex-row">
+        <div className="flex flex-col justify-around gap-x-0 items-center w-full gap-14 sm:flex-row">
           <ul className="links flex flex-col gap-4 list-none">
             <li className="link cursor-pointer capitalize tracking-widest font-bold ">
               About

@@ -87,8 +87,8 @@ const Header = () => {
               <>
                 <div className="right">
                   <h5>
-                    {userInfo.user.firstName}
-                    {" " + userInfo.user.lastName}
+                    {userInfo.user.firstName != null ? userInfo.user.firstName : ''}
+                    {userInfo.user.lastName != null ? " " + userInfo.user.lastName : ""}
                   </h5>
                   <Link to="/User">
                     <div className="avatar"></div>

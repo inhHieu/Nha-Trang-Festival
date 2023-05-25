@@ -9,7 +9,6 @@ function Auth() {
     if (localStorage.getItem("user-info")) {
       const data = JSON.parse(localStorage.getItem("user-info"));
       const decodeToken = jwt_decode(data.token);
-      console.log(decodeToken);
       if (decodeToken.exp < Date.now() / 1000) {
         // change this
         localStorage.removeItem("user-info");

@@ -107,10 +107,10 @@ function Category() {
             </div>
           </div>
         </div>
-        <div className="fillter absolute bottom-0  w-70rem left-1/2 -translate-x-1/2 flex justify-between">
-          <div className="tab-group w-48 bg-white-blue flex justify-around rounded-t-lg overflow-clip cursor-pointer">
+        <div className="fillter absolute bottom-0  w-[90%] left-1/2 -translate-x-1/2 flex justify-between lg:w-70rem">
+          <div className="tab-group w-32 bg-white-blue flex flex-col justify-around rounded-t-lg overflow-clip cursor-pointer md:w-48 md:flex-row">
             <div
-              className={`tab w-24 text-center duration-300 ${
+              className={`tab w-full py-1 text-center duration-300 md:w-24 md:p-0 ${
                  tab ? "" : "bg-def-gray"
               } `}
               onClick={() => setTab(true)}
@@ -118,7 +118,7 @@ function Category() {
               Events
             </div>
             <div
-              className={`tab w-24 text-center duration-300 ${
+              className={`tab w-full py-1 text-center duration-300 md:w-24 md:p-0 ${
                 !tab ? "" : "bg-def-gray"
               } `}
               onClick={() => setTab(false)}
@@ -139,7 +139,7 @@ function Category() {
           </div>
         </div>
       </div>
-      <div className="container pb-12 flex flex-col items-center">
+      <div className="container w-[90%] pb-12 flex flex-col items-center lg:w-full">
         { tab ? (
           <EventSection id={category.category_Id} categories={categories} />
         ) : (

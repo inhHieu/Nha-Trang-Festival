@@ -40,7 +40,7 @@ function Events() {
   }
 
   return (
-    <div className="Events">
+    <div className="Events flex flex-col">
       <div className="flex justify-between">
         <p>Events</p>
         <ViewAll link={"/Categories/1?event=true"}>View all</ViewAll>
