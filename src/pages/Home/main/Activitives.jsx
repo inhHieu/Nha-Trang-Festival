@@ -1,7 +1,7 @@
 import React from "react";
-import bg1 from "../../../asses/beach1.jpg";
+import bg1 from "../../../asses/fes2.jpg";
 import bg2 from "../../../asses/fes1.jpg";
-import bg3 from "../../../asses/LotusTower.jpg";
+import bg3 from "../../../asses/fes3.jpg";
 import {
   motion,
   useTransform,

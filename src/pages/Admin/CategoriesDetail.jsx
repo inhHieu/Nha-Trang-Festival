@@ -304,6 +304,7 @@ function CategoriesDetail() {
                   className="bg-white-blue font-normal rounded-md border-2 border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
                   type="text"
                   name="totalSubscribers"
+                  disabled="disabled"
                   id="totalSubscribers"
                   value={formik.values.totalSubscribers}
                   onChange={formik.handleChange}

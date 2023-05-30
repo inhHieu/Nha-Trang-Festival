@@ -17,6 +17,9 @@ import {
   faHeart,
   faPlus,
   faCheck,
+  faEye,
+  faArrowRightFromBracket,
+  faCubesStacked,
 } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 // import { faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -36,5 +39,8 @@ library.add(
   faTimes,
   faHeart,
   faPlus,
-  faCheck
+  faCheck,
+  faEye,
+  faArrowRightFromBracket,
+  faCubesStacked
 );

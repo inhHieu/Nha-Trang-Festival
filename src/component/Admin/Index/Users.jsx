@@ -44,7 +44,7 @@ function Users({ token }) {
         </div>
         {loadings &&
           users.map((item, i) => (
-            <Link to={`/News/${item.news_ID}`} key={i} className="item">
+            <Link to={`/Admin/Users/${item.user_ID}`} key={i} className="item">
               <div className="name w-6/12">
                 {item.firstName + " " + item.lastName}
               </div>

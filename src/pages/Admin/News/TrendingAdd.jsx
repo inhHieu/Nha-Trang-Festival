@@ -7,6 +7,7 @@ import axios from "axios";
 
 import LoaderFullSC from "../../../component/loaderFullSC";
 import Success from "../../../component/Success.jsx";
+import CategoriesDropdown from "../../../component/Admin/CategoryDropdown";
 
 function TrendingAdd() {
   const { id } = useParams();
@@ -96,6 +97,11 @@ function TrendingAdd() {
   function confirmHandler() {
     deleteNews();
   }
+  const [selected, setSelected] = useState("");
+  const handleDropdownSelect = (value) => {
+    setSelected(value);
+    formik.values.categoryId = value; // false, need fix
+  };
 
   return (
     <main className="w-full h-screen overflow-clip overflow-y-auto grid place-items-center text-08 font-bold">
@@ -186,26 +192,24 @@ function TrendingAdd() {
             </label>
             {/* =========================categoryID================================  */}
             <label
-              htmlFor="categoryId"
-              className={
-                formik.touched.categoryId && formik.errors.categoryId
-                  ? "text-red-500"
-                  : ""
-              }
-            >
-              {formik.touched.categoryId && formik.errors.categoryId
-                ? formik.errors.categoryId
-                : "Category ID"}
-              <br />
-              <input
-                className="bg-white-blue font-normal rounded-md border-2 border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
-                type="text"
-                name="categoryId"
-                id="categoryId"
-                value={formik.values.categoryId}
-                onChange={formik.handleChange}
-              />
-            </label>
+                htmlFor="categoryId"
+                className={
+                  formik.touched.categoryId && formik.errors.categoryId
+                    ? "text-red-500"
+                    : ""
+                }
+              >
+                {formik.touched.categoryId && formik.errors.categoryId
+                  ? formik.errors.categoryId
+                  : "Category ID"}
+                <br />
+                <CategoriesDropdown
+                  token={token}
+                  id={formik.values.categoryId}
+                  onSelect={handleDropdownSelect}
+                  onChange={formik.handleChange}
+                />
+              </label>
             {/* ==============================view===========================  */}
             <label
               htmlFor="views"

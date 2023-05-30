@@ -43,7 +43,7 @@ function Categories({ token }) {
         </div>
         {loadings &&
           categories.slice(1).map((item, i) => (
-            <Link to={`/News/${item.news_ID}`} key={i} className="item">
+            <Link to={`/Admin/Categories/${item.category_Id}`} key={i} className="item">
               <div className="name w-4/12">{item.categoryName}</div>
               <div className="text-center w-3/12">{item.totalEvents}</div>
               <div className="date w-3/12">{item.totalNews}</div>

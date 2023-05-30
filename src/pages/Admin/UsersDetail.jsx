@@ -8,7 +8,6 @@ import axios from "axios";
 import LoaderFullSC from "../../component/loaderFullSC";
 import Success from "../../component/Success.jsx";
 
-
 function UsersDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -109,11 +108,13 @@ function UsersDetail() {
     onSubmit: async (values) => {
       buttonSubmitRef.current.focus();
       console.log("onSubmit", values);
+      const isTrueSet = values.sex?.toLowerCase?.() === "true";
+       
       setWaiting(true);
       try {
         const response = await axios.put(
           `http://localhost:8008/api/admin/adminusers/${id}`,
-          JSON.stringify({
+           {
             roleId: values.roleId,
             firstName: values.firstName,
             lastName: values.lastName,
@@ -121,10 +122,10 @@ function UsersDetail() {
             address: values.address,
             email: values.email,
             password: values.password,
-            sex: values.sex,
+            sex: isTrueSet,
             age: values.age,
             avatar: values.avatar,
-          }),
+          } ,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -136,8 +137,8 @@ function UsersDetail() {
         if (Number(response.data) && response.data == 1) {
           setStatus(true);
           setTimeout(() => {
-          setStatus(false);
-          }, 1000)
+            setStatus(false);
+          }, 1000);
         }
       } catch (error) {
         console.log("Error: " + error.message);
@@ -222,8 +223,8 @@ function UsersDetail() {
                 htmlFor="user_ID"
                 className={
                   formik.touched.user_ID && formik.errors.user_ID
-                  ? " w-2/12 text-red-500"
-                  : " w-2/12"
+                    ? " w-2/12 text-red-500"
+                    : " w-2/12"
                 }
               >
                 {formik.touched.user_ID && formik.errors.user_ID
@@ -245,22 +246,26 @@ function UsersDetail() {
                 htmlFor="roleId"
                 className={
                   formik.touched.roleId && formik.errors.roleId
-                  ? " w-2/12 text-red-500"
-                  : " w-2/12"
+                    ? " w-2/12 text-red-500"
+                    : " w-2/12"
                 }
               >
                 {formik.touched.roleId && formik.errors.roleId
                   ? formik.errors.roleId
                   : "Role ID"}
                 <br />
-                <input
+                <select
                   className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
                   type="text"
                   name="roleId"
                   id="roleId"
                   value={formik.values.roleId}
                   onChange={formik.handleChange}
-                />
+                >
+                  <option value={1}>Admin</option>
+                  <option value={2}>Moderator</option>
+                  <option value={3}>User</option>
+                </select>
               </label>
               {/* ==============================age===========================  */}
               <label
@@ -291,8 +296,8 @@ function UsersDetail() {
                 htmlFor="firstName"
                 className={
                   formik.touched.firstName && formik.errors.firstName
-                    ? "w-9/12 text-red-500"
-                    : "w-9/12 "
+                  ? "w-4/12  text-red-500"
+                  : "w-4/12  "
                 }
               >
                 {formik.touched.firstName && formik.errors.firstName
@@ -305,6 +310,28 @@ function UsersDetail() {
                   name="firstName"
                   id="firstName"
                   value={formik.values.firstName}
+                  onChange={formik.handleChange}
+                />
+              </label>
+              {/* ==========================lastName=============================  */}
+              <label
+                htmlFor="lastName"
+                className={
+                  formik.touched.lastName && formik.errors.lastName
+                    ? "w-4/12  text-red-500"
+                    : "w-4/12  "
+                }
+              >
+                {formik.touched.lastName && formik.errors.lastName
+                  ? formik.errors.lastName
+                  : "Last Name"}
+                <br />
+                <input
+                  className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  value={formik.values.lastName}
                   onChange={formik.handleChange}
                 />
               </label>
@@ -367,14 +394,17 @@ function UsersDetail() {
                   ? formik.errors.sex
                   : "Sex"}
                 <br />
-                <input
+                <select
                   className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
                   type="text"
                   name="sex"
                   id="sex"
                   value={formik.values.sex}
                   onChange={formik.handleChange}
-                />
+                >
+                  <option value={"true"}>Male</option>
+                  <option value={"false"}>Female</option>
+                </select>
               </label>
             </div>
             <div className="flex justify-between">

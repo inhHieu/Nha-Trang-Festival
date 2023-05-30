@@ -7,6 +7,7 @@ import axios from "axios";
 
 import LoaderFullSC from "../../component/loaderFullSC";
 import Success from "../../component/Success.jsx";
+import CategoriesDropdown from "../../component/Admin/CategoryDropdown";
 
 function EventDetail() {
   const { id } = useParams();
@@ -104,7 +105,7 @@ function EventDetail() {
         const response = await axios.put(
           `http://localhost:8008/api/admin/adminevents/${id}`,
           JSON.stringify({
-            categoryId: values.categoryId,
+            categoryId: selected,
             eventName: values.eventName,
             eventDescription: values.eventDescription,
             summary: values.summary,
@@ -138,7 +139,11 @@ function EventDetail() {
   function confirmHandler() {
     deleteEvent();
   }
-
+  const [selected, setSelected] = useState("");
+  const handleDropdownSelect = (value) => {
+    setSelected(value);
+    formik.values.categoryId = value; // false, need fix
+  };
   return (
     <main className="w-full h-screen overflow-clip overflow-y-auto grid place-items-center text-08 font-bold">
       <AnimatePresence>
@@ -240,12 +245,10 @@ function EventDetail() {
                   ? formik.errors.categoryId
                   : "Category ID"}
                 <br />
-                <input
-                  className="bg-white-blue font-normal rounded-md border-2 border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
-                  type="text"
-                  name="categoryId"
-                  id="categoryId"
-                  value={formik.values.categoryId}
+                <CategoriesDropdown
+                  token={token}
+                  id={formik.values.categoryId}
+                  onSelect={handleDropdownSelect}
                   onChange={formik.handleChange}
                 />
               </label>

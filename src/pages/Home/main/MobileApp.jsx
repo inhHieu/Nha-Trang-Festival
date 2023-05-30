@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
-import bg from "../../../asses/LotusTower.jpg";
+import bg from "../../../asses/mobileApp.jpg";
 
 function MobileApp() {
   const { scrollYProgress } = useScroll();

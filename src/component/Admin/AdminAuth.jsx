@@ -13,7 +13,7 @@ function AdminAuth() {
         decodeToken[
           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
         ];
-      console.log(decodeToken);
+      // console.log(decodeToken);
       if (decodeToken.exp < Date.now() / 1000) {// change this
         localStorage.removeItem("user-info");
         setAuth(false);

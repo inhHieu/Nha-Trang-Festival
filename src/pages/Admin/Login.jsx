@@ -3,9 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
+
+import LoaderFullSC from "../../component/loaderFullSC";
 import bg from "../../asses/LotusTower.jpg";
+
 function Login() {
   const navigate = useNavigate();
+  const [emailError, setEmailError] = useState(false);
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -29,18 +33,23 @@ function Login() {
             },
           }
         );
-        setLoading(false);
         console.log(response.data);
         localStorage.setItem("user-info", JSON.stringify(response.data));
         navigate("/Admin");
       } catch (error) {
-        console.log("Error: " + error.message);
+        if (error.response && error.response.status === 400) {
+          setEmailError(true);
+        } else {
+          console.log("Error: " + error.message);
+        }
+      } finally {
+        setLoading(false);
       }
     },
   });
   return (
     <div className=" bg-gradient-to-br from-teal-500 to-sky-500 w-screen h-screen grid place-content-center ">
-      {loading ? <p>loading</p> : ""}
+      {loading ? <LoaderFullSC/> : ""}
       <div className=" flex items-center justify-center rounded-lg shadow-2xl overflow-clip">
         <div className=" bg-white-blue w-[25rem] h-80 py-8 px-8 text-08 ">
           <div className=" font-semibold text-[1.2rem] ">
@@ -94,6 +103,9 @@ function Login() {
                 onChange={formik.handleChange}
               />
             </label>
+            <div className="  -mt-1 text-07 text-red-500 ">
+              {emailError ? "Email or password not correct" : ""}
+            </div>
             <Link className="text-06 italic text-def-black/90">
               forgot password?
             </Link>

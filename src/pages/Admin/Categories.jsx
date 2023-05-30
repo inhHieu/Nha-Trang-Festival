@@ -66,7 +66,7 @@ function Categories() {
       <main className="w-full h-5/6 overflow-auto overflow-x-hidden ">
         <ul className="list-none flex flex-wrap gap-2 justify-center w-full">
           {active ? (
-            categories.map((item, i) => (
+            categories.slice(1).map((item, i) => (
               <Link key={i} to={`/Admin/Categories/${item.category_Id}`}>
                 <CategoryCard
                   name={item.categoryName}

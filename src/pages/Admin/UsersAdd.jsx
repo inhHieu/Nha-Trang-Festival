@@ -34,7 +34,7 @@ function UsersAdd() {
       user_ID: "Auto generated",
       roleId: 3,
       firstName: "",
-      lastName: "hieu",
+      lastName: "",
       phone: "",
       address: "",
       email: "",
@@ -66,12 +66,14 @@ function UsersAdd() {
       setWaiting(true);
       try {
         values.age = values.age || new Date().toISOString().slice(0, 10);
+        const isTrueSet = values.sex?.toLowerCase?.() === "true";
 
         const requestData = {
           roleId: values.roleId,
           email: values.email,
           password: values.password,
           age: values.age + "T00:00:00",
+          sex: isTrueSet,
         };
         if (values.firstName !== '') {
           requestData.firstName = values.firstName;
@@ -225,14 +227,18 @@ function UsersAdd() {
                 ? formik.errors.roleId
                 : "Role ID"}
               <br />
-              <input
-                className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
-                type="text"
-                name="roleId"
-                id="roleId"
-                value={formik.values.roleId}
-                onChange={formik.handleChange}
-              />
+              <select
+                  className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
+                  type="text"
+                  name="roleId"
+                  id="roleId"
+                  value={formik.values.roleId}
+                  onChange={formik.handleChange}
+                >
+                  <option value={1}>Admin</option>
+                  <option value={2}>Moderator</option>
+                  <option value={3}>User</option>
+                </select>
             </label>
             {/* ==============================age===========================  */}
             <label
@@ -260,26 +266,48 @@ function UsersAdd() {
           <div className="row flex justify-between">
             {/* ==========================firstName=============================  */}
             <label
-              htmlFor="firstName"
-              className={
-                formik.touched.firstName && formik.errors.firstName
-                  ? "w-9/12 text-red-500"
-                  : "w-9/12 "
-              }
-            >
-              {formik.touched.firstName && formik.errors.firstName
-                ? formik.errors.firstName
-                : "First Name"}
-              <br />
-              <input
-                className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
-                type="text"
-                name="firstName"
-                id="firstName"
-                value={formik.values.firstName}
-                onChange={formik.handleChange}
-              />
-            </label>
+                htmlFor="firstName"
+                className={
+                  formik.touched.firstName && formik.errors.firstName
+                  ? "w-4/12  text-red-500"
+                  : "w-4/12  "
+                }
+              >
+                {formik.touched.firstName && formik.errors.firstName
+                  ? formik.errors.firstName
+                  : "First Name"}
+                <br />
+                <input
+                  className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  value={formik.values.firstName}
+                  onChange={formik.handleChange}
+                />
+              </label>
+              {/* ==========================lastName=============================  */}
+              <label
+                htmlFor="lastName"
+                className={
+                  formik.touched.lastName && formik.errors.lastName
+                    ? "w-4/12  text-red-500"
+                    : "w-4/12  "
+                }
+              >
+                {formik.touched.lastName && formik.errors.lastName
+                  ? formik.errors.lastName
+                  : "Last Name"}
+                <br />
+                <input
+                  className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  value={formik.values.lastName}
+                  onChange={formik.handleChange}
+                />
+              </label>
             {/* ==============================phone===========================  */}
             <label
               htmlFor="phone"
@@ -339,14 +367,17 @@ function UsersAdd() {
                 ? formik.errors.sex
                 : "Sex"}
               <br />
-              <input
-                className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
-                type="text"
-                name="sex"
-                id="sex"
-                value={formik.values.sex}
-                onChange={formik.handleChange}
-              />
+              <select
+                  className="bg-white-blue font-normal rounded-md border-2 w-full border-gray-200 px-2 py-1 mt-1 focus:border-light-blue focus:ring-light-blue outline-none"
+                  type="text"
+                  name="sex"
+                  id="sex"
+                  value={formik.values.sex}
+                  onChange={formik.handleChange}
+                >
+                  <option value={"true"}>Male</option>
+                  <option value={"false"}>Female</option>
+                </select>
             </label>
           </div>
           <div className="flex justify-between">

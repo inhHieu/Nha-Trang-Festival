@@ -10,6 +10,8 @@ import Profile from "./Profile";
 import Subcribed from "./Subcribed";
 import Loader from "../../component/Loader";
 
+import defAvatar from "../../../src/asses/defaultAvatar.jpg"
+
 const User = (props) => {
   const [tab, setTab] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true);
@@ -71,7 +73,7 @@ const User = (props) => {
         </div>
         <div className="info">
           <div className="avatar-wrap w-36 h-36 -bottom-[4.5rem] rounded-full md:w-[200px] md:h-[200px] md:-bottom-[100px] ">
-            <img src="" alt="" />
+            <img className="w-full h-full object-cover" src={ userInfos.avatar? userInfos.avatar :  defAvatar } alt="" />
           </div>
           <div className="user-name left-44 text-[1.3rem] font-semibold sm:text-[2rem] sm:left-56 ">{userInfos ? userInfos.firstName + " "+ userInfos.lastName : ""}</div>
           <div className="tab-group">

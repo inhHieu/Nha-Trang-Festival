@@ -6,6 +6,7 @@ import { useLocation } from "react-router";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "../../style/component/Header.scss";
+import defAvatar from "../../../src/asses/defaultAvatar.jpg"
 
 const Header = () => {
   //variable
@@ -91,7 +92,9 @@ const Header = () => {
                     {userInfo.user.lastName != null ? " " + userInfo.user.lastName : ""}
                   </h5>
                   <Link to="/User">
-                    <div className="avatar"></div>
+                    <div className="avatar overflow-clip">
+                      <img src={userInfo.user.avatar != null ? userInfo.user.avatar : defAvatar} alt="" />
+                    </div>
                   </Link>
                 </div>
               </>
