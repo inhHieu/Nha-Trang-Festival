@@ -22,12 +22,12 @@ function EventCard({ name, date, category, img, i }) {
             alt=""
           ></img>
         </div>
-        <div className="into px-4 pt-1">
+        <div className="into px-4 pt-1 flex flex-col gap-1">
           <div className="tag text-sea-blue text-05 uppercase tracking-wider	">
             {category}
           </div>
-          <div className="title pt-1 font-bold">{name}</div>
-          <div className="date pt-3 text-06">
+          <div className="title   font-bold">{name}</div>
+          <div className="date   text-06">
             <TimeAgo date={dateObj} />
           </div>
         </div>

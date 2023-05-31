@@ -9,6 +9,7 @@ import axios from "axios";
 function Events() {
   const [events, setEvents] = useState([]);
   const [loadings, setLoadings] = useState(true);
+  const [categories, setCategories] = useState([]);
 
   const getEvents = async () => {
     try {
@@ -22,9 +23,22 @@ function Events() {
       alert("Error: " + error.message);
     }
   };
+  const getCategories = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8008/api/categories?offset=0&limit=10000`
+      );
+      setCategories(response.data);
+      setLoadings(false);
+    } catch (error) {
+      console.log("Error: " + error.message);
+    }
+  };
+
   //APIs call
   useEffect(() => {
     getEvents();
+    getCategories();
   }, []);
 
   if (loadings) {
@@ -47,37 +61,46 @@ function Events() {
       </div>
       <ol>
         {!loadings &&
-          events.map((event, index) => (
-            <Link
-              className="Link"
-              to={`/Event/${event.eventId}`}
-              key={event.eventId}
-            >
-              <motion.li
-                initial={{ y: 200, opacity: 0 }}
-                whileInView={{
-                  y: 0,
-                  opacity: 1,
-                  transition: {
-                    type: "spring",
-                    bounce: 0,
-                    delay: 0.3 + index * 0.1,
-                  },
-                }}
-                viewport={{ once: true }}
+          events.map((event, index) => {
+            let categoryName;
+            for (let i = 0; i < categories.length; i++) {
+              if (event.categoryId == categories[i].category_Id) {
+                categoryName = categories[i].categoryName;
+                break;
+              }
+            }
+            return (
+              <Link
+                className="Link"
+                to={`/Event/${event.eventId}`}
+                key={event.eventId}
               >
-                <div className="event-card">
-                  <div className="img-wrap">
-                    <img src={event.imageUrl} alt="" />
+                <motion.li
+                  initial={{ y: 200, opacity: 0 }}
+                  whileInView={{
+                    y: 0,
+                    opacity: 1,
+                    transition: {
+                      type: "spring",
+                      bounce: 0,
+                      delay: 0.3 + index * 0.1,
+                    },
+                  }}
+                  viewport={{ once: true }}
+                >
+                  <div className="event-card">
+                    <div className="img-wrap">
+                      <img src={event.imageUrl} alt="" />
+                    </div>
+                    <div className="info">
+                      <div className="tag text-07 text-sea-blue">{categoryName}</div>
+                      <div className="title">{event.eventName}</div>
+                    </div>
                   </div>
-                  <div className="info">
-                    <div className="tag"> Art</div>
-                    <div className="title">{event.eventName}</div>
-                  </div>
-                </div>
-              </motion.li>
-            </Link>
-          ))}
+                </motion.li>
+              </Link>
+            );
+          })}
       </ol>
     </div>
   );

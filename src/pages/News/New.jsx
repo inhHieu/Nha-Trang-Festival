@@ -1,133 +1,74 @@
-import React, { useState,useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 import "../../style/pages/New.scss";
-import bg from "../../asses/beach1.jpg";
-
 // import ColorThief from "colorthief";
 
-// import bg1 from "../asses/fes1.jpg";
+import Loader from "../../../src/component/Loader";
+
 function New(props) {
   const imgWrapRef = useRef();
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [news, setNews] = useState([]);
-  const [loadings, setLoadings] = useState(false);
+  const [suggest, setSuggest] = useState([]);
+  const [loadings, setLoadings] = useState(true);
+  const [loadings2, setLoadings2] = useState(true);
+  const [date, setDate] = useState();
 
   const getNews = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:8008/api/news/${id}`
-      );
+      const response = await axios.get(`http://localhost:8008/api/news/${id}`);
+      console.log(response.data);
       setNews(response.data);
-      console.log("got data");
-      setLoadings(true);
+      const data = response.data.postedDate.slice(0, -9);
+      setDate(data);
     } catch (error) {
-      alert("Error: " + error.message);
+      console.log("Error: " + error.message);
+    } finally {
+      setLoadings(false);
     }
   };
-  //APIs call
+
+  const getSuggest = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8008/api/news/lastest/category/${news.categoryId}?offset=0&limit=4`
+      );
+      console.log("respond:", response.data, "id:", id);
+      const filteredSuggest = response.data.filter(
+        (item) => item.newsId !== parseInt(id)
+      );
+      console.log(filteredSuggest, "filter");
+      setSuggest(filteredSuggest);
+    } catch (error) {
+      console.log("Error: " + error.message);
+    } finally {
+      setLoadings2(false);
+    }
+  };
+
+  // APIs call
   useEffect(() => {
     getNews();
   }, []);
 
-
-
-
+  useEffect(() => {
+    getSuggest();
+  }, [news, id]);
   // useEffect(() => {
-  //   rgba.current = getAverageRGB(imgsRef.current);
-  //   console.log(imgWrapRef, imgsRef);
-  //   console.log(rgba)
-  //   imgWrapRef.current.style.boxShadow =
-  //     "rgba(" +
-  //     rgba.current.r +
-  //     "," +
-  //     rgba.current.g +
-  //     "," +
-  //     rgba.current.b +
-  //     ",0.75) 0px -5rem 10rem 10rem";
-  // },[]);
-
-  // const getColor = (e) => {
-  //   const rgba  = getAverageRGB(e.target)
-  //   // const colorThief = new ColorThief();
-  //   // const img = e.target;
-  //   // const result = colorThief.getColor(img, 25);
-  //   // console.log(
-  //   //   "linear-gradient(0deg, rgba(" +
-  //   //     result[0] +
-  //   //     "," +
-  //   //     result[1] +
-  //   //     "," +
-  //   //     result[2] +
-  //   //     " ,0 )0%, rgba(0, 0, 0, 1) 95%, rgba(0, 0, 0, 1) 100%)"
-  //   // );
-  //   imgWrapRef.current.style.background =
-  //     "linear-gradient(180deg, rgba(" +
-  //     rgba.r +
-  //     "," +
-  //     rgba.g +
-  //     "," +
-  //     rgba.b +
-  //     " ,1) 0%, rgba(255,255,255,0) 80%, rgba(255,255,255,0) 100%)";
-  // };
-
-  // function getAverageRGB(imgEl) {
-  //   var blockSize = 5, // only visit every 5 pixels
-  //     defaultRGB = { r: 100, g: 100, b: 100 }, // for non-supporting envs
-  //     canvas = document.createElement("canvas"),
-  //     context = canvas.getContext && canvas.getContext("2d"),
-  //     data,
-  //     width,
-  //     height,
-  //     i = -4,
-  //     length,
-  //     rgb = { r: 100, g: 100, b: 100 },
-  //     count = 0;
-
-  //   if (!context) {
-  //     return defaultRGB;
-  //   }
-
-  //   height = canvas.height =
-  //     imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
-  //   width = canvas.width =
-  //     imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
-
-  //   context.drawImage(imgEl, 0, 0);
-
-  //   try {
-  //     data = context.getImageData(0, 0, width, height);
-  //   } catch (e) {
-  //     /* security error, img on diff domain */
-  //     alert("x");
-  //     return defaultRGB;
-  //   }
-
-  //   length = data.data.length;
-
-  //   while ((i += blockSize * 4) < length) {
-  //     ++count;
-  //     rgb.r += data.data[i];
-  //     rgb.g += data.data[i + 1];
-  //     rgb.b += data.data[i + 2];
-  //   }
-
-  //   // ~~ used to floor values
-  //   rgb.r = ~~(rgb.r / count);
-  //   rgb.g = ~~(rgb.g / count);
-  //   rgb.b = ~~(rgb.b / count);
-  //   return rgb;
-  // }
+  // }, [suggest, id]);
+ 
+if (loadings) return <Loader />
 
   return (
     <motion.div
-    initial={{  opacity: 0 }}
-    animate={{  opacity: 1 }}
-    exit={{ y: -100, opacity: 0 }}
-    transition= {{ bounce: 0 }} 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ y: -100, opacity: 0 }}
+      transition={{ bounce: 0 }}
       // exit={{ y: -100, transition:{type: "spring", bounce: 0} }}
       // initial={{opacity: 0}}
       // animate={{opacity: 1,transition:{delay:.5}}}
@@ -143,12 +84,57 @@ function New(props) {
           crossOrigin="anonymous"
           src={news.titleImg}
           alt=""
-          // onLoad={(e) => getColor(e)}
         ></img>
       </div>
-      <div className="container flex flex-col gap-4 py-4 mx-auto w-[80%]  2xl:w-[70rem] ">
-        <div className="title mt-7 text-20">{news.newsTitle}</div>
-        <div className="contents  ">{news.newsContent}</div>
+      <div className="container flex gap-4  py-11 mx-auto w-[80%] min-h-[200vh]  2xl:w-[70rem] ">
+        <div className=" w-1/5 h-full "></div>
+        <article className="w-3/5">
+          <div className="title text-07">{date}</div>
+          <div className="title text-20">{news.newsTitle}</div>
+          <div className="text-justify">
+            {news.newsContent.split("[IMAGE]").map((text, i) => (
+              <>
+                {text}
+                {i === 0 && (
+                  <img
+                    className="mx-auto my-4"
+                    src={news.titleImg}
+                    alt=""
+                  />
+                )}
+              </>
+            ))}
+          </div>
+        </article>
+
+        <ol className=" sticky top-4 w-1/5 mt-32 h-full flex flex-col items-center">
+          {suggest.length !== 0 && (
+            <>
+              <p className=" w-full text-left px-4 py-4 text-09 font-semibold tracking-tighter">
+                Relative news
+              </p>
+              {suggest.map((item, i) => (
+                <article className="flex flex-col w-4/5  ">
+                  <div className="img-wrap rounded-lg w-full aspect-video overflow-clip ">
+                    <img
+                      className="group-hover:scale-100 w-full  h-full  object-cover  scale-105	duration-300  "
+                      src={item.titleImg}
+                      alt=""
+                    />
+                  </div>
+                  <div className="info w-full px-2 space-y-3 ">
+                    <div className="title mt-1 min-h-[2rem] tracking-wider text-center text-06 font-bold">
+                      {item.newsTitle}
+                    </div>
+                    <div className="date text-07">
+                      {/* <TimeAgo date={dateObj} /> */}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </>
+          )}
+        </ol>
       </div>
     </motion.div>
   );

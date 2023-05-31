@@ -11,9 +11,12 @@ function SideBar() {
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user-info"));
-    // console.log(data.user)
-    setUserInfo(data.user);
+    if(localStorage.getItem("user-info")){
+
+      const data = JSON.parse(localStorage.getItem("user-info"));
+      // console.log(data.user)
+      setUserInfo(data.user);
+    }
   }, []);
 
   useEffect(() => {
