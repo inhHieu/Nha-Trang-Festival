@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
+import {API_BASE_URL} from "../../../Api/BaseUrl"
 import ViewAll from "../../../component/ViewAll";
 import "../../../style/pages/Home/main/Events.scss";
 import axios from "axios";
@@ -14,7 +15,7 @@ function Events() {
   const getEvents = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8008/api/events?offset=0&limit=3"
+        `${API_BASE_URL}/events?offset=0&limit=3`
       );
       setEvents(response.data);
       console.log("got data");
@@ -26,7 +27,7 @@ function Events() {
   const getCategories = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/categories?offset=0&limit=10000`
+        `${API_BASE_URL}/categories?offset=0&limit=10000`
       );
       setCategories(response.data);
       setLoadings(false);

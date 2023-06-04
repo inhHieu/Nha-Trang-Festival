@@ -4,6 +4,8 @@ import "../../style/pages/Home/Countdown.scss";
 import TimeAgo from "../../../src/Hook/TimeAgo";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
+
 const Countdown = (props) => {
   const [date, setDate] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +13,7 @@ const Countdown = (props) => {
   const getEvent = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/events/${44}`
+        `${API_BASE_URL}/events/${44}`
       );
       const data = response.data.dateStart
       const parseData = new Date(data);

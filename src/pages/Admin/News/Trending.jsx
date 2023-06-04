@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../../Api/BaseUrl"
+
+
 import Dropdown from "../../../component/Dropdown";
 import EventCard from "../../../component/EventCard";
 import NewRow from "../../../component/Admin/NewRow.jsx";
@@ -25,7 +28,7 @@ function Trending() {
   const getNews = async (id, offset) => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/news/trending/category/${id}?offset=${offset}&limit=9`,
+        `${API_BASE_URL}/news/trending/category/${id}?offset=${offset}&limit=9`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +47,7 @@ function Trending() {
   const getNewsCID = async (id, offset) => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/news/trending/category/${id}?offset=${offset}&limit=9`,
+        `${API_BASE_URL}/news/trending/category/${id}?offset=${offset}&limit=9`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -62,7 +65,7 @@ function Trending() {
   };
   const getCategories = async () => {
     try {
-      const response = await axios.get(`http://localhost:8008/api/categories`);
+      const response = await axios.get(`${API_BASE_URL}/categories`);
       setCategories(response.data);
       setLoadings(true);
     } catch (error) {

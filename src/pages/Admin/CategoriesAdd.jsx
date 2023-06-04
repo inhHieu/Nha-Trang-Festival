@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import LoaderFullSC from "../../component/loaderFullSC";
 import Success from "../../component/Success.jsx";
 
@@ -48,7 +49,7 @@ function CategoriesAdd() {
       setWaiting(true);
       try {
         const response = await axios.post(
-          `http://localhost:8008/api/admin/admincategories`,
+          `${API_BASE_URL}/admin/admincategories`,
           JSON.stringify({
             categoryName: values.categoryName,
             categoryDescription: values.categoryDescription,

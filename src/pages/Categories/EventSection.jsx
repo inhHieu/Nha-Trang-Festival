@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import EventCard from "../../component/EventCard";
 
 function EventSection({ id, categories }) {
@@ -14,7 +15,7 @@ function EventSection({ id, categories }) {
   const getEvents = async (id, offset, limit) => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/events/category/${id}?offset=${offset}&limit=${limit}`
+        `${API_BASE_URL}/events/category/${id}?offset=${offset}&limit=${limit}`
       );
       const newEvents = response.data;
       setEvents(events.concat(newEvents));

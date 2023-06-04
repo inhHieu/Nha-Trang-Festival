@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Login from "./Login";
+import {API_BASE_URL} from "../../Api/BaseUrl"
 
 export const Signup = ({ setUser, setSignup }) => {
   const passwordRegExp =
@@ -28,7 +29,7 @@ export const Signup = ({ setUser, setSignup }) => {
   async function GetUserInfo(id, token) {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/subscribed/subid/${id}`,
+        `${API_BASE_URL}/subscribed/subid/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -47,7 +48,7 @@ export const Signup = ({ setUser, setSignup }) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8008/api/token",
+        `${API_BASE_URL}/token`,
         JSON.stringify({ email, password }),
         {
           headers: {
@@ -101,7 +102,7 @@ export const Signup = ({ setUser, setSignup }) => {
       setLoading(true);
       try {
         const response = await axios.post(
-          "http://localhost:8008/api/users",
+          `${API_BASE_URL}/users`,
           JSON.stringify({
             email: values.email,
             password: values.password,

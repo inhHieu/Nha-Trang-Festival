@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import LoaderFullSC from "../../component/loaderFullSC";
 import bg from "../../asses/LotusTower.jpg";
 
@@ -25,7 +26,7 @@ function Login() {
       setLoading(true);
       try {
         const response = await axios.post(
-          "http://localhost:8008/api/token",
+          `${API_BASE_URL}/token`,
           JSON.stringify({ email: values.email, password: values.password }),
           {
             headers: {

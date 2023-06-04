@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import { Signup } from "./Signup";
 
 const Login = ({ setUser, setRegister }) => {
@@ -46,7 +47,7 @@ const Login = ({ setUser, setRegister }) => {
   async function GetUserInfo(id, token) {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/subscribed/subid/${id}`,
+        `${API_BASE_URL}/subscribed/subid/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -75,7 +76,7 @@ const Login = ({ setUser, setRegister }) => {
       setLoading(true);
       try {
         const response = await axios.post(
-          "http://localhost:8008/api/token",
+          `${API_BASE_URL}/token`,
           JSON.stringify({ email: values.email, password: values.password }),
           {
             headers: {

@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../../Api/BaseUrl"
 import "../../../style/pages/Home/main/Trending.scss";
 
 const Trending = () => {
@@ -13,7 +14,7 @@ const Trending = () => {
   const getTrends = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8008/api/news/trending?offset=0&limit=3"
+        `${API_BASE_URL}/news/trending?offset=0&limit=3`
       );
       setTrends(response.data);
       console.log("got data");

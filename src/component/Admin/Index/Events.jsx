@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {API_BASE_URL} from "../../../Api/BaseUrl"
 
 function Events({ token }) {
   const [events, setEvents] = useState([]);
@@ -9,7 +10,7 @@ function Events({ token }) {
   const getEvents = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/admin/adminevents?offset=0&limit=4`,
+        `${API_BASE_URL}/admin/adminevents?offset=0&limit=4`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

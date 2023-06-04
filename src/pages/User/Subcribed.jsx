@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import EventCard from "../../component/EventCard";
 import CardLoader from "../../component/CardLoader";
 
@@ -12,7 +13,7 @@ function Subcribed({ id, token }) {
   const getSubs = async (id, offset) => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/subscribed/${id}?offset=${offset}&limit=6`,
+        `${API_BASE_URL}/subscribed/${id}?offset=${offset}&limit=6`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

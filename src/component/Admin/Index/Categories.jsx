@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../../Api/BaseUrl"
+
 function Categories({ token }) {
   const [categories, setCategories] = useState([]);
   const [loadings, setLoadings] = useState(false);
@@ -9,7 +11,7 @@ function Categories({ token }) {
   const getCategories = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/admin/admincategories`,
+        `${API_BASE_URL}/admin/admincategories`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -15,7 +15,7 @@ const CategoryDropdown = ({ id, token, onSelect }) => {
   const getCategories = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/admin/admincategories`,
+        `${API_BASE_URL}/admin/admincategories`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

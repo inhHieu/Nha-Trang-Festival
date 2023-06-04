@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import LoaderFullSC from "../../component/loaderFullSC";
 import Success from "../../component/Success.jsx";
 
@@ -31,7 +32,7 @@ function CategoriesDetail() {
     setDeleting(true);
     try {
       const response = await axios.delete(
-        `http://localhost:8008/api/admin/admincategories/${id}`,
+        `${API_BASE_URL}/admin/admincategories/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -51,7 +52,7 @@ function CategoriesDetail() {
   const getcategories = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/admin/admincategories/${id}`,
+        `${API_BASE_URL}/admin/admincategories/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -93,7 +94,7 @@ function CategoriesDetail() {
       setWaiting(true);
       try {
         const response = await axios.put(
-          `http://localhost:8008/api/admin/admincategories/${id}`,
+          `${API_BASE_URL}/admin/admincategories/${id}`,
           JSON.stringify({
             categoryName: values.categoryName,
             categoryDescription: values.categoryDescription,

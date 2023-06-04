@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import "./Profile";
 import "./Subcribed";
 import "../../style/pages/User.scss";
@@ -37,7 +38,7 @@ const User = (props) => {
       // check if userID and token have been set
       try {
         const response = await axios.get(
-          `http://localhost:8008/api/users/${userID}`,
+          `${API_BASE_URL}/users/${userID}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { parse, isDate } from "date-fns";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import { useDropzone } from "react-dropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -72,7 +73,7 @@ function Profile({ userInfos }) {
       console.log(values, isTrueSet);
       try {
         const response = await axios.put(
-          `http://localhost:8008/api/users/${id}`,
+          `${API_BASE_URL}/users/${id}`,
           JSON.stringify({
             user_ID: id,
             firstName: values.fname,

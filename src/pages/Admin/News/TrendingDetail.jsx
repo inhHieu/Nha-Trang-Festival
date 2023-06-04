@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../../Api/BaseUrl"
 import LoaderFullSC from "../../../component/loaderFullSC";
 import Success from "../../../component/Success.jsx";
 import CategoriesDropdown from "../../../component/Admin/CategoryDropdown";
@@ -32,7 +33,7 @@ function TrendingDetail() {
     setDeleting(true);
     try {
       const response = await axios.delete(
-        `http://localhost:8008/api/admin/adminnews/${id}`,
+        `${API_BASE_URL}/admin/adminnews/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -51,7 +52,7 @@ function TrendingDetail() {
 
   const getNews = async () => {
     try {
-      const response = await axios.get(`http://localhost:8008/api/news/${id}`, {
+      const response = await axios.get(`${API_BASE_URL}/news/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -100,7 +101,7 @@ function TrendingDetail() {
       setWaiting(true);
       try {
         const response = await axios.put(
-          `http://localhost:8008/api/admin/adminnews/${id}`,
+          `${API_BASE_URL}/admin/adminnews/${id}`,
           JSON.stringify({
             categoryId: values.categoryId,
             newsTitle: values.newsTitle,

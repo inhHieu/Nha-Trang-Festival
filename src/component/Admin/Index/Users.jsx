@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {API_BASE_URL} from "../../../Api/BaseUrl"
 
 import Age from "../../../Hook/Age";
 
@@ -10,7 +11,7 @@ function Users({ token }) {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/admin/adminusers?offset=0&limit=5`,
+        `${API_BASE_URL}/admin/adminusers?offset=0&limit=5`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

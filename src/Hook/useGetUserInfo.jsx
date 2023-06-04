@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import {API_BASE_URL} from "../../src/Api/BaseUrl"
 
 const useGetUserInfo = (id, token) => {
   const [userInfo, setUserInfo] = useState(null);
@@ -9,7 +10,7 @@ const useGetUserInfo = (id, token) => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:8008/api/subscribed/subid/${id}`, {
+        const response = await axios.get(`${API_BASE_URL}/subscribed/subid/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

@@ -20,6 +20,7 @@ import {
   faEye,
   faArrowRightFromBracket,
   faCubesStacked,
+  faArrowDownWideShort,
 } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 // import { faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -42,5 +43,6 @@ library.add(
   faCheck,
   faEye,
   faArrowRightFromBracket,
-  faCubesStacked
+  faCubesStacked,
+  faArrowDownWideShort
 );

@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import LoaderFullSC from "../../component/loaderFullSC";
 import Success from "../../component/Success.jsx";
 
@@ -94,7 +95,7 @@ function UsersAdd() {
           requestData.avatar = values.avatar;
         }
         const response = await axios.post(
-          `http://localhost:8008/api/admin/adminusers`,
+          `${API_BASE_URL}/admin/adminusers`,
           JSON.stringify(requestData),
           {
             headers: {

@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../../Api/BaseUrl"
 import LoaderFullSC from "../../../component/loaderFullSC";
 import Success from "../../../component/Success.jsx";
 import CategoriesDropdown from "../../../component/Admin/CategoryDropdown";
@@ -59,7 +60,7 @@ function TrendingAdd() {
       setWaiting(true);
       try {
         const response = await axios.post(
-          `http://localhost:8008/api/admin/adminnews`,
+          `${API_BASE_URL}/admin/adminnews`,
           JSON.stringify({
             categoryId: values.categoryId,
             newsTitle: values.newsTitle,

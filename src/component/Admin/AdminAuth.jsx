@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
+
 function AdminAuth() {
   const navigate = useNavigate();
   const [auth, setAuth] = useState(false);

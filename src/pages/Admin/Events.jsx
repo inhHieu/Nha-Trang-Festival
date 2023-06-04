@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import axios from "axios";
+
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import EventCard from "../../component/EventCard";
 import EventRow from "../../component/Admin/EventRow.jsx";
 import Dropdown from "../../component/Dropdown";
@@ -28,7 +30,7 @@ function Events() {
   const getEvents = async (id, offset) => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/admin/adminevents/category/${id}?offset=${offset}&limit=6`,
+        `${API_BASE_URL}/admin/adminevents/category/${id}?offset=${offset}&limit=6`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -46,7 +48,7 @@ function Events() {
   const getEventsCID = async (id, offset) => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/admin/adminevents/category/${id}?offset=${offset}&limit=6`,
+        `${API_BASE_URL}/admin/adminevents/category/${id}?offset=${offset}&limit=6`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -62,7 +64,7 @@ function Events() {
   };
   const getCategories = async () => {
     try {
-      const response = await axios.get(`http://localhost:8008/api/categories`);
+      const response = await axios.get(`${API_BASE_URL}/categories`);
       setCategories(response.data);
       setLoadings(true);
     } catch (error) {

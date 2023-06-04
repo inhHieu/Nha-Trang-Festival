@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import LoaderFullSC from "../../component/loaderFullSC";
 import Success from "../../component/Success.jsx";
 import CategoriesDropdown from "../../component/Admin/CategoryDropdown";
@@ -32,7 +33,7 @@ function EventDetail() {
     setDeleting(true);
     try {
       const response = await axios.delete(
-        `http://localhost:8008/api/admin/adminevents/${id}`,
+        `${API_BASE_URL}/admin/adminevents/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -52,7 +53,7 @@ function EventDetail() {
   const getEvents = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/events/${id}`,
+        `${API_BASE_URL}/events/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -103,7 +104,7 @@ function EventDetail() {
       setWaiting(true);
       try {
         const response = await axios.put(
-          `http://localhost:8008/api/admin/adminevents/${id}`,
+          `${API_BASE_URL}/admin/adminevents/${id}`,
           JSON.stringify({
             categoryId: selected,
             eventName: values.eventName,

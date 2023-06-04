@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import UserCard from "../../component/Admin/UserCard";
 import UserRow from "../../component/Admin/UserRow";
 
@@ -19,7 +21,7 @@ function Users() {
   const getUsers = async (offset) => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/admin/adminusers?offset=${offset}&limit=8`,
+        `${API_BASE_URL}/admin/adminusers?offset=${offset}&limit=8`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

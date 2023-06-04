@@ -5,14 +5,17 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import ScrollContainer  from "react-indiana-drag-scroll";
 
+import {API_BASE_URL} from "../../../Api/BaseUrl"
 import ViewAll from "../../../component/ViewAll";
+
+
 function Events() {
   const [categories, setCategories] = useState([]);
   const [loadings, setLoadings] = useState(true);
   //APIs call
   const getCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:8008/api/categories");
+      const response = await axios.get(`${API_BASE_URL}/categories`);
       setCategories(response.data);
       setLoadings(false);
     } catch (error) {

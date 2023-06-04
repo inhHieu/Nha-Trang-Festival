@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
+import { API_BASE_URL } from "../../Api/BaseUrl";
 import Dropdown from "../../component/Dropdown";
 import EventSection from "./EventSection";
 import NewsSection from "./NewsSection";
@@ -24,6 +25,7 @@ function Category() {
   const [category, setCategory] = useState({});
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sort, setSort] = useState("trending");
 
   const getCategory = () => {
     for (let i = 0; i < categories.length; i++) {
@@ -37,7 +39,7 @@ function Category() {
   const getCategories = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/categories?offset=0&limit=10000`
+        `${API_BASE_URL}/categories?offset=0&limit=10000`
       );
       setCategories(response.data);
       setLoading(false);
@@ -66,7 +68,7 @@ function Category() {
       const eventTab = event === "true";
       const storedTab = localStorage.getItem("tab");
       setTab(eventTab ?? JSON.parse(storedTab));
-    }else {
+    } else {
       const storedTab = localStorage.getItem("tab");
       setTab(JSON.parse(storedTab) ?? false);
     }
@@ -97,7 +99,7 @@ function Category() {
     >
       <div className="header-img">
         <div className="img-wrap">
-          <img src={bg} alt="" />
+          <img src={category.image} alt="" />
         </div>
         <div className="title-wrap">
           <div className="title-group">
@@ -111,7 +113,7 @@ function Category() {
           <div className="tab-group w-32 bg-white-blue flex flex-col justify-around rounded-t-lg overflow-clip cursor-pointer md:w-48 md:flex-row">
             <div
               className={`tab w-full py-1 text-center duration-300 md:w-24 md:p-0 ${
-                 tab ? "" : "bg-def-gray"
+                tab ? "" : "bg-def-gray"
               } `}
               onClick={() => setTab(true)}
             >
@@ -140,10 +142,27 @@ function Category() {
         </div>
       </div>
       <div className="container w-[90%] pb-12 flex flex-col items-center lg:w-full">
-        { tab ? (
+        {tab ? (
           <EventSection id={category.category_Id} categories={categories} />
         ) : (
-          <NewsSection id={category.category_Id} />
+          <>
+            <div className="flex gap-2 self-end border border-gray-200 px-2 py-1 rounded-md focus:border-red-500">
+              <p>Sort:</p>
+              <select
+                name="sort"
+                id="sort"
+                className=" "
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setSort(e.target.value);
+                }}
+              >
+                <option value="trending">Trending</option>
+                <option value="lastest">Latest</option>
+              </select>
+            </div>
+            <NewsSection id={category.category_Id} sort={sort} />
+          </>
         )}
       </div>
     </motion.div>

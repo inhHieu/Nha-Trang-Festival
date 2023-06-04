@@ -2,17 +2,33 @@ import React, { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { API_BASE_URL } from "../../Api/BaseUrl";
 import NewsCard from "../../component/NewsCard";
+import Dropdown from "../../component/Dropdown";
 
-function NewsSection({ id }) {
+function NewsSection({ id, sort }) {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoryID, setCategoryID] = useState();
-  const getNews = async (id, offset) => {
+
+  const getNews = async (id, sort, offset) => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/news/lastest/category/${id}?offset=${offset}&limit=6`
+        `${API_BASE_URL}/news/${sort}/category/${id}?offset=${offset}&limit=6`
+      );
+      setNews(response.data);
+      setLoading(false);
+      console.log(response.data);
+    } catch (error) {
+      console.log("Error: " + error.message);
+    }
+  };
+  const updateNews = async (id, sort, offset) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/news/${sort}/category/${id}?offset=${offset}&limit=6`
       );
       const newNews = response.data;
       setNews(news.concat(newNews));
@@ -24,11 +40,12 @@ function NewsSection({ id }) {
   };
 
   useEffect(() => {
-    getNews(id, 0);
-  }, [id]);
+    setNews([])
+    getNews(id, sort, 0);
+  }, [id,sort]);
 
   const handleLoadMore = () => {
-    getNews(id, news.length);
+    updateNews(id, news.length);
   };
 
   //============================================================================
@@ -41,7 +58,7 @@ function NewsSection({ id }) {
       <motion.ul
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex flex-col gap-12"
+        className="flex flex-col gap-12 mt-4"
       >
         {news.map((item, i) => (
           <Link to={`/News/${item.newsId}`} key={i}>

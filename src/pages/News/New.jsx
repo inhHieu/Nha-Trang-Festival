@@ -5,12 +5,13 @@ import { motion } from "framer-motion";
 import "../../style/pages/New.scss";
 // import ColorThief from "colorthief";
 
+import {API_BASE_URL} from "../../../src/Api/BaseUrl"
 import Loader from "../../../src/component/Loader";
 
 function New(props) {
   const imgWrapRef = useRef();
   const { id } = useParams();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const [news, setNews] = useState([]);
   const [suggest, setSuggest] = useState([]);
@@ -20,7 +21,7 @@ function New(props) {
 
   const getNews = async () => {
     try {
-      const response = await axios.get(`http://localhost:8008/api/news/${id}`);
+      const response = await axios.get(`${API_BASE_URL}/news/${id}`);
       console.log(response.data);
       setNews(response.data);
       const data = response.data.postedDate.slice(0, -9);
@@ -35,7 +36,7 @@ function New(props) {
   const getSuggest = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/news/lastest/category/${news.categoryId}?offset=0&limit=4`
+        `${API_BASE_URL}/news/lastest/category/${news.categoryId}?offset=0&limit=4`
       );
       console.log("respond:", response.data, "id:", id);
       const filteredSuggest = response.data.filter(

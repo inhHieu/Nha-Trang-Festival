@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import LoaderFullSC from "../../component/loaderFullSC";
 import Success from "../../component/Success.jsx";
 
@@ -31,7 +32,7 @@ function UsersDetail() {
     setDeleting(true);
     try {
       const response = await axios.delete(
-        `http://localhost:8008/api/admin/adminusers/${id}`,
+        `${API_BASE_URL}/admin/adminusers/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -51,7 +52,7 @@ function UsersDetail() {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/admin/adminusers/${id}`,
+        `${API_BASE_URL}/admin/adminusers/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -113,7 +114,7 @@ function UsersDetail() {
       setWaiting(true);
       try {
         const response = await axios.put(
-          `http://localhost:8008/api/admin/adminusers/${id}`,
+          `${API_BASE_URL}/admin/adminusers/${id}`,
            {
             roleId: values.roleId,
             firstName: values.firstName,

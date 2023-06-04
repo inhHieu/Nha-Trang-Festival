@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {API_BASE_URL} from "../../../Api/BaseUrl"
 
 function News() {
   const [news, setNews] = useState([]);
@@ -8,7 +9,7 @@ function News() {
 
   const getNews = async () => {
     try {
-      const response = await axios.get(`http://localhost:8008/api/news/lastest?offset=0&&limit=6`);
+      const response = await axios.get(`${API_BASE_URL}/news/lastest?offset=0&&limit=6`);
       setNews(response.data);
       //   console.log(news.length,news);
       setLoadings(true);

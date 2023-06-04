@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
 
+import {API_BASE_URL} from "../../Api/BaseUrl"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../style/pages/New.scss";
 
@@ -21,7 +22,7 @@ function Event(props) {
   const getEvent = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/events/${id}`
+        `${API_BASE_URL}/events/${id}`
       );
       setEvent(response.data);
       setLoadings(true);
@@ -85,7 +86,7 @@ function Event(props) {
   const Subcribe = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8008/api/subscribed?userId=${userID}&eventId=${id}`,
+        `${API_BASE_URL}/subscribed?userId=${userID}&eventId=${id}`,
         {},
         {
           headers: {
@@ -115,7 +116,7 @@ function Event(props) {
   const unSubcribe = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:8008/api/subscribed?userId=${userID}&eventId=${id}`,
+        `${API_BASE_URL}/subscribed?userId=${userID}&eventId=${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
