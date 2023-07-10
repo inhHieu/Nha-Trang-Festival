@@ -4,6 +4,22 @@ import Age from "../../Hook/Age";
 import bg from "../../asses/art.jpg";
 
 function UserCard({ user }) {
+  let roleName ='';
+  switch (user.roleId) {
+    case 1:
+      roleName = "Admin";
+      break;
+    case 2:
+      roleName = "Moderator";
+      break;
+    case 3:
+      roleName = "User";
+      break;
+    default:
+      roleName =user.roleId;
+  }
+
+  
   return (
     <motion.li
       initial={{ y: 100, opacity: 0 }}
@@ -19,8 +35,8 @@ function UserCard({ user }) {
           ></img>
         </div>
         <div className="into absolute bottom-0 px-4 pt-1 w-full h-1/3   flex-col flex justify-center duration-300 group-hover:h-1/2 text-white bg-black bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20">
-          <div className="region text-sea-blue text-05 uppercase tracking-wider	">
-            VN
+          <div className="region font-bold text-sea-blue text-05 uppercase tracking-wider	">
+            {roleName}
           </div>
           <div className="name pt-1 font-bold">
             {user.firstName + " " + user.lastName}

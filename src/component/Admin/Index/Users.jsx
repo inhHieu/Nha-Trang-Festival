@@ -11,7 +11,7 @@ function Users({ token }) {
   const getUsers = async () => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/admin/adminusers?offset=0&limit=5`,
+        `${API_BASE_URL}/admin/adminusers?offset=0&limit=9999`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

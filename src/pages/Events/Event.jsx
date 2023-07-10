@@ -3,12 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
 
-import {API_BASE_URL} from "../../Api/BaseUrl"
+import { API_BASE_URL } from "../../Api/BaseUrl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../style/pages/New.scss";
 
 function Event(props) {
   const imgWrapRef = useRef();
+  const notiRef = useRef();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -17,13 +18,12 @@ function Event(props) {
   const [userID, setUserID] = useState();
   const [token, setToken] = useState();
   const [loadings, setLoadings] = useState(false);
+  const [noti, setNoti] = useState(false);
   const [heart, setHeart] = useState(false);
 
   const getEvent = async () => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}/events/${id}`
-      );
+      const response = await axios.get(`${API_BASE_URL}/events/${id}`);
       setEvent(response.data);
       setLoadings(true);
     } catch (error) {
@@ -47,6 +47,7 @@ function Event(props) {
   }, [setSub]);
 
   useEffect(() => {
+    if (sub)
     if (sub.length > 0)
       for (let i = 0; i < sub.length; i++) {
         if (id == sub[i].eventId) setHeart(true);
@@ -84,6 +85,10 @@ function Event(props) {
   });
 
   const Subcribe = async () => {
+    if (!localStorage.getItem("user-sub")) {
+      // alert("Try to login first!");
+      setNoti(true);
+    }
     try {
       const response = await axios.post(
         `${API_BASE_URL}/subscribed?userId=${userID}&eventId=${id}`,
@@ -105,7 +110,7 @@ function Event(props) {
       };
       setSub(oldSub.push(newSub));
       localStorage.setItem("user-sub", JSON.stringify(sub));
-      setSub(JSON.parse(localStorage.getItem("user-sub")));
+      setSub();
       setHeart(true);
     } catch (error) {
       console.log("Error: " + error.message);
@@ -124,8 +129,9 @@ function Event(props) {
           },
         }
       );
+      setHeart(false);
       const oldSub = sub;
-      const deleteObj = oldSub.find((obj) => obj.eventId === id);
+      const deleteObj = oldSub?.find((obj) => obj.eventId === id);
       if (deleteObj) {
         const index = oldSub.indexOf(deleteObj);
         oldSub.splice(index, 1);
@@ -133,7 +139,6 @@ function Event(props) {
       }
       localStorage.setItem("user-sub", JSON.stringify(sub));
       setSub(JSON.parse(localStorage.getItem("user-sub")));
-      setHeart(false);
     } catch (error) {
       console.log("Error: " + error.message);
       setHeart(true);
@@ -149,6 +154,17 @@ function Event(props) {
       className="-mt-16 w-full h-screen"
       ref={imgWrapRef}
     >
+      {noti && (
+        <motion.div
+          initial={{opacity:0}}
+          animate={{opacity:1}}
+          onClick={() => setNoti(false)}
+          className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[150px] bg-sky-500 z-10 grid place-items-center rounded-md text-white overflow-clip "
+        >
+          <div className="absolute top-0 left-0 bg-white w-full h-[20px] "></div>
+          <p className="">Need to login first!</p>
+        </motion.div>
+      )}
       <div className="relative w-full h-full">
         <img
           // crossOrigin="anonymous"

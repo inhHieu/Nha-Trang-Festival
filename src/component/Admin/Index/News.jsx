@@ -9,7 +9,7 @@ function News() {
 
   const getNews = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/news/lastest?offset=0&&limit=6`);
+      const response = await axios.get(`${API_BASE_URL}/news/lastest?offset=0&&limit=9999`);
       setNews(response.data);
       //   console.log(news.length,news);
       setLoadings(true);

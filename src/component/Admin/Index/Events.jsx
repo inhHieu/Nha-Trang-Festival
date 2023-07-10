@@ -10,7 +10,7 @@ function Events({ token }) {
   const getEvents = async () => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/admin/adminevents?offset=0&limit=4`,
+        `${API_BASE_URL}/admin/adminevents?offset=0&limit=9999`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

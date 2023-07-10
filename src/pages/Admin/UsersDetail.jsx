@@ -8,6 +8,7 @@ import axios from "axios";
 import {API_BASE_URL} from "../../Api/BaseUrl"
 import LoaderFullSC from "../../component/loaderFullSC";
 import Success from "../../component/Success.jsx";
+import defAvatar from "../../../src/asses/defaultAvatar.jpg"
 
 function UsersDetail() {
   const { id } = useParams();
@@ -62,7 +63,7 @@ function UsersDetail() {
       );
       setUser(response.data);
       setLoadings(false);
-      console.log("got data");
+      // console.log(response.data);
     } catch (error) {
       alert("Error: " + error.message);
     }
@@ -482,7 +483,7 @@ function UsersDetail() {
               <div className=" w-2/12 aspect-square rounded-md overflow-clip  ">
                 <img
                   className="w-full h-full object-cover"
-                  src={formik.values.avatar}
+                  src={formik.values.avatar == ""? defAvatar : formik.values.avatar}
                   alt=""
                 />
               </div>

@@ -92,8 +92,8 @@ const Header = () => {
                     {userInfo.user.lastName != null ? " " + userInfo.user.lastName : ""}
                   </h5>
                   <Link to="/User">
-                    <div className="avatar overflow-clip">
-                      <img src={userInfo.user.avatar != null ? userInfo.user.avatar : defAvatar} alt="" />
+                    <div className="avatar overflow-clip object-center object-cover">
+                      <img className="w-full h-full object-cover" src={userInfo.user.avatar != null ? userInfo.user.avatar : defAvatar} alt="" />
                     </div>
                   </Link>
                 </div>

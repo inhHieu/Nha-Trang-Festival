@@ -117,6 +117,7 @@ function Profile({ userInfos }) {
   //logout
   const logout = () => {
     localStorage.removeItem("user-info");
+    localStorage.removeItem("user-sub");
     // setUserInfo([]);
     navigate("/");
   };
